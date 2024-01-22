@@ -3,7 +3,7 @@ package com.studio.climatechange.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name ="temperature")
+@Table(name = "temperature")
 public class Temperature {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,24 +11,29 @@ public class Temperature {
 
     private int year;
 
+    @Column(nullable = true)
     private double averageTemperature;
+    @Column(nullable = true)
     private double maximumTemperature;
+    @Column(nullable = true)
     private double minimumTemperature;
 
     @ManyToOne
-    @JoinColumn(name ="countryId", nullable = false)
+    @JoinColumn(name = "countryId", nullable = true)
     private Country country;
 
     @ManyToOne
-    @JoinColumn(name ="cityId", nullable = false)
+    @JoinColumn(name = "cityId", nullable = true)
     private City city;
 
     @ManyToOne
-    @JoinColumn(name ="stateId", nullable = false)
+    @JoinColumn(name = "stateId", nullable = true)
     private State state;
+
     public int getId() {
         return id;
     }
+
     public int getYear() {
         return year;
     }

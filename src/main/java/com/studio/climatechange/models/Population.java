@@ -8,9 +8,10 @@ public class Population {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    
     private int year;
 
+    @Column(nullable = true)
     private long populationNumber;
 
     @ManyToOne
