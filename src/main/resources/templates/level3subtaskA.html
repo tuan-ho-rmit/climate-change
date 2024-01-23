@@ -1,11 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deep-dive Data</title>
+    <link th:href="@{/styles/level3SubtaskA.css}" rel="stylesheet" />
+
+
 </head>
+
 <body>
-    
+    <div class="page-container">
+        <!-- <form th:action="@{/deep-dive/subtask-a}"  method="post"> -->
+            <div class="filter">
+                <div class="filter-upper">
+                    <div class="icon-title">
+                        <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M0.75 0.75C0.335786 0.75 0 1.08579 0 1.5C0 1.91421 0.335786 2.25 0.75 2.25H15.25C15.6642 2.25 16 1.91421 16 1.5C16 1.08579 15.6642 0.75 15.25 0.75H0.75ZM3 5.5C3 5.08579 3.33579 4.75 3.75 4.75H12.25C12.6642 4.75 13 5.08579 13 5.5C13 5.91421 12.6642 6.25 12.25 6.25H3.75C3.33579 6.25 3 5.91421 3 5.5ZM6 9.5C6 9.0858 6.33579 8.75 6.75 8.75H9.25C9.66421 8.75 10 9.0858 10 9.5C10 9.9142 9.66421 10.25 9.25 10.25H6.75C6.33579 10.25 6 9.9142 6 9.5Z"
+                                fill="#85858A" />
+                        </svg>
+                        <p style="font-size: 16px;">Filter</p>
+                    </div>
+
+                    <div class="input">
+                        <label for="">Region</label>
+                        <select name="region" id="region">
+                            <option th:each="region : ${fakeData.regions}" th:value="${region.name}"
+                                th:text="${region.name}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="input">
+                        <label for="">Time Period</label>
+                        <input type="number" name="yearPeriod" id="yearPeriod" >
+                    </div>
+                    <div class="input">
+                        <label for="">Starting Year</label>
+                        <input placeholder="1970,1980,1990">
+                    </div>
+
+                </div>
+
+                <div class="filter-lower">
+                    <div class="range">
+                        <label for="">Range of Average Change</label>
+                        <div class="range-input">
+                            <p>From</p>
+                            <input placeholder="From">
+                            <p>To</p>
+                            <input placeholder="To">
+                        </div>
+                    </div>
+
+                    <div class="range">
+                        <label for="">Range of Population</label>
+                        <div class="range-input">
+                            <p>From</p>
+                            <input placeholder="From">
+                            <p>To</p>
+                            <input placeholder="To">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Apply</button>
+                </div>
+            </div>
+        <!-- </form> -->
+
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr class="header-row">
+                        <th th:each="header, headerIdx : ${fakeData.table.header}" class="header-cell">
+                            <p th:text="${header}"></p>
+                            <svg th:if="${headerIdx.index >= 1}" width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8.47157 2.69526C8.34654 2.57024 8.17697 2.5 8.00016 2.5C7.82335 2.5 7.65378 2.57024 7.52876 2.69526L3.52876 6.69526C3.26841 6.95561 3.26841 7.37772 3.52876 7.63807C3.78911 7.89842 4.21122 7.89842 4.47157 7.63807L8.00016 4.10948L11.5288 7.63807C11.7891 7.89842 12.2112 7.89842 12.4716 7.63807C12.7319 7.37772 12.7319 6.95561 12.4716 6.69526L8.47157 2.69526Z"
+                                    fill="#85858A" />
+                                <path
+                                    d="M8.47157 14.9714C8.34654 15.0964 8.17697 15.1667 8.00016 15.1667C7.82335 15.1667 7.65378 15.0964 7.52876 14.9714L3.52876 10.9714C3.26841 10.7111 3.26841 10.2889 3.52876 10.0286C3.78911 9.76825 4.21122 9.76825 4.47157 10.0286L8.00016 13.5572L11.5288 10.0286C11.7891 9.76825 12.2112 9.76825 12.4716 10.0286C12.7319 10.2889 12.7319 10.7111 12.4716 10.9714L8.47157 14.9714Z"
+                                    fill="#85858A" />
+                            </svg>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="body-row" th:each="row : ${fakeData.table.data}">
+                        <td class="body-cell" th:each="cell, cellIdx : ${row}">
+                            <span th:if="${cellIdx.index == 0}" th:text="${cell}"></span>
+                            <span th:if="${cellIdx.index > 0}">
+                                <span th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')}"></span>
+                            </span>
+
+                            <span th:if="${cellIdx.index > 1}">
+                                (<span th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')}"></span>)
+                            </span>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <!-- <div class="paginationItem"><</div> -->
+                <div class="paginationItem" id="selected">1</div>
+                <div class="paginationItem">2</div>
+                <!-- <div class="paginationItem">></div> -->
+            </div>
+        </div>
+    </div>
+
 </body>
+
 </html>
