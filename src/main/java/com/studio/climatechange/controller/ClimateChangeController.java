@@ -1,16 +1,27 @@
 package com.studio.climatechange.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.google.gson.Gson;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-public class ApplyQueryController {
+@Controller
+public class ClimateChangeController {
+
+    @GetMapping("/autocomplete/country")
+    @ResponseBody
+    public String autoCompleteCountry(@RequestParam("term") String term) {
+        return autoComplete(term, "SELECT name FROM country WHERE name LIKE ?;");
+    }
+
+    @GetMapping("/autocomplete/year")
+    @ResponseBody
+    public String autoCompleteYear(@RequestParam("term") String term) {
+        return autoComplete(term, "SELECT DISTINCT Year FROM temperature WHERE Year LIKE ?;");
+    }
 
     @PostMapping(value = "/applyQuery")
     @ResponseBody
@@ -21,10 +32,10 @@ public class ApplyQueryController {
 
         List<Table1> retrievedData = new ArrayList<>();
 
+
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
              PreparedStatement pst = con.prepareStatement(buildDynamicQuery(colorRadio))) {
 
-            // Input validation
             validateInputs(value1, value2, value3);
 
             pst.setString(1, value1);
@@ -37,17 +48,12 @@ public class ApplyQueryController {
                 retrievedData.add(new Table1(rs.getString("name"), rs.getDouble("abs_avg_temperature_change"), rs.getDouble("abs_max_temperature_change"), rs.getDouble("abs_min_temperature_change")));
             }
 
-            rs.close();
-            pst.close();
-            con.close();
+            return retrievedData;
         } catch (SQLException e) {
             e.printStackTrace();
-            // You might want to handle the exception more gracefully
+            throw new RuntimeException("Database error occurred", e);
         }
-
-        return retrievedData;
     }
-
     private String buildDynamicQuery(String colorRadio) {
 
         return "SELECT " +
@@ -66,9 +72,23 @@ public class ApplyQueryController {
                 (colorRadio.equals("city") ? "city.name" : "country.name") + ", YEAR(t.year)";
     }
 
+    private String autoComplete(String term, String query) {
+        List<String> list = new ArrayList<>();
 
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
+             PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, "%" + term + "%");
+            ResultSet rs = pst.executeQuery();
 
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return new Gson().toJson(list);
+    }
 
     private void validateInputs(String value1, String value2, String value3) throws SQLException {
         if (value1 == null || value1.trim().isEmpty()) {
@@ -111,4 +131,15 @@ public class ApplyQueryController {
             return abs_min_temperature_change;
         }
     }
+
+    @GetMapping(value = { "/LandingPage" })
+    public String landingPage() {
+        return "LandingPage";
+    }
+
+    @GetMapping(value = { "/Lv2-Subtask-B" })
+    public String highlevelData() {
+        return "Lv2-Subtask-B";
+    }
 }
+
