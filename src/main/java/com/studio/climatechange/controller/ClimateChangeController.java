@@ -23,11 +23,11 @@ public class ClimateChangeController {
         return autoComplete(term, "SELECT DISTINCT Year FROM temperature WHERE Year LIKE ?;");
     }
 
-    @PostMapping(value = "/applyQuery")
+    @PostMapping(value = "/Lv2-Subtask-B")
     @ResponseBody
     public List<Table1> applyQuery(@RequestParam("Country") String value1,
-                                   @RequestParam("StartYear") String value2,
-                                   @RequestParam("EndYear") String value3,
+                                   @RequestParam("StartYear") int value2,
+                                   @RequestParam("EndYear") int value3,
                                    @RequestParam("colorRadio") String colorRadio) {
 
         List<Table1> retrievedData = new ArrayList<>();
@@ -39,8 +39,8 @@ public class ClimateChangeController {
             validateInputs(value1, value2, value3);
 
             pst.setString(1, value1);
-            pst.setString(2, value2);
-            pst.setString(3, value3);
+            pst.setInt(2, value2);
+            pst.setInt(3, value3);
 
             ResultSet rs = pst.executeQuery();
 
@@ -90,15 +90,12 @@ public class ClimateChangeController {
         return new Gson().toJson(list);
     }
 
-    private void validateInputs(String value1, String value2, String value3) throws SQLException {
+    private void validateInputs(String value1, int value2, int value3) throws SQLException {
         if (value1 == null || value1.trim().isEmpty()) {
             throw new SQLException("Country name cannot be empty.");
         }
-        if (value2 == null || value2.trim().isEmpty()) {
-            throw new SQLException("Start year cannot be empty.");
-        }
-        if (value3 == null || value3.trim().isEmpty()) {
-            throw new SQLException("End year cannot be empty.");
+        if (value2 < 1750 || value2 > 2015) {
+            throw new SQLException("Invalid year: $year. Year must be 4 digits and within the range 1750 to 2015.");
         }
     }
 
