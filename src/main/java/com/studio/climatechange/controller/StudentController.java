@@ -20,7 +20,7 @@ public class StudentController {
     }
 
 
-    @GetMapping("/home")
+    @GetMapping(value = {"/","/*","/home"} )
     public String listStudents(Model model) {
         List<StudentDto> students = studentService.findAllStudents();
 

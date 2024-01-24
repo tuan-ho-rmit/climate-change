@@ -2,7 +2,7 @@ package com.studio.climatechange.controller;
 
 import java.util.ArrayList;
 
-import org.hibernate.mapping.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,19 +13,18 @@ import com.studio.climatechange.repository.CountryRepository;
 import com.studio.climatechange.viewModel.level3SubtaskA.Level3SubtaskAViewModel;
 import com.studio.climatechange.viewModel.level3SubtaskA.Region;
 import com.studio.climatechange.viewModel.level3SubtaskA.Table;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 
 @Controller
 public class Level3Controller {
     private CountryRepository countryRepository;
     private Level3SubtaskAViewModel fakeData;
+    private ArrayList<Region> regions;
 
     @Autowired
     public Level3Controller(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
         this.fakeData = new Level3SubtaskAViewModel();
-
         generateFakeData();
     }
 
@@ -89,11 +88,24 @@ public class Level3Controller {
 
     @GetMapping(value = { "/deep-dive/subtask-a" })
     public String level3SubtaskA(
-
+            @RequestParam(name = "yearPeriod", required = false) String yearPeriod,
+            @RequestParam(name = "region", required = false) String region,
+            @RequestParam(name = "startingYears", required = false) String startingYears,
+            @RequestParam(name = "minAverageChange", required = false) String minAverageChange,
+            @RequestParam(name = "maxAverageChange", required = false) String maxAverageChange,
+            @RequestParam(name = "minPopulation", required = false) String minPopulation,
+            @RequestParam(name = "maxPopulation", required = false) String maxPopulation,
             Model model) {
+        ArrayList<Region> regions = new ArrayList<>();
+        regions.add(new Region("Country", 1, true));
+        regions.add(new Region("State", 2, false));
+        regions.add(new Region("City", 3, false));
 
+
+        
+
+        System.err.println(region);
         model.addAttribute("fakeData", fakeData);
         return "level3SubtaskA";
     }
-
 }
