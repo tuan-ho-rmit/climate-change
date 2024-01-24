@@ -97,7 +97,7 @@ $(function() {
 
 });
 
-/*
+
 document.getElementById("submitButton").addEventListener('click', function(event) {
 
 function applyQuery(event) {
@@ -109,14 +109,10 @@ function applyQuery(event) {
 
     fetch("/applyQuery", {
         method: "POST",
-        body: formData
+        body: formData.toString(),
     })
     .then(response => {
         console.log('Received response:', response);
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
 
         return response.json();
     })
@@ -170,21 +166,11 @@ function applyQuery(event) {
         container.innerHTML = "";
         container.appendChild(tableContainer);
     })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-        console.log('Response status:', error.status);
-        console.log('Response text:', error.statusText);
-    })
-    .finally(() => {
-        console.log('Fetch operation completed.');
-    });
-
-    return false;
 }
 
 
 })
 
-*/
+
 
 

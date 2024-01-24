@@ -1,4 +1,4 @@
-package com.example.climatedataweb;
+package com.studio.climatechange.controller;
 
 import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,12 +42,12 @@ public class AutoCompleteController {
         return new Gson().toJson(list);
     }
 
-    @GetMapping("/LandingPage")
+    @GetMapping(value = { "/LandingPage" })
     public String LandingPage() {
         return "LandingPage";
     }
 
-    @GetMapping("/Lv2-Subtask-B")
+    @GetMapping(value = { "/Lv2-Subtask-B" })
     public String HighlevelData() {
         return "Lv2-Subtask-B";
     }
