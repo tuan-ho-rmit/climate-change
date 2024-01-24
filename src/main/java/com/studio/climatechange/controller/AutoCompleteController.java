@@ -1,22 +1,25 @@
 package com.studio.climatechange.controller;
 
 import com.google.gson.Gson;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 public class AutoCompleteController {
 
     @GetMapping("/autocomplete/country")
+    @ResponseBody
     public String autoCompleteCountry(@RequestParam("term") String term) {
         return autoComplete(term, "SELECT name FROM country WHERE name LIKE ?;");
     }
 
     @GetMapping("/autocomplete/year")
+    @ResponseBody
     public String autoCompleteYear(@RequestParam("term") String term) {
         return autoComplete(term, "SELECT DISTINCT Year FROM temperature WHERE Year LIKE ?;");
     }
@@ -35,10 +38,8 @@ public class AutoCompleteController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle exceptions
         }
 
-        // Convert list to JSON
         return new Gson().toJson(list);
     }
 
