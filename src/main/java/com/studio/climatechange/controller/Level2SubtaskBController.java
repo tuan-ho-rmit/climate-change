@@ -11,11 +11,6 @@ import java.util.List;
 @Controller
 public class Level2SubtaskBController {
 
-    @GetMapping(value = {"/LandingPage"})
-    public String landingPage() {
-        return "LandingPage";
-    }
-
     @GetMapping(value = {"/Lv2-Subtask-B"})
     public String highlevelData() {
         return "Lv2-Subtask-B";
@@ -116,6 +111,9 @@ public class Level2SubtaskBController {
             throw new SQLException("Country name cannot be empty.");
         }
         if (value2 < 1750 || value2 > 2015) {
+            throw new SQLException("Invalid year: $year. Year must be 4 digits and within the range 1750 to 2015.");
+        }
+        if (value3 < 1750 || value3 > 2015) {
             throw new SQLException("Invalid year: $year. Year must be 4 digits and within the range 1750 to 2015.");
         }
     }

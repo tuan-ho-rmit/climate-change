@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LandingPage</title>
     <link rel = "stylesheet" th:href = "@{/styles/LandingPage.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <div class = "header">
@@ -223,5 +224,14 @@
             <div class = "block-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc semper vel orci in fringilla. Vivamus fringilla, ipsum fringilla iaculis dignissim, ex justo sagittis nibh, eget aliquet arcu ipsum a tortor</div>
         </div>
     </div>
+    <h2>Population Year Range: <span id="populationYearRange"></span></h2>
+    <h2>Global Temperature Year Range: <span id="globalTemperatureYearRange"></span></h2>
+    <h2>Earliest Global Temperature Year: <span id="earliestGlobalTemperatureYear"></span></h2>
+    <h2>Latest Global Temperature Year: <span id="latestGlobalTemperatureYear"></span></h2>
+    <h2>Earliest Population Year: <span id="earliestPopulationYear"></span></h2>
+    <h2>Latest Population Year: <span id="latestPopulationYear"></span></h2>
+    <h2>Average Temperature in Earliest Year: <span id="averageTemperatureEarliestYear"></span></h2>
+    <h2>Average Temperature in Latest Year: <span id="averageTemperatureLatestYear"></span></h2>
+    <script src = "styles/Lv1-Subtask-A.js"></script>
 </body>
 </html>
