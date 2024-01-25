@@ -109,5 +109,9 @@ public class Level3SubtaskAViewModel {
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
     }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
 }
 

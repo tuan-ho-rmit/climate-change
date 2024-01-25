@@ -176,25 +176,33 @@ table {
     font-size: 14px;
 }
 
+.body-cell .positive {
+    color: #51AB3B;
+}
+.body-cell .negative {
+    color: #E01B00;
+}
 
 .pagination {
+    width: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 8px;
     width: 100%;
     justify-content: center;
+    align-items: center;
 }
 
 .paginationItem {
     cursor: pointer;
     font-size: 12px;
-    display: flex;
     align-items: center;
-    justify-self: center;
     padding: 10px 14px;
     border-radius: 8px;
     background-color: #fff;
 }
+
 
 .paginationItem#selected {
     background-color: #ddd;
@@ -202,4 +210,9 @@ table {
 
 .paginationItem:hover {
     background-color: #ddd;
+}
+
+.paginationItem a {
+    text-decoration: none;
+    color: #000;
 }
