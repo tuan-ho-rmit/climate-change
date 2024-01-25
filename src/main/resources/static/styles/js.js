@@ -158,14 +158,17 @@ $(function() {
             var cell2 = row.insertCell(1);
             cell2.className = 'body-cell';
             cell2.innerHTML = data[i].abs_avg_temperature_change;
+            cell2.style.color = data[i].abs_avg_temperature_change >= 0 ? 'green' : 'red'
 
             var cell3 = row.insertCell(2);
             cell3.className = 'body-cell';
             cell3.innerHTML = data[i].abs_max_temperature_change;
+            cell3.style.color = data[i].abs_max_temperature_change >= 0 ? 'green' : 'red'
 
             var cell4 = row.insertCell(3);
             cell4.className = 'body-cell';
             cell4.innerHTML = data[i].abs_min_temperature_change;
+            cell4.style.color = data[i].abs_min_temperature_change >= 0 ? 'green' : 'red'
         }
 
         document.getElementById('dataSection').style.display = 'block';

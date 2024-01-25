@@ -44,7 +44,7 @@ public class Level2SubtaskBController {
 
 
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
-             PreparedStatement pst = con.prepareStatement(buildDynamicQuery(colorRadio))) {
+             PreparedStatement pst = con.prepareStatement(buildDynamicQuery(colorRadio, value1, value2, value3))) {
 
             validateInputs(value1, value2, value3);
 
@@ -65,24 +65,33 @@ public class Level2SubtaskBController {
         }
     }
 
-    private String buildDynamicQuery(String colorRadio) {
+    private String buildDynamicQuery(String colorRadio, String countryName, int startYear, int endYear) {
+        String selectField;
+        String joinTable;
+        if (colorRadio.equals("city")) {
+            selectField = "city.name";
+            joinTable = "city";
+        } else {
+            selectField = "state.name";
+            joinTable = "state";
+        }
 
         return "SELECT " +
-                (colorRadio.equals("city") ? "city.name" : "country.name") + ", " +
-                "ROUND(ABS(AVG(t.average_temperature) - LAG(AVG(t.average_temperature), 1, 0) OVER (PARTITION BY YEAR(t.year) ORDER BY YEAR(t.year))), 2) AS abs_avg_temperature_change, " +
-                "ROUND(ABS(MAX(t.maximum_temperature) - LAG(MAX(t.maximum_temperature), 1, 0) OVER (PARTITION BY YEAR(t.year) ORDER BY YEAR(t.year))), 2) AS abs_max_temperature_change, " +
-                "ROUND(ABS(MIN(t.minimum_temperature) - LAG(MIN(t.minimum_temperature), 1, 0) OVER (PARTITION BY YEAR(t.year) ORDER BY YEAR(t.year))), 2) AS abs_min_temperature_change " +
-                "FROM city " +
-                "INNER JOIN temperature AS t ON city.id = t.city_id " +
-                "INNER JOIN country ON city.country_id = country.id " +
+                selectField + ", " +
+                "ROUND(AVG(t.average_temperature) - LAG(AVG(t.average_temperature), 1, 0) OVER (PARTITION BY YEAR(t.year) ORDER BY YEAR(t.year)), 2) AS abs_avg_temperature_change, " +
+                "ROUND(MAX(t.maximum_temperature) - LAG(MAX(t.maximum_temperature), 1, 0) OVER (PARTITION BY YEAR(t.year) ORDER BY YEAR(t.year)), 2) AS abs_max_temperature_change, " +
+                "ROUND(MIN(t.minimum_temperature) - LAG(MIN(t.minimum_temperature), 1, 0) OVER (PARTITION BY YEAR(t.year) ORDER BY YEAR(t.year)), 2) AS abs_min_temperature_change " +
+                "FROM " + joinTable + " " +
+                "INNER JOIN temperature AS t ON " + joinTable + ".id = t." + joinTable + "_id " +
+                "INNER JOIN country ON " + joinTable + ".country_id = country.id " +
                 "WHERE country.name = ? " +
                 "AND t.year BETWEEN ? AND ? " +
                 "GROUP BY " +
-                (colorRadio.equals("city") ? "city.name" : "country.name") + ", YEAR(t.year) " +
+                selectField + ", YEAR(t.year) " +
                 "ORDER BY " +
-                (colorRadio.equals("city") ? "city.name" : "country.name") + ", YEAR(t.year)";
-
+                selectField + ", YEAR(t.year)";
     }
+
 
     private String autoComplete(String term, String query) {
         List<String> list = new ArrayList<>();
