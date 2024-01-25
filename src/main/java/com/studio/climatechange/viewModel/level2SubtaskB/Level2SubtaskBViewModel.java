@@ -8,17 +8,25 @@ public class Level2SubtaskBViewModel {
     private String country;
     private int startYear;
     private int endYear;
-    private double minAverageChange;
-    private double maxAverageChange;
+    private double minTemperatureChange;
+    private double maxTemperatureChange;
+    private double averageTemperatureChange;
     private Table table;
     private int page;
     private int pageSize;
     private int totalPage;
 
 
+
+    public String getCountry() { return country; }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public int getStartYear() { return startYear; }
 
-    public void setStartYear(int StartYear) {
+    public void setStartYear(int startYear) {
         this.startYear = startYear;
     }
 
@@ -28,21 +36,23 @@ public class Level2SubtaskBViewModel {
         this.endYear = endYear;
     }
 
-    public double getMinAverageChange() {
-        return minAverageChange;
+    public double getMinTemperatureChange() {
+        return minTemperatureChange;
     }
 
-    public void setMinAverageChange(double minAverageChange) {
-        this.minAverageChange = minAverageChange;
+    public void setMinTemperatureChange(double minTemperatureChange) { this.minTemperatureChange = minTemperatureChange; }
+
+    public double getMaxTemperatureChange() {
+        return maxTemperatureChange;
     }
 
-    public double getMaxAverageChange() {
-        return maxAverageChange;
+    public void setMaxTemperatureChangeChange(double maxTemperatureChange) { this.maxTemperatureChange = maxTemperatureChange; }
+
+    public double getAverageTemperatureChange() {
+        return averageTemperatureChange;
     }
 
-    public void setMaxAverageChange(double maxAverageChange) {
-        this.maxAverageChange = maxAverageChange;
-    }
+    public void setAverageTemperatureChangeChange(double averageTemperatureChange) { this.averageTemperatureChange = averageTemperatureChange; }
 
     // Getter and setter for 'table'
     public Table getTable() {

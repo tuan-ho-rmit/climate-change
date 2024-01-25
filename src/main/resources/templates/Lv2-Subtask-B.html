@@ -166,7 +166,8 @@
                     </svg>                    
                 <div class = "block-2">Subtask B</div>
             </div>
-        <form th:action = "@{Lv2-Subtask-B}" method = "POST" class = "Section-1">
+        <!-- <form th:action = "@{Lv2-Subtask-B}" method = "POST"></form>  -->
+        <form th:action = "@{/applyQuery}" id = "applyForm" method = "GET" class = "Section-1">
             
             <div class = "big-block-2">
                 <div class = "block-3">
@@ -218,60 +219,42 @@
                             </label>     
                     </div>
 
-                    <button class = "button" type = "submit">
+                    <button class = "button" type = "submit" onclick = "applyQuery()">
                         <div class = "inside-button">Apply</div>
                     </button>
                 </div>
             </form>
 
-        <div class = "Section-2">
-            <div class = "middle-block">
-                <img src = "styles/Empty State 1.png" alt = "placeholder-image">
-                <div class = "small-block-1">Filter To Display Data</div>
-            </div>
-        </div>
-
-        <div class="table-container">
-            <table>
-                <thead>
-                <tr class="header-row">
-                    <th th:each="header, headerIdx : ${fakeData.table.header}" class="header-cell">
-                        <p th:text="${header}"></p>
-                        <svg th:if="${headerIdx.index >= 1}" width="16" height="17" viewBox="0 0 16 17" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                    d="M8.47157 2.69526C8.34654 2.57024 8.17697 2.5 8.00016 2.5C7.82335 2.5 7.65378 2.57024 7.52876 2.69526L3.52876 6.69526C3.26841 6.95561 3.26841 7.37772 3.52876 7.63807C3.78911 7.89842 4.21122 7.89842 4.47157 7.63807L8.00016 4.10948L11.5288 7.63807C11.7891 7.89842 12.2112 7.89842 12.4716 7.63807C12.7319 7.37772 12.7319 6.95561 12.4716 6.69526L8.47157 2.69526Z"
-                                    fill="#85858A" />
-                            <path
-                                    d="M8.47157 14.9714C8.34654 15.0964 8.17697 15.1667 8.00016 15.1667C7.82335 15.1667 7.65378 15.0964 7.52876 14.9714L3.52876 10.9714C3.26841 10.7111 3.26841 10.2889 3.52876 10.0286C3.78911 9.76825 4.21122 9.76825 4.47157 10.0286L8.00016 13.5572L11.5288 10.0286C11.7891 9.76825 12.2112 9.76825 12.4716 10.0286C12.7319 10.2889 12.7319 10.7111 12.4716 10.9714L8.47157 14.9714Z"
-                                    fill="#85858A" />
-                        </svg>
-
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="body-row" th:each="row : ${fakeData.table.data}">
-                    <td class="body-cell" th:each="cell, cellIdx : ${row}">
-                        <span th:if="${cellIdx.index == 0}" th:text="${cell}"></span>
-                        <span th:if="${cellIdx.index > 0}">
-                                <span th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')}"></span>
-                            </span>
-
-                        <span th:if="${cellIdx.index > 1}">
-                                (<span th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')}"></span>)
-                            </span>
-
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="Section-2" id="dataSection">
+                <table id="resultTable">
+                    <thead>
+                    <tr class="header-row">
+                        <th class="header-cell">Name</th>
+                        <th class="header-cell">Average Temperature</th>
+                        <th class="header-cell">Maximum Temperature</th>
+                        <th class="header-cell">Minimum Temperature</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Table rows will be dynamically added here using JavaScript -->
+                    </tbody>
+                </table>
 
             <div class="pagination">
                 <!-- <div class="paginationItem"><</div> -->
                 <div class="paginationItem" id="selected">1</div>
                 <div class="paginationItem">2</div>
+                <div class="paginationItem">3</div>
+                <div class="paginationItem">4</div>
+                <div class="paginationItem">5</div>
                 <!-- <div class="paginationItem">></div> -->
+            </div>
+        </div>
+
+        <div class="Section-2" id="filterSection">
+            <div class="middle-block">
+                <img src="styles/Empty State 1.png" alt="placeholder-image">
+                <div class="small-block-1">Filter To Display Data</div>
             </div>
         </div>
 

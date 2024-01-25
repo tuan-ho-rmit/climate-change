@@ -409,7 +409,7 @@ input {
 .Section-2 {
     display: flex;
     width: 100%;
-    height: 68rem;
+    height: auto;
     padding: 3.2rem;
     flex-direction: column;
     justify-content: center;
@@ -445,4 +445,79 @@ input {
     font-weight: 700;
     line-height: normal;
 }
+
+table {
+    width: 100%;
+    border-radius: 8px;
+    background: #FFF;
+}
+
+.header-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-wrap: nowrap;
+    border-radius: 8px;
+
+}
+
+
+.header-cell {
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E9E9E9;
+    border-bottom: 1px solid #EEE;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+
+.body-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-wrap: nowrap;
+
+}
+
+.body-cell {
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EEE;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+}
+
+.paginationItem {
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.paginationItem#selected {
+    background-color: #ddd;
+}
+
+.paginationItem:hover {
+    background-color: #ddd;
 
