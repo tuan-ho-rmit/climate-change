@@ -33,6 +33,24 @@ public class Level2SubtaskBController {
         return autoComplete(term, "SELECT DISTINCT Year FROM temperature WHERE Year LIKE ?;");
     }
 
+    private String autoComplete(String term, String query) {
+        List<String> list = new ArrayList<>();
+
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
+             PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, "%" + term + "%");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new Gson().toJson(list);
+    }
+
     @GetMapping(value = "/applyQuery")
     @ResponseBody
     public List<Table1> applyQuery(@RequestParam("Country") String value1,
@@ -92,24 +110,6 @@ public class Level2SubtaskBController {
                 selectField + ", YEAR(t.year)";
     }
 
-
-    private String autoComplete(String term, String query) {
-        List<String> list = new ArrayList<>();
-
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
-             PreparedStatement pst = con.prepareStatement(query)) {
-            pst.setString(1, "%" + term + "%");
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-                list.add(rs.getString(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return new Gson().toJson(list);
-    }
 
     private void validateInputs(String value1, int value2, int value3) throws SQLException {
         if (value1 == null || value1.trim().isEmpty()) {
