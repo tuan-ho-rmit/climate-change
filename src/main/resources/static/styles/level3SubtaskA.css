@@ -114,14 +114,31 @@ p {
     display: flex;
     flex-direction: column;
     gap: 32px;
+
 }
 
 
+.overflowing {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    border-radius: 8px;
+}
 
 table {
     width: 100%;
     border-radius: 8px;
     background: #FFF;
+}
+
+.noData {
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: center;
+    align-items: center;
 }
 
 .header-row {
@@ -136,6 +153,7 @@ table {
 
 .header-cell {
     width: 100%;
+    min-width: 150px;
     padding: 16px;
     display: flex;
     flex-direction: row;
@@ -168,6 +186,7 @@ table {
 
 .body-cell {
     width: 100%;
+    min-width: 150px;
     padding: 16px;
     display: flex;
     align-items: center;
@@ -179,6 +198,7 @@ table {
 .body-cell .positive {
     color: #51AB3B;
 }
+
 .body-cell .negative {
     color: #E01B00;
 }
@@ -215,4 +235,8 @@ table {
 .paginationItem a {
     text-decoration: none;
     color: #000;
+}
+
+.hiddenPagination {
+    display: none;
 }
