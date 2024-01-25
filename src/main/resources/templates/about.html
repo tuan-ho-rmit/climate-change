@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<header>
+  <div class="nav-bar">
+    <img
+      loading="lazy"
+      src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5cfa9932a7636bec8bac9448173a3083a2c97404f57a64abc1846b2edaa257b?"
+      class="logo"
+      alt = ""
+    />
+    <span class="nav-buttons">
+
+      <a class="nav-button">Home</a>
+
+      <a class="nav-button">Mission Statement</a>
+
+      <span class="high-level">
+        <a class="nav-button">High-level data</a>
+
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/050b26ab6fbd675b7dba27b49dbb0ae8ba3c528b8fd5a6bf25dbb16674aeffe3?"
+          class="arrow"
+          alt = ""
+        />
+      </span>
+
+      <span class="deep-dive">
+        <a class="nav-button">Deep-dive data</a>
+
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/28f13acdbde9dba3cdf3bec2e9f8084237a54fe02164c471d28a8c76f5f30306?"
+          class="arrow"
+          alt = ""
+        />
+      </span>
+    </span>
+  </div>
+</header>
+
+<body>
+  <div class="missions">
+    <span class="mission-title">OUR MISSIONS</span>
+    <br><br>
+    <div class="div-9">
+      <div class="column">
+            <span class="span-5">
+              <span class="span-6">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1b1ad5390e9a29f4cea4211be53cd1d0e4cb8571c07d0bef44efdf61786d7509?"
+                        class="img-4"
+                        alt = ""
+                />
+                <div class="div-10">Public Awareness</div>
+              </span>
+              <div class="div-11">
+                We hope to raise the public's awareness on current global warming reality. By offering comprehensive data for everyone, we aim to show global warming in the most accurate way and promote clean practices to the environment for a greener future.
+              </div>
+            </span>
+      </div>
+      <div class="column-2">
+            <span class="span-7">
+              <span class="span-8">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8c90be41f7e084048096f7a03aa8fde96009397c38a61d05be1fff135c3f8c59?"
+                        class="img-5"
+                />
+                <div class="div-12">Promote transparency</div>
+              </span>
+              <div class="div-13">
+                Our mission is to provide a platform where scientists, policymakers, and the public can access accurate and relevant statistics to better understand the complex relationships between population and temperature, and the reality of today's global warming.
+              </div>
+            </span>
+      </div>
+      <div class="column-3">
+            <span class="span-9">
+              <span class="span-10">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f14abd83b4a8465159b47b9a38de24874b16b5331dbe85a3fa3571e5ed3233b2?"
+                        class="img-6"
+                />
+                <div class="div-14">Sparking change</div>
+              </span>
+              <div class="div-15">
+                We aim to create a positive shift in attitude and behavior towards the environment. By delivering insightful data on climate change, we hope to influence everyone to make more conscious decisions about the world, for a better tomorrow.
+              </div>
+            </span>
+      </div>
+    </div>
+  </div>
+
+  <span class="span-11">
+      <div class="div-16">
+        <span style="font-weight: 400; color: #3f6735;">Site</span>
+        <br>
+        <span style="font-weight: 400; color: #498839;">Functionalities</span>
+        <br />
+      </div>
+
+      <div class="div-17">
+        <div class="div-18">
+          <div class="column-4">
+            <div class="div-19">
+              Explore the dynamic relationship between temperature and population changes on our website.
+              Easily extract precise temperature and population data from our large database, spanning various regions and time periods.
+              Customize your analysis by choosing specific timeframes and regions (global/ country/ city/ state) for a deeper look into the data.
+            </div>
+          </div>
+          <div class="column-5">
+            <div class="div-20">
+              <img
+                      loading="lazy"
+                      srcset=""
+                      class="img-7"
+              />
+              <img
+                      loading="lazy"
+                      srcset="..."
+                      class="img-8"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="div-21">
+        <div class="div-22">
+          <div class="column-6">
+            <div class="div-23">
+              <img
+                      loading="lazy"
+                      srcset="..."
+                      class="img-9"
+              />
+              <img
+                      loading="lazy"
+                      srcset="..."
+                      class="img-10"
+              />
+            </div>
+          </div>
+          <div class="column-7">
+            <div class="div-24">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc semper
+              vel orci in fringilla. Vivamus fringilla, ipsum fringilla iaculis
+              dignissim, ex justo sagittis nibh, eget aliquet arcu ipsum a tortor
+            </div>
+          </div>
+        </div>
+      </div>
+    </span>
+  <span class="span-12">
+      <div class="div-25">
+        <span style="font-weight: 400">Target</span>
+        <br>
+        <span style="font-weight: 400; color: #498839;">Persona</span>
+        <br/>
+      </div>
+
+      <div th:each="persona, iteration :${personas}">
+        <span class="persona">
+          <div th:if="${iteration.index % 2 == 0}" class="persona-content">
+                  <h1 th:text="${persona.name}" ></h1>
+                  <h5>Background: <span th:text="${persona.background}"></span></h5>
+                  <h6>Goals: <span th:text="${persona.goals}"></span></h6>
+                  <h6>Needs: <span th:text="${persona.needs}"></span></h6>
+                  <h6>Frustration: <span th:text="${persona.frustration}"></span></h6>
+          </div>
+
+          <img
+                  th:if="${iteration.index % 2 == 0}"
+                  loading="lazy"
+                  th:src="@{'/images/' + ${#strings.replace(persona.name, ' ', '') + '.png'}}"
+                  class="persona-img"
+          />
+
+          <img
+                  th:unless="${iteration.index % 2 == 0}"
+                  loading="lazy"
+                  th:src="@{'/images/' + ${#strings.replace(persona.name, ' ', '') + '.png'}}"
+                  class="persona-img"
+          />
+
+          <div th:unless="${iteration.index % 2 == 0}" class="persona-content">
+                  <h1 th:text="${persona.name}" ></h1>
+                  <h5>Background: <span th:text="${persona.background}"></span></h5>
+                  <h6>Goals: <span th:text="${persona.goals}"></span></h6>
+                  <h6>Needs: <span th:text="${persona.needs}"></span></h6>
+                  <h6>Frustration: <span th:text="${persona.frustration}"></span></h6>
+          </div>
+
+      </span>
+      </div>
+
+    <span class="span-17">
+      <div class="div-30">
+        <span style="font-weight: 400">Our team members</span>
+        <br />
+      </div>
+      <div class="div-31">
+        <div class="div-32">
+          <div class="div-33">
+            <div class="column-8">
+              <span class="span-18">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d5442b5578bfceef4fcdd5461f1e70f710e3b8921a2e9cff2b97476f27873560?"
+                        class="img-15"
+                />
+                <div class="div-34">Tuan Ho</div>
+                <div class="div-35">S4019549</div>
+              </span>
+            </div>
+            <div class="column-9">
+              <span class="span-19">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/7e99c99454c77bbc497b27128f3e1d4ed3e2c5520e1321de34e515a7343bdadd?"
+                        class="img-16"
+                />
+                <div class="div-36">Tuan Ho</div>
+                <div class="div-37">S4019549</div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="div-38">
+        <div class="div-39">
+          <div class="column-10">
+            <span class="span-20">
+              <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/0da1ed556beff2728ebb7e29f65aa3dd97cac030def1ea235636e0e1ee98c0e9?"
+                      class="img-17"
+              />
+              <div class="div-40">Tuan Ho</div>
+              <div class="div-41">S4019549</div>
+            </span>
+          </div>
+          <div class="column-11">
+            <span class="span-21">
+              <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/7e99c99454c77bbc497b27128f3e1d4ed3e2c5520e1321de34e515a7343bdadd?"
+                      class="img-18"
+              />
+              <div class="div-42">Tuan Ho</div>
+              <div class="div-43">S4019549</div>
+            </span>
+          </div>
+          <div class="column-12">
+            <span class="span-22">
+              <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d5442b5578bfceef4fcdd5461f1e70f710e3b8921a2e9cff2b97476f27873560?"
+                      class="img-19"
+              />
+              <div class="div-44">Tuan Ho</div>
+              <div class="div-45">S4019549</div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </span>
+    </span>
+</body>
+
+  <style>
+    body {
+      box-sizing: border-box;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    head {
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-bar {
+      box-sizing: border-box;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #4caf4f;
+      display: flex;
+      width: 100%;
+      gap: 20px;
+      padding: 16px 40px;
+    }
+    @media (max-width: 991px) {
+      .nav-bar {
+        max-width: 100%;
+        flex-wrap: wrap;
+        padding: 0 20px;
+      }
+    }
+    .logo {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 40px;
+      fill: #486856;
+      overflow: hidden;
+      max-width: 100%;
+      margin: auto 0;
+    }
+    .nav-buttons {
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+      display: flex;
+      gap: 20px;
+      padding: 12px 0;
+    }
+    @media (max-width: 991px) {
+      .nav-buttons {
+        max-width: 100%;
+        flex-wrap: wrap;
+      }
+    }
+    .nav-button {
+      box-sizing: border-box;
+      color: #fff;
+      margin: auto 0;
+      font: 700 16px Inter, sans-serif;
+    }
+    .high-level {
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+      display: flex;
+      gap: 8px;
+    }
+    .arrow {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 24px;
+      overflow: hidden;
+      align-self: stretch;
+      max-width: 100%;
+    }
+    .deep-dive {
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+      display: flex;
+      gap: 8px;
+    }
+    .missions {
+      box-sizing: border-box;
+      align-items: center;
+      background-color: rgba(81, 171, 59, 0.15);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      padding: 40px 80px;
+    }
+    @media (max-width: 991px) {
+      .missions {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .mission-title {
+      color: #3f6735;
+      white-space: nowrap;
+      justify-content: center;
+      border-bottom: 2px solid #3f6735;
+      padding: 8px 0;
+      font: 600 40px Inter, sans-serif;
+      font-weight: 700;
+      color: rgba(63, 103, 53, 1)
+    }
+    @media (max-width: 991px) {
+      .mission-title {
+        white-space: initial;
+      }
+    }
+    .div-9 {
+      box-sizing: border-box;
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .div-9 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 33%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .column {
+        width: 100%;
+      }
+    }
+    .span-5 {
+      box-sizing: border-box;
+      border-radius: 16px;
+      box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.12);
+      background-color: rgba(81, 171, 59, 0.2);
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      padding: 20px;
+    }
+    @media (max-width: 991px) {
+      .span-5 {
+        margin-top: 40px;
+      }
+    }
+    .span-6 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: start;
+      border-bottom: 1px solid #51ab3b;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 80px 10px 10px;
+    }
+    @media (max-width: 991px) {
+      .span-6 {
+        padding-right: 20px;
+      }
+    }
+    .img-4 {
+      aspect-ratio: 1.06;
+      object-fit: contain;
+      object-position: center;
+      width: 37px;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .div-10 {
+      box-sizing: border-box;
+      color: #51ab3b;
+      margin-top: 10px;
+      white-space: nowrap;
+      font: 700 18px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-10 {
+        white-space: initial;
+      }
+    }
+    .div-11 {
+      box-sizing: border-box;
+      color: #5d5d5d;
+      margin-top: 20px;
+      font: 400 16px/50px Inter, sans-serif;
+    }
+    .column-2 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 33%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .column-2 {
+        width: 100%;
+      }
+    }
+    .span-7 {
+      box-sizing: border-box;
+      border-radius: 16px;
+      box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgba(81, 171, 59, 0.2);
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      padding: 20px;
+    }
+    @media (max-width: 991px) {
+      .span-7 {
+        margin-top: 40px;
+      }
+    }
+    .span-8 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: start;
+      border-bottom: 1px solid #51ab3b;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 80px 10px 10px;
+    }
+    @media (max-width: 991px) {
+      .span-8 {
+        padding-right: 20px;
+      }
+    }
+    .img-5 {
+      aspect-ratio: 1.06;
+      object-fit: contain;
+      object-position: center;
+      width: 37px;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .div-12 {
+      box-sizing: border-box;
+      color: #51ab3b;
+      margin-top: 10px;
+      white-space: nowrap;
+      font: 700 18px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-12 {
+        white-space: initial;
+      }
+    }
+    .div-13 {
+      box-sizing: border-box;
+      color: #5d5d5d;
+      margin-top: 20px;
+      font: 400 16px/50px Inter, sans-serif;
+    }
+    .column-3 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 33%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .column-3 {
+        width: 100%;
+      }
+    }
+    .span-9 {
+      box-sizing: border-box;
+      border-radius: 16px;
+      box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.12);
+      background-color: rgba(81, 171, 59, 0.2);
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      padding: 20px;
+    }
+    @media (max-width: 991px) {
+      .span-9 {
+        margin-top: 40px;
+      }
+    }
+    .span-10 {
+      justify-content: center;
+      align-items: start;
+      border-bottom: 1px solid #51ab3b;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 80px 10px 10px;
+    }
+    @media (max-width: 991px) {
+      .span-10 {
+        padding-right: 20px;
+      }
+    }
+    .img-6 {
+      aspect-ratio: 1.06;
+      object-fit: contain;
+      object-position: center;
+      width: 37px;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .div-14 {
+      color: #51ab3b;
+      margin-top: 10px;
+      white-space: nowrap;
+      font: 700 18px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-14 {
+        white-space: initial;
+      }
+    }
+    .div-15 {
+      color: #5d5d5d;
+      margin-top: 20px;
+      font: 400 16px/50px Inter, sans-serif;
+    }
+    .span-11 {
+      box-sizing: border-box;
+      align-items: start;
+      background-color: rgba(81, 171, 59, 0.15);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      padding: 45px 80px;
+    }
+    @media (max-width: 991px) {
+      .span-11 {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .div-16 {
+      box-sizing: border-box;
+      color: #3f6735;
+      margin-top: 6px;
+      font: 900 25px Inter, sans-serif;
+    }
+    .div-17 {
+      box-sizing: border-box;
+      justify-content: space-between;
+      align-self: stretch;
+      border-radius: 16px;
+      box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.12);
+      background-color: #fff;
+      margin-top: 40px;
+      padding: 50px 80px;
+    }
+    @media (max-width: 991px) {
+      .div-17 {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .div-18 {
+      box-sizing: border-box;
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .div-18 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .column-4 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 61%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .column-4 {
+        width: 100%;
+      }
+    }
+    .div-19 {
+      color: #000;
+      margin: auto 0;
+      font: 600 24px/50px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-19 {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .column-5 {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 39%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .column-5 {
+        width: 100%;
+      }
+    }
+    .div-20 {
+      disply: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      aspect-ratio: 1;
+      justify-content: center;
+      margin: auto 0;
+    }
+    @media (max-width: 991px) {
+      .div-20 {
+        margin-top: 40px;
+      }
+    }
+    .img-7 {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .img-8 {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 100%;
+      overflow: hidden;
+    }
+    .div-21 {
+      justify-content: space-between;
+      align-self: stretch;
+      border-radius: 16px;
+      box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.12);
+      background-color: #fff;
+      margin-top: 40px;
+      padding: 50px 80px;
+    }
+    @media (max-width: 991px) {
+      .div-21 {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .div-22 {
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .div-22 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .column-6 {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 39%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .column-6 {
+        width: 100%;
+      }
+    }
+    .div-23 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      aspect-ratio: 1;
+      justify-content: center;
+      margin: auto 0;
+    }
+    @media (max-width: 991px) {
+      .div-23 {
+        margin-top: 40px;
+      }
+    }
+    .img-9 {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .img-10 {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 100%;
+      overflow: hidden;
+    }
+    .column-7 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 61%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .column-7 {
+        width: 100%;
+      }
+    }
+    .div-24 {
+      box-sizing: border-box;
+      color: #000;
+      margin: auto 0;
+      font: 600 24px/50px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-24 {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .span-12 {
+      box-sizing: border-box;
+      align-items: flex-start;
+      background-color: rgba(81, 171, 59, 0.15);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      padding: 45px 80px;
+    }
+    @media (max-width: 991px) {
+      .span-12 {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .div-25 {
+      box-sizing: border-box;
+      color: #3f6735;
+      margin-top: 6px;
+      font: 900 25px Inter, sans-serif;
+    }
+    .span-13 {
+      box-sizing: border-box;
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+      border-radius: 16px;
+      box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.12);
+      background-color: #fff;
+      display: flex;
+      margin-top: 40px;
+      gap: 20px;
+      padding: 50px 80px;
+    }
+    @media (max-width: 991px) {
+      .span-13 {
+        max-width: 100%;
+        flex-wrap: wrap;
+        padding: 0 20px;
+      }
+    }
+    .div-26 {
+      color: #000;
+      flex-grow: 1;
+      flex-basis: auto;
+      margin: auto 0;
+      font: 600 24px/50px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-26 {
+        max-width: 100%;
+      }
+    }
+    .img-11 {
+      aspect-ratio: 0.47;
+      object-fit: contain;
+      object-position: center;
+      width: 188px;
+      overflow: hidden;
+      max-width: 100%;
+      margin: auto 0;
+    }
+    .span-14 {
+      justify-content: space-between;
+      align-self: stretch;
+      border-radius: 16px;
+      box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.12);
+      background-color: #fff;
+      display: flex;
+      margin-top: 40px;
+      gap: 20px;
+      padding: 50px 80px;
+    }
+    @media (max-width: 991px) {
+      .span-14 {
+        max-width: 100%;
+        flex-wrap: wrap;
+        padding: 0 20px;
+      }
+    }
+    .img-12 {
+      aspect-ratio: 0.47;
+      object-fit: contain;
+      object-position: center;
+      width: 235px;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .div-27 {
+      color: #000;
+      align-self: center;
+      flex-grow: 1;
+      flex-basis: auto;
+      margin: auto 0;
+      font: 600 24px/50px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-27 {
+        max-width: 100%;
+      }
+    }
+    .persona {
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+      border-radius: 16px;
+      box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.12);
+      background-color: #fff;
+      display: flex;
+      margin-top: 40px;
+      gap: 20px;
+      padding: 50px 80px;
+    }
+    @media (max-width: 991px) {
+      .persona {
+        max-width: 100%;
+        flex-wrap: wrap;
+        padding: 0 20px;
+      }
+    }
+    .persona-content {
+      color: #000;
+      flex-grow: .1;
+      flex-basis: fit-content;
+      margin: auto 0;
+      font: 600 24px/50px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .persona-content {
+        max-width: 100%;
+      }
+    }
+    .persona-img {
+      aspect-ratio: 0.47;
+      object-fit: contain;
+      object-position: center;
+      width: 188px;
+      overflow: hidden;
+      max-width: 100%;
+      margin: auto 0;
+    }
+    .span-16 {
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+      border-radius: 16px;
+      box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.12);
+      background-color: #fff;
+      display: flex;
+      margin-top: 40px;
+      gap: 20px;
+      padding: 50px 80px;
+    }
+    @media (max-width: 991px) {
+      .span-16 {
+        max-width: 100%;
+        flex-wrap: wrap;
+        padding: 0 20px;
+      }
+    }
+    .img-14 {
+      aspect-ratio: 0.47;
+      object-fit: contain;
+      object-position: center;
+      width: 188px;
+      overflow: hidden;
+      max-width: 100%;
+      margin: auto 0;
+    }
+    .div-29 {
+      box-sizing: border-box;
+      color: #000;
+      flex-grow: 1;
+      flex-basis: auto;
+      margin: auto 0;
+      font: 600 24px/50px Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-29 {
+        max-width: 100%;
+      }
+    }
+    .span-17 {
+      box-sizing: border-box;
+      align-items: start;
+      background-color: rgba(81, 171, 59, 0.15);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      padding: 50px 80px;
+    }
+    @media (max-width: 991px) {
+      .span-17 {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .div-30 {
+      box-sizing: border-box;
+      color: #3f6735;
+      margin-top: 6px;
+      font: 900 25px Inter, sans-serif;
+    }
+    .div-31 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      display: flex;
+      margin-top: 40px;
+      flex-direction: column;
+      padding: 0 60px;
+    }
+    @media (max-width: 991px) {
+      .div-31 {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .div-32 {
+      box-sizing: border-box;
+      width: 712px;
+      max-width: 100%;
+    }
+    .div-33 {
+      box-sizing: border-box;
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .div-33 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .column-8 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 57%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .column-8 {
+        width: 100%;
+      }
+    }
+    .span-18 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      box-shadow: 0px 1.846px 3.692px 0px rgba(171, 190, 209, 0.2);
+      background-color: #fff;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      padding: 50px 15px;
+    }
+    @media (max-width: 991px) {
+      .span-18 {
+        margin-top: 40px;
+      }
+    }
+    .img-15 {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 40px;
+      overflow: hidden;
+      margin-top: 55px;
+      max-width: 100%;
+    }
+    @media (max-width: 991px) {
+      .img-15 {
+        margin-top: 40px;
+      }
+    }
+    .div-34 {
+      box-sizing: border-box;
+      align-self: stretch;
+      color: #4caf4f;
+      text-align: center;
+      margin-top: 15px;
+      white-space: nowrap;
+      font: 700 26px/115% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-34 {
+        white-space: initial;
+      }
+    }
+    .div-35 {
+      color: #000;
+      text-align: center;
+      align-self: stretch;
+      white-space: nowrap;
+      margin: 8px 0 33px;
+      font: 700 14px/129% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-35 {
+        white-space: initial;
+      }
+    }
+    .column-9 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 43%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .column-9 {
+        width: 100%;
+      }
+    }
+    .span-19 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      box-shadow: 0px 1.846px 3.692px 0px rgba(171, 190, 209, 0.2);
+      background-color: #fff;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      padding: 50px 15px;
+    }
+    @media (max-width: 991px) {
+      .span-19 {
+        margin-top: 40px;
+      }
+    }
+    .img-16 {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 40px;
+      overflow: hidden;
+      margin-top: 55px;
+      max-width: 100%;
+    }
+    @media (max-width: 991px) {
+      .img-16 {
+        margin-top: 40px;
+      }
+    }
+    .div-36 {
+      box-sizing: border-box;
+      align-self: stretch;
+      color: #4caf4f;
+      text-align: center;
+      margin-top: 15px;
+      white-space: nowrap;
+      font: 700 26px/115% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-36 {
+        white-space: initial;
+      }
+    }
+    .div-37 {
+      box-sizing: border-box;
+      color: #000;
+      text-align: center;
+      align-self: stretch;
+      white-space: nowrap;
+      margin: 8px 0 33px;
+      font: 700 14px/129% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-37 {
+        white-space: initial;
+      }
+    }
+    .div-38 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-self: stretch;
+      margin: 80px 0 30px;
+      padding: 0 34px;
+    }
+    @media (max-width: 991px) {
+      .div-38 {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 0 20px;
+      }
+    }
+    .div-39 {
+      box-sizing: border-box;
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .div-39 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .column-10 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 36%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .column-10 {
+        width: 100%;
+      }
+    }
+    .span-20 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      box-shadow: 0px 1.846px 3.692px 0px rgba(171, 190, 209, 0.2);
+      background-color: #fff;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      padding: 50px 15px;
+    }
+    @media (max-width: 991px) {
+      .span-20 {
+        margin-top: 40px;
+      }
+    }
+    .img-17 {
+      box-sizing: border-box;
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 40px;
+      overflow: hidden;
+      margin-top: 54px;
+      max-width: 100%;
+    }
+    @media (max-width: 991px) {
+      .img-17 {
+        margin-top: 40px;
+      }
+    }
+    .div-40 {
+      box-sizing: border-box;
+      align-self: stretch;
+      color: #4caf4f;
+      text-align: center;
+      margin-top: 15px;
+      white-space: nowrap;
+      font: 700 26px/115% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-40 {
+        white-space: initial;
+      }
+    }
+    .div-41 {
+      box-sizing: border-box;
+      color: #000;
+      text-align: center;
+      align-self: stretch;
+      white-space: nowrap;
+      margin: 8px 0 33px;
+      font: 700 13px/143% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-41 {
+        white-space: initial;
+      }
+    }
+    .column-11 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 36%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .column-11 {
+        width: 100%;
+      }
+    }
+    .span-21 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      box-shadow: 0px 1.846px 3.692px 0px rgba(171, 190, 209, 0.2);
+      background-color: #fff;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      padding: 50px 15px;
+    }
+    @media (max-width: 991px) {
+      .span-21 {
+        margin-top: 40px;
+      }
+    }
+    .img-18 {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 40px;
+      overflow: hidden;
+      margin-top: 55px;
+      max-width: 100%;
+    }
+    @media (max-width: 991px) {
+      .img-18 {
+        margin-top: 40px;
+      }
+    }
+    .div-42 {
+      box-sizing: border-box;
+      align-self: stretch;
+      color: #4caf4f;
+      text-align: center;
+      margin-top: 15px;
+      white-space: nowrap;
+      font: 700 26px/115% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-42 {
+        white-space: initial;
+      }
+    }
+    .div-43 {
+      box-sizing: border-box;
+      color: #000;
+      text-align: center;
+      align-self: stretch;
+      white-space: nowrap;
+      margin: 8px 0 33px;
+      font: 700 14px/129% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-43 {
+        white-space: initial;
+      }
+    }
+    .column-12 {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 27%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .column-12 {
+        width: 100%;
+      }
+    }
+    .span-22 {
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      box-shadow: 0px 1.846px 3.692px 0px rgba(171, 190, 209, 0.2);
+      background-color: #fff;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      width: 100%;
+      padding: 50px 15px;
+    }
+    @media (max-width: 991px) {
+      .span-22 {
+        margin-top: 40px;
+      }
+    }
+    .img-19 {
+      box-sizing: border-box;
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 40px;
+      overflow: hidden;
+      margin-top: 53px;
+      max-width: 100%;
+    }
+    @media (max-width: 991px) {
+      .img-19 {
+        margin-top: 40px;
+      }
+    }
+    .div-44 {
+      box-sizing: border-box;
+      align-self: stretch;
+      color: #4caf4f;
+      text-align: center;
+      margin-top: 15px;
+      white-space: nowrap;
+      font: 700 26px/129% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-44 {
+        white-space: initial;
+      }
+    }
+    .div-45 {
+      box-sizing: border-box;
+      color: #000;
+      text-align: center;
+      align-self: stretch;
+      white-space: nowrap;
+      margin: 8px 0 32px;
+      font: 700 14px/129% Inter, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .div-45 {
+        white-space: initial;
+      }
+    }
+  </style>
+  

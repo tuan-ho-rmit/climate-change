@@ -14,6 +14,7 @@ public class Persona {
     private String skillsAndExperiences;
     private String goals;
     private String needs;
+    private String frustration;
 
     public String getName() {
         return name;
@@ -22,9 +23,14 @@ public class Persona {
     public int getId() {
         return id;
     }
-
+    public String getSkillsAndExperiences() {
+        return skillsAndExperiences;
+    }
     public String getBackground() {
         return background;
+    }
+    public String getFrustration() {
+        return frustration;
     }
 
     public String getGoals() {
@@ -33,9 +39,5 @@ public class Persona {
 
     public String getNeeds() {
         return needs;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
