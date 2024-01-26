@@ -30,6 +30,10 @@ public class Temperature {
     @JoinColumn(name = "stateId", nullable = true)
     private State state;
 
+    @ManyToOne
+    @JoinColumn(name = "globalId", nullable = true)
+    private Global global;
+
     public int getId() {
         return id;
     }
