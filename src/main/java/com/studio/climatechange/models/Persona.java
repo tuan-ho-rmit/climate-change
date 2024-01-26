@@ -10,10 +10,15 @@ public class Persona {
     private int id;
 
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String background;
+    @Column(columnDefinition = "TEXT")
     private String skillsAndExperiences;
+    @Column(columnDefinition = "TEXT")
     private String goals;
+    @Column(columnDefinition = "TEXT")
     private String needs;
+    @Column(columnDefinition = "TEXT")
     private String frustration;
 
     public String getName() {
