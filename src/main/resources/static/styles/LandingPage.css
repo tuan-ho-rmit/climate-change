@@ -18,7 +18,7 @@ html {
 }
 
 .header {
-    position: fixed;
+    position: absolute;
     display: flex;
     top: 0;
     left: 0;
@@ -206,7 +206,7 @@ html {
     display: inline-block;
     color:var(--text-color);
 }
-.Content-1 button {
+.Content-1 .button {
     display: flex;
     padding: 0.8rem 2.4rem; 
     justify-content: center;
@@ -219,7 +219,7 @@ html {
     cursor: pointer; 
 }
 
-.Content-1 button:hover {
+.Content-1 .button:hover {
     background-color: green; 
 }
 
@@ -305,7 +305,8 @@ html {
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 1.8rem; 
+    line-height: 1.8rem;
+    gap: 20px;
 }
 
 .Section-3 {
@@ -433,3 +434,21 @@ html {
     color: var(--text-color)
 }
 
+#earliestPopulationYear,
+#latestPopulationYear,
+#earliestPopYear,
+#latestPopYear,
+#earliestPopulationNumber,
+#latestPopulationNumber,
+#earliestGlobalTemperatureYear,
+#latestGlobalTemperatureYear,
+#earliestGlobalTempYear,
+#latestGlobalTempYear,
+#averageTemperatureEarliestYear,
+#averageTemperatureLatestYear {
+        font-family: "Inter";
+        font-size: 1.4rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.8rem;
+}
