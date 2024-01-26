@@ -250,4 +250,3 @@ document.getElementById('dataSection').style.display = 'none';
         history.pushState({ page: page, pageSize: pageSize }, "Filtered Data", url); // Update history state with new page and pageSize
         loadData(url);
     }
-
