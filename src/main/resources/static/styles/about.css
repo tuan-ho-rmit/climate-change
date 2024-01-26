@@ -43,6 +43,7 @@ head {
     color: #fff;
     margin: auto 0;
     font: 700 16px Inter, sans-serif;
+    text-decoration: none;
 }
 .high-level {
     justify-content: space-between;
@@ -166,6 +167,11 @@ head {
     color: #3f6735;
     margin-top: 6px;
     font: 900 25px Inter, sans-serif;
+}
+.text-border {
+    width: 94px;
+    background: #51AB3B;
+    border: 3px solid #51AB3B
 }
 .outer-function-container {
     justify-content: space-between;
@@ -333,6 +339,79 @@ head {
     white-space: nowrap;
     margin: 8px 0 33px;
     font: 700 14px/129% Inter, sans-serif;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    color: #fff;
+    margin: auto 0;
+    font: 700 16px Inter, sans-serif;
+    text-decoration: none;
+}
+
+.container:hover .drop-down {
+    display: block;
+}
+
+.container a {
+    display: flex;
+    align-items: center;
+}
+
+.container .arrow {
+    vertical-align: middle;
+    padding-left: 4px;
+    font-size: 18px;
+    position: relative;
+    right: -5px;
+    transform: rotate(0deg);
+    transition: 0.3s ease-in-out all;
+}
+
+.container:hover .arrow {
+    transform: rotate(180deg);
+}
+
+.drop-down li:hover {
+    background: #EEEEEE;
+    color: black;
+    transition: 0.3s ease-in-out all;
+}
+
+.drop-down {
+    position: absolute;
+    width: 160px;
+    height: auto;
+    padding: 3px;
+    flex-direction: column;
+    align-items: flex-start;
+    background: white;
+    color: #343236;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: none;
+    top: 40%;
+    left: 0;
+    z-index: 10;
+}
+
+.drop-down li {
+    list-style: none;
+    height: auto;
+    width: auto;
+    padding: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.link {
+    text-decoration:  none;
+    color: black;
 }
 
 @media (max-width: 991px) {
