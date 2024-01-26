@@ -138,7 +138,7 @@ public class Level3SubtaskAController {
         query.append(" WHERE ");
 
         for (int i = 0; i < startingYears.length; i++) {
-            query.append("Table").append(i).append(".avg").append(i + 1).append(" >= 1 ").append(" And ");
+            query.append("ABS(").append("Table").append(i).append(".avg").append(i + 1).append(")").append(" >= 1 ").append(" And ");
 
 
             if ("Country".equals(region)) {
