@@ -378,6 +378,14 @@ input {
     border-radius: 50%;
   }
   
+.btn-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+    background-color: #FAFAFA;
+}
 
 .button {
     width: auto;
@@ -389,8 +397,15 @@ input {
     gap: 1rem;
     border-color: #FFF;
     border-radius: 0.4rem;
-    background: #51AB3B;
     cursor: pointer;
+}
+
+#reset-button {
+    background: #E01B00;
+}
+
+#apply-button {
+    background: #51AB3B;
 }
 
 .button:hover {
@@ -409,17 +424,23 @@ input {
 .Section-2 {
     display: flex;
     width: 100%;
-    height: auto;
     padding: 3.2rem;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center !important;
     align-items: center;
     flex-shrink: 0;
     align-self: stretch;
     border-radius: 1.6rem;
-    background: #FAFAFA;
+    background: #FFF;
 }
 
+#filterSection {
+    height: 68rem;
+}
+
+#dataSection {
+    height: auto;
+}
 .middle-block {
     display: flex;
     width: auto;

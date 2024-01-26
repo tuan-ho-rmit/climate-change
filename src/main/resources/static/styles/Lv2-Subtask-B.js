@@ -102,7 +102,11 @@ $(function() {
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('applyForm').addEventListener('submit', function (event) {
             event.preventDefault();
-            applyQuery();
+            if (validateForm()) {
+                applyQuery();
+            } else {
+                return;
+            }
         });
     });
 
@@ -146,6 +150,12 @@ $(function() {
         var tbody = table.getElementsByTagName('tbody')[0];
         tbody.innerHTML = '';
 
+        if (data.length === 0) {
+             document.getElementById('dataSection').style.display = 'none';
+             document.getElementById('filterSection').style.display = 'block';
+             return;
+        }
+
         // Populate data rows
         for (var i = 0; i < data.length; i++) {
             var row = tbody.insertRow();
@@ -174,4 +184,26 @@ $(function() {
         document.getElementById('dataSection').style.display = 'block';
         document.getElementById('filterSection').style.display = 'none';
 
+    }
+
+    function validateForm() {
+        var country = document.getElementById('tagsCountry').value;
+        var startYear = document.getElementById('tagsYearStart').value;
+        var endYear = document.getElementById('tagsYearEnd').value;
+
+        // Country validation (characters only)
+        var countryPattern = /^[A-Za-z]+$/;
+        if (!countryPattern.test(country)) {
+            alert('Please enter a valid country name (only characters are allowed).');
+            return false;
+        }
+
+        // Year validation (numbers only and up to 4 digits)
+        var yearPattern = /^[0-9]{4}$/;
+        if (!yearPattern.test(startYear) || !yearPattern.test(endYear)) {
+            alert('Please enter a valid year (only numbers are allowed).');
+            return false;
+        }
+
+        return true;
     }

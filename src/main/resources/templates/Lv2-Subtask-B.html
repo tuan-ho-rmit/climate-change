@@ -179,7 +179,7 @@
                 <div class = "big-block-3">
                     <label class = "block-5" for = "tagsCountry">Country</label>
                     <div class = "block-6" onclick="document.getElementById('tagsCountry').focus();">
-                        <input id = "tagsCountry" type = "text" placeholder = "Country" name = "Country">
+                        <input id = "tagsCountry" type = "text" placeholder = "Country" name = "Country" required>
                         <svg class = "dropdown-icon" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
                             </svg>                       
@@ -188,7 +188,7 @@
                 <div class = "big-block-4">
                     <label class = "block-8" for = "tagsYearStart">Start Year</label>
                     <div class = "block-9" onclick="document.getElementById('tagsYearStart').focus();">
-                        <input id = "tagsYearStart" type = "text" placeholder = "Start" name = "StartYear">
+                        <input id = "tagsYearStart" type = "text" placeholder = "Start" name = "StartYear" required>
                         <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
                             </svg>                          
@@ -197,7 +197,7 @@
                 <div class = "big-block-5">
                     <label class = "block-11" for = "tagsYearEnd">End Year</label>
                     <div class = "block-12" onclick="document.getElementById('tagsYearEnd').focus();">
-                        <input id = "tagsYearEnd" type = "text" placeholder = "End" name = "EndYear">
+                        <input id = "tagsYearEnd" type = "text" placeholder = "End" name = "EndYear" required>
                         <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
                             </svg> 
@@ -209,19 +209,26 @@
                     
                     <div class = "button-container">
                             <label class="custom-radio">
-                                <input type="radio" name="colorRadio" value = "city">
+                                <input type="radio" name="colorRadio" value = "city" required>
                                 <div class="radio-button"></div> City
                             </label>          
                             
                             <label class="custom-radio">
-                                <input type="radio" name="colorRadio" value = "state">
+                                <input type="radio" name="colorRadio" value = "state" required>
                                 <div class="radio-button"></div> State
                             </label>     
                     </div>
+                    <div class = btn-container>
 
-                    <button class = "button" type = "submit" onclick = "applyQuery()">
-                        <div class = "inside-button">Apply</div>
-                    </button>
+                        <button class = "button" type = "reset" id = "reset-button">
+                            <div class = "inside-button">Reset</div>
+                        </button>
+
+                        <button class = "button" type = "submit" id = "apply-button" onclick = "applyQuery()">
+                            <div class = "inside-button">Apply</div>
+                        </button>
+
+                    </div>
                 </div>
             </form>
 
@@ -241,13 +248,11 @@
                 </table>
 
             <div class="pagination">
-                <!-- <div class="paginationItem"><</div> -->
                 <div class="paginationItem" id="selected">1</div>
                 <div class="paginationItem">2</div>
                 <div class="paginationItem">3</div>
                 <div class="paginationItem">4</div>
                 <div class="paginationItem">5</div>
-                <!-- <div class="paginationItem">></div> -->
             </div>
         </div>
 
