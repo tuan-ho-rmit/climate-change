@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-level Data</title>
+    <link th:href="@{/styles/level2SubtaskA.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+<div class = "header">
+    <a th:href = "@{LandingPage}" class = "logo">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_5_5041)">
+                <path d="M0 6.25C0 2.79822 2.79822 0 6.25 0H38.125C39.1605 0 40 0.839466 40 1.875V38.125C40 39.1605 39.1605 40 38.125 40H6.25C2.79822 40 0 37.2018 0 33.75V6.25Z" fill="#486856"/>
+                <g style="mix-blend-mode:overlay" filter="url(#filter0_f_5_5041)">
+                    <path d="M17.5291 10.8889L19.8236 7.27717C20.0631 6.90011 20.246 6.48996 20.3666 6.0598C20.76 4.65556 21.8001 3.52349 23.166 3.01279L33.0611 -0.686737C34.0495 -1.05628 35.1154 -1.16955 36.1594 -1.01598L44.3105 0.182983C46.7124 0.536288 48.6924 2.24856 49.3885 4.57438L51.3547 11.1439C52.1157 13.6863 51.188 16.432 49.0411 17.992L43.148 22.2742C42.2886 22.8987 41.2842 23.2938 40.2298 23.4222L36.521 23.874C35.7977 23.9622 35.0955 24.176 34.4459 24.506L30.2293 26.6482C27.7147 27.9257 24.6559 27.3607 22.7637 25.2691L20.1768 22.4096C19.8017 21.9949 19.4839 21.5319 19.232 21.0327L17.225 17.0564C16.2328 15.0906 16.3483 12.7476 17.5291 10.8889Z" fill="#61B72D"/>
+                    <path d="M22.5575 11.3368L15.0184 6.78706C12.6974 5.38639 9.73815 5.64161 7.69128 7.41898L-2.08858 15.9112C-3.83677 17.4292 -2.6256 20.2977 -0.318478 20.1034C0.649215 20.0219 1.57023 20.5332 2.0128 21.3976L6.56788 30.2942C8.08724 33.2617 11.6683 34.5143 14.7061 33.1408L22.1349 29.7818C24.4369 28.7409 25.8859 26.4164 25.8068 23.8912L25.5751 16.4923C25.5088 14.3732 24.3727 12.4322 22.5575 11.3368Z" fill="#2BD987"/>
+                    <path d="M15.5812 2.49777L23.1711 3.41525C23.8855 3.5016 24.4839 3.99636 24.7031 4.68171C24.8199 5.0471 25.0475 5.36646 25.355 5.59586C26.866 6.7232 29.2179 8.47823 29.3495 8.57781C29.5325 8.71625 31.6365 11.4327 31.5685 11.6741C31.5004 11.9155 30.7086 17.705 29.9301 17.4855C29.3686 17.3272 21.952 14.9591 17.2364 13.4501C16.2924 13.1481 15.4352 12.6261 14.733 11.9267L12.2199 9.4235C10.8028 8.01201 10.621 5.78014 11.791 4.15791C12.658 2.95581 14.1098 2.3199 15.5812 2.49777Z" fill="#33AAC3"/>
+                    <path d="M33.9975 16.2168L32.0559 15.2184C29.691 14.0023 26.8156 14.4157 24.8892 16.2488L23.3256 17.7367L22.48 18.5108C19.8019 20.9621 20.4036 25.335 23.6441 26.972C24.1671 27.2362 24.7291 27.4097 25.31 27.4854C29.2303 27.9962 35.6949 28.8298 35.8388 28.8121C35.9373 28.8 36.5848 26.003 37.2335 23.0763C37.8443 20.3209 36.5073 17.5075 33.9975 16.2168Z" fill="#00745F"/>
+                    <path d="M20.0894 20.6452L25.9738 18.8163C27.3206 18.3977 28.7545 19.1346 29.1981 20.4734C29.3614 20.9664 29.6684 21.3981 30.0808 21.7137C31.9736 23.1624 34.8769 25.3851 35.0408 25.5132C35.2704 25.6925 38.2387 30.0753 38.2387 30.6132C38.2387 31.1511 39.1078 43.5624 38.2387 43.5624C37.6462 43.5624 30.1456 43.0513 24.8352 42.6824C23.2176 42.57 21.7093 41.8324 20.6255 40.6264L16.3641 35.8844C15.0701 34.4446 14.5164 32.4864 14.8647 30.5822L15.7964 25.4889C16.2149 23.2014 17.8687 21.3354 20.0894 20.6452Z" fill="#597A53"/>
+                    <path d="M20.5161 13.5605L20.7009 13.2866C20.7812 13.1674 20.843 13.0367 20.8839 12.899C21.0131 12.4647 21.3425 12.1186 21.7698 11.9682L24.3856 11.047C25.1732 10.7696 26.0156 10.6847 26.8427 10.7993L27.9369 10.9509C29.2665 11.1351 30.372 12.067 30.7785 13.3463C31.2439 14.811 30.6944 16.4076 29.4262 17.2756L28.8842 17.6465C28.2976 18.048 27.6218 18.3003 26.9156 18.3813L26.5178 18.4269C26.0881 18.4762 25.6696 18.5967 25.2795 18.7834L25.0402 18.8979C23.6657 19.5556 22.0243 19.2576 20.9688 18.1586C20.7455 17.9262 20.5552 17.6643 20.403 17.3803L20.3292 17.2426C19.7038 16.0755 19.7758 14.6582 20.5161 13.5605Z" fill="#61B72D"/>
+                </g>
+                <g filter="url(#filter1_d_5_5041)">
+                    <path d="M0.75 41.5938V0.03125C0.75 -0.158598 0.903902 -0.3125 1.09375 -0.3125C1.2836 -0.3125 1.4375 -0.158598 1.4375 0.03125V41.5938C1.4375 41.7836 1.2836 41.9375 1.09375 41.9375C0.903902 41.9375 0.75 41.7836 0.75 41.5938Z" fill="white"/>
+                </g>
+                <g filter="url(#filter2_i_5_5041)">
+                    <path d="M36.25 37.8125H4.1875C3.08293 37.8125 2.1875 36.9171 2.1875 35.8125V35.1406V34.6494C2.1875 33.5448 3.08293 32.6494 4.1875 32.6494H11.0836H33.1252C34.2298 32.6494 35.1252 31.7539 35.1252 30.6494V1.82746C35.1252 1.19154 34.8228 0.593527 34.3106 0.216618L33.3125 -0.517898C32.6293 -0.897377 33.0167 -1.94111 33.7821 -1.78288L36.4302 -1.23542C36.6968 -1.1803 36.9053 -0.972202 36.9608 -0.705696C36.9865 -0.582871 37.0454 -0.469467 37.1312 -0.377915L37.7094 0.239156C38.0567 0.609811 38.25 1.09873 38.25 1.60669V35.8125C38.25 36.9171 37.3546 37.8125 36.25 37.8125Z" fill="white"/>
+                </g>
+                <g filter="url(#filter3_i_5_5041)">
+                    <path d="M37.5713 37.0945C37.5889 37.1241 37.6273 37.1339 37.657 37.1162C37.6866 37.0986 37.6964 37.0602 37.6787 37.0305L37.5713 37.0945ZM34.6338 32.157L37.5713 37.0945L37.6787 37.0305L34.7412 32.093L34.6338 32.157Z" fill="#D8D7D7"/>
+                </g>
+                <g style="mix-blend-mode:luminosity">
+                    <path d="M2.50659 33.3125H34.1989C34.8893 33.3125 35.4489 32.7529 35.4489 32.0625V-0.244629" stroke="#628874" stroke-opacity="0.3" stroke-width="0.1875"/>
+                </g>
+                <g style="mix-blend-mode:luminosity">
+                    <path d="M2.1875 34.0198H34.6459C35.3363 34.0198 35.8959 33.4601 35.8959 32.7698V-1.14453" stroke="#628874" stroke-opacity="0.3" stroke-width="0.1875"/>
+                </g>
+                <g style="mix-blend-mode:luminosity">
+                    <path d="M2.1875 34.5983H35.029C35.7193 34.5983 36.279 34.0387 36.279 33.3483V-0.115967" stroke="#628874" stroke-opacity="0.3" stroke-width="0.1875"/>
+                </g>
+                <g style="mix-blend-mode:luminosity">
+                    <path d="M2.1875 35.1769H35.412C36.1024 35.1769 36.662 34.6172 36.662 33.9269V-0.115967" stroke="#628874" stroke-opacity="0.3" stroke-width="0.1875"/>
+                </g>
+                <g style="mix-blend-mode:luminosity">
+                    <path d="M2.1875 35.7555H35.8589C36.5493 35.7555 37.1089 35.1958 37.1089 34.5055V-0.115967" stroke="#628874" stroke-opacity="0.3" stroke-width="0.1875"/>
+                </g>
+                <g style="mix-blend-mode:luminosity">
+                    <path d="M2.1875 36.3983H36.242C36.9323 36.3983 37.492 35.8387 37.492 35.1483V-1.14453" stroke="#628874" stroke-opacity="0.3" stroke-width="0.1875"/>
+                </g>
+                <path d="M2.75 36.9999L37.5625 36.9999" stroke="#ADA7A7" stroke-width="0.1875" stroke-linecap="round"/>
+                <g style="mix-blend-mode:soft-light">
+                    <path d="M17.5 5.4375L22.5 8.55015V13.775L17.5 16.6875L12.5 13.775V8.55015L17.5 5.4375Z" fill="#63C178" style="mix-blend-mode:color-burn"/>
+                </g>
+                <g style="mix-blend-mode:soft-light">
+                    <path d="M17.5 16.6875L22.5 19.8001V25.025L17.5 27.9375L12.5 25.025V19.8001L17.5 16.6875Z" fill="#63C178" style="mix-blend-mode:color-burn"/>
+                </g>
+                <g style="mix-blend-mode:soft-light">
+                    <path d="M22.5 11.0625L27.5 14.1751V19.4L22.5 22.3125L17.5 19.4V14.1751L22.5 11.0625Z" fill="#63C178" style="mix-blend-mode:color-burn"/>
+                </g>
+            </g>
+            <defs>
+                <filter id="filter0_f_5_5041" x="-14.1694" y="-12.3325" width="77.0369" height="67.1449" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                    <feGaussianBlur stdDeviation="5.625" result="effect1_foregroundBlur_5_5041"/>
+                </filter>
+                <filter id="filter1_d_5_5041" x="0.5" y="-0.3125" width="1.1875" height="42.75" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="0.25"/>
+                    <feGaussianBlur stdDeviation="0.125"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_5041"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5_5041" result="shape"/>
+                </filter>
+                <filter id="filter2_i_5_5041" x="2.1875" y="-1.79907" width="36.0625" height="39.8616" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="0.25"/>
+                    <feGaussianBlur stdDeviation="0.125"/>
+                    <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="shape" result="effect1_innerShadow_5_5041"/>
+                </filter>
+                <filter id="filter3_i_5_5041" x="34.6338" y="32.093" width="3.05371" height="5.28198" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="0.25"/>
+                    <feGaussianBlur stdDeviation="0.125"/>
+                    <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="shape" result="effect1_innerShadow_5_5041"/>
+                </filter>
+                <clipPath id="clip0_5_5041">
+                    <path d="M0 6.25C0 2.79822 2.79822 0 6.25 0H38.125C39.1605 0 40 0.839466 40 1.875V38.125C40 39.1605 39.1605 40 38.125 40H6.25C2.79822 40 0 37.2018 0 33.75V6.25Z" fill="white"/>
+                </clipPath>
+            </defs>
+        </svg>
+    </a>
+
+    <nav class = "navbar">
+
+        <div><a th:href = "@{LandingPage}">Home</a></div>
+        <a href = "#">Mission Statement</a>
+        <div class = "container">
+            <a href = "#">High-level data
+                <svg class = "icon" width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z" fill="white"/>
+                </svg>
+            </a>
+            <ul class="drop-down">
+                <div class = "li-container">
+                    <li>
+                        <div class = "li-inner-container">
+                            <div class = "li-content">Subtask A</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class = "li-inner-container">
+                            <div class = "li-content">Subtask B</div>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </div>
+        <div class = "container">
+            <a href = "#">Deep-dive data
+                <svg class = "icon" width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z" fill="white"/>
+                </svg>
+            </a>
+            <ul class="drop-down">
+                <div class = "li-container">
+                    <li>
+                        <div class = "li-inner-container">
+                            <div class = "li-content">Subtask A</div>
+                        </div>
+                    </li>
+                    <li>
+                        <a class = "link" th:href = "@{Lv2-Subtask-B}">
+                            <div class = "li-inner-container">
+                                <div class = "li-content">Subtask B</div>
+                            </div>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+
+    </nav>
+
+</div>
+
+    <div class="page-container">
+        <div class = "big-block-1">
+            <div class = "block-1">High-level data</div>
+            <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 0.833292L5.66667 5.49996L1 10.1666" stroke="#51AB3B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class = "block-2">Subtask A</div>
+        </div>
+
+
+        <form th:action = "@{/high-level/subtask-a}" method="get">
+            <section class="filter-section">
+                <div class="filter-layout">
+                    <div class="filter-upper">
+                        <div class="icon-title">
+                            <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M0.75 0.75C0.335786 0.75 0 1.08579 0 1.5C0 1.91421 0.335786 2.25 0.75 2.25H15.25C15.6642 2.25 16 1.91421 16 1.5C16 1.08579 15.6642 0.75 15.25 0.75H0.75ZM3 5.5C3 5.08579 3.33579 4.75 3.75 4.75H12.25C12.6642 4.75 13 5.08579 13 5.5C13 5.91421 12.6642 6.25 12.25 6.25H3.75C3.33579 6.25 3 5.91421 3 5.5ZM6 9.5C6 9.0858 6.33579 8.75 6.75 8.75H9.25C9.66421 8.75 10 9.0858 10 9.5C10 9.9142 9.66421 10.25 9.25 10.25H6.75C6.33579 10.25 6 9.9142 6 9.5Z"
+                                    fill="#85858A" />
+                            </svg>
+                            <p style="font-size: 16px;">Filter</p>
+                        </div>
+
+                        <div class="input">
+                            <label for="">Region</label>
+                            <select id="region" name="region">
+                                <option th:each="region : ${modelView.regions}" th:value="${region.name}"
+                                        th:text="${region.name}" th:selected="${region.selected}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="input">
+                            <label for="">Start Year</label>
+                            <input type="number" name="yearPeriod" id="yearPeriod" th:value="${modelView.startYear}">
+                        </div>
+
+                        <div class="input">
+                            <label class = "block-11" for = "tagsYearEnd">End Year</label>
+                            <div class = "block-12" onclick="document.getElementById('tagsYearEnd').focus();">
+                                <input id = "tagsYearEnd" type = "text" placeholder = "End" name = "EndYear">
+                                <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="apply-section">
+                        <button type="submit" onclick="applyQuery()">Apply</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+
+        <div class="table-container">
+            <div class="overflowing" th:if="${modelView.table.data.length > 0}">
+                <table>
+                    <thead>
+                    <tr class="header-row">
+                        <th th:each="header, headerIdx : ${modelView.table.header}" class="header-cell">
+                            <p th:text="${header}"></p>
+                            <svg th:if="${headerIdx.index >= 1}" width="16" height="17" viewBox="0 0 16 17"
+                                 fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                        d="M8.47157 2.69526C8.34654 2.57024 8.17697 2.5 8.00016 2.5C7.82335 2.5 7.65378 2.57024 7.52876 2.69526L3.52876 6.69526C3.26841 6.95561 3.26841 7.37772 3.52876 7.63807C3.78911 7.89842 4.21122 7.89842 4.47157 7.63807L8.00016 4.10948L11.5288 7.63807C11.7891 7.89842 12.2112 7.89842 12.4716 7.63807C12.7319 7.37772 12.7319 6.95561 12.4716 6.69526L8.47157 2.69526Z"
+                                        fill="#85858A" />
+                                <path
+                                        d="M8.47157 14.9714C8.34654 15.0964 8.17697 15.1667 8.00016 15.1667C7.82335 15.1667 7.65378 15.0964 7.52876 14.9714L3.52876 10.9714C3.26841 10.7111 3.26841 10.2889 3.52876 10.0286C3.78911 9.76825 4.21122 9.76825 4.47157 10.0286L8.00016 13.5572L11.5288 10.0286C11.7891 9.76825 12.2112 9.76825 12.4716 10.0286C12.7319 10.2889 12.7319 10.7111 12.4716 10.9714L8.47157 14.9714Z"
+                                        fill="#85858A" />
+                            </svg>
+
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="body-row" th:each="row : ${modelView.table.data}">
+                        <td class="body-cell" th:each="cell, cellIdx : ${row}">
+                            <span th:if="${cellIdx.index == 0}" th:text="${cell}"></span>
+                            <span th:if="${cellIdx.index > 0}">
+                                    <span th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')}"></span>
+                                </span>
+                            <p> &nbsp;</p>
+                            <span th:if="${cellIdx.index > 1}">
+                                    <span
+                                            th:class="(${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')} - ${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}) >= 0 ? 'positive' : 'negative'">
+                                        (<span
+                                            th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')} - ${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}"></span>)
+                                    </span>
+
+
+                                </span>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="noData" th:if="${modelView.table.data.length == 0}">
+                <img src="/images/no-data.png" style="height: 120px; width: 120px;">
+                <h2 style="font-size: 18px; font-weight: 700;">Apply Filter To Display Data</h2>
+            </div>
+            <div class="pagination" th:if="${modelView.totalPage >0}">
+                <div th:each="pageNumber : ${#numbers.sequence(1, modelView.totalPage)}" class="paginationItem"
+                     th:id="${pageNumber == modelView.page ? 'selected' : ''}">
+                    <a th:text="${pageNumber}" th:name="pageNumber"
+                       th:href="@{/high-level/subtask-a(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation} )}"></a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+</html>

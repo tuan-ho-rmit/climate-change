@@ -1,0 +1,408 @@
+:root {
+    --primary-color: #4CAF4F;
+    --background-color-1: #51AB3B26;
+    --nav-color: #fff;
+    --background-color-2: #F4F7FA;
+    --text-color: #000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter";
+}
+
+html {
+    font-size: 10px;
+}
+
+
+.header {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    height: 8rem;
+    width: 100%;
+    padding: 1.6rem 4rem;
+    background: var(--primary-color);
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo, .navbar a {
+    color: var(--nav-color);
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.logo svg{
+    fill: var(--Primary-80, #486856);
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+}
+
+.navbar {
+    display: flex;
+    width: auto;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    gap: 5.6rem;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.container:hover .drop-down {
+    display: block;
+}
+
+.container a {
+    display: flex;
+    align-items: center;
+}
+
+.container .icon {
+    vertical-align: middle;
+    padding-left: 4px;
+    font-size: 18px;
+    position: relative;
+    right: -5px;
+    transform: rotate(0deg);
+    transition: 0.3s ease-in-out all;
+}
+
+.container:hover .icon {
+    transform: rotate(180deg);
+}
+
+.drop-down li:hover {
+    background: #EEEEEE;
+    color: black;
+}
+
+.drop-down {
+    position: absolute;
+    display: flex;
+    width: 14.8rem;
+    padding: 0.8rem 0rem;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--nav-color);
+    color: black;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 0.8rem;
+    display: none;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+}
+
+.drop-down li {
+    list-style: none;
+    height: 100%;
+    width: auto;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.li-inner-container {
+    display: flex;
+    padding: 0.8rem 1.6rem;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    align-self: stretch;
+}
+
+.li-content {
+    color: #000;
+    font-family: "Inter";
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: auto;
+    height: auto;
+}
+
+.link {
+    display: block;
+    text-decoration: none;
+}
+
+
+.page-container {
+    display: flex;
+    margin-top: 8rem;
+    width: auto;
+    height: auto;
+    padding: 4rem 8rem;
+    flex-direction: column;
+    gap: 4rem;
+    flex-shrink: 0;
+    background-color: #FFF;
+}
+
+.big-block-1 {
+    display: flex;
+    gap: 23px;
+}
+
+.block-1 {
+    width: auto;
+    height: auto;
+    color: #51AB3B;
+    font-family: "Inter";
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.block-2 {
+    width: auto;
+    height: auto;
+    color: #000;
+    font-family: "Inter";
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.big-block-1 svg {
+    width: auto;
+    height: auto;
+}
+
+.filter-layout{
+    background-color: #FAFAFA;
+    padding: 32px 40px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.filter-upper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 40px;
+}
+
+.icon-title {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.filter-upper .input{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.filter-layout .input input {
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+.filter-layout .input select {
+    cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+option {
+    font-weight: normal;
+    display: block;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+    white-space: nowrap;
+}
+
+.apply-section{
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    background-color: rgb(250, 250, 250);
+    overflow: hidden;
+}
+
+.apply-section button{
+    cursor: pointer;
+    color: #FFF;
+    font-size: 12px;
+    background-color: #51AB3B;
+    padding: 8px 24px;
+    border-radius: 4px;
+    border: 0px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover{
+    background-color: #428a30;
+}
+
+
+.table-container {
+    background-color: #FAFAFA;
+    padding: 32px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+}
+
+
+.overflowing {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-radius: 8px;
+    background: #FFF;
+}
+
+.noData {
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-wrap: nowrap;
+    border-radius: 8px;
+
+}
+
+
+.header-cell {
+    width: 100%;
+    min-width: 150px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E9E9E9;
+    border-bottom: 1px solid #EEE;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.header-cell svg {
+    cursor: pointer;
+    fill: #85858A;
+    transition: transform 0.3s;
+}
+
+.header-cell:hover svg {
+    transform: rotate(180deg);
+}
+
+
+.body-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-wrap: nowrap;
+
+}
+
+.body-cell {
+    width: 100%;
+    min-width: 150px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EEE;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.body-cell .positive {
+    color: #51AB3B;
+}
+
+.body-cell .negative {
+    color: #E01B00;
+}
+
+.pagination {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginationItem {
+    cursor: pointer;
+    font-size: 12px;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+
+.paginationItem#selected {
+    background-color: #ddd;
+}
+
+.paginationItem:hover {
+    background-color: #ddd;
+}
+
+.paginationItem a {
+    text-decoration: none;
+    color: #000;
+}
+
+.hiddenPagination {
+    display: none;
+}
+
+
+
