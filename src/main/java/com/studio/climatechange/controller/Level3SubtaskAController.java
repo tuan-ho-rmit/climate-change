@@ -138,8 +138,8 @@ public class Level3SubtaskAController {
         query.append(" WHERE ");
 
         for (int i = 0; i < startingYears.length; i++) {
-            query.append("Table").append(i).append(".avg").append(i + 1).append(" BETWEEN ")
-                    .append(minAverageChange).append(" AND ").append(maxAverageChange).append(" AND ");
+            query.append("Table").append(i).append(".avg").append(i + 1).append(" >= 1 ").append(" And ");
+
 
             if ("Country".equals(region)) {
                 if (maxPopulation > 0) {
@@ -159,7 +159,12 @@ public class Level3SubtaskAController {
         } else {
             query = new StringBuilder(query.substring(0, query.length() - 4));
         }
-        query.append("LIMIT ").append(pageSize).append(" ").append("OFFSET ").append((page - 1) * pageSize);
+        for (int i = 1; i < startingYears.length; i++) {
+            query.append(" AND ").append("ABS(").append("Table").append(i).append(".avg").append(i + 1)
+                    .append("-").append("Table0.avg1").append(")").append(" BETWEEN ").append(minAverageChange)
+                    .append(" AND ").append(maxAverageChange);
+        }
+        query.append(" LIMIT ").append(pageSize).append(" ").append("OFFSET ").append((page - 1) * pageSize);
         System.err.println(query.toString());
         return query.toString();
     }
@@ -219,8 +224,7 @@ public class Level3SubtaskAController {
         query.append(" WHERE ");
 
         for (int i = 0; i < startingYears.length; i++) {
-            query.append("Table").append(i).append(".avg").append(i + 1).append(" BETWEEN ")
-                    .append(minAverageChange).append(" AND ").append(maxAverageChange).append(" AND ");
+            query.append("Table").append(i).append(".avg").append(i + 1).append(" >= 1 ").append(" AND ");
 
             if ("Country".equals(region)) {
                 if (maxPopulation > 0) {
@@ -239,16 +243,18 @@ public class Level3SubtaskAController {
         if ("Country".equals(region)) {
         } else {
             query = new StringBuilder(query.substring(0, query.length() - 4));
-
         }
-        System.err.println("countTotalPage:  " +query.toString());
+        for (int i = 1; i < startingYears.length; i++) {
+            query.append(" AND ").append("ABS(").append("Table").append(i).append(".avg").append(i + 1)
+                    .append("-").append("Table0.avg1").append(")").append(" BETWEEN ").append(minAverageChange)
+                    .append(" AND ").append(maxAverageChange);
+        }
         return query.toString();
     }
 
     public int executeCount(String region, int[] startingYears, int period, double minAverageChange,
             double maxAverageChange, long minPopulation, long maxPopulation) {
         int result = 0;
-        System.err.println("result: " +result);
         try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             String sqlQuery = countTotalPage(region, startingYears, period, minAverageChange, maxAverageChange,
                     minPopulation, maxPopulation);
@@ -350,9 +356,6 @@ public class Level3SubtaskAController {
         if (minAverageChange != null && !minAverageChange.isEmpty()) {
             try {
                 parsedMinAverageChange = Double.parseDouble(minAverageChange);
-                if (parsedMinAverageChange < 1) {
-                    parsedMinAverageChange = 1;
-                }
             } catch (NumberFormatException e) {
 
                 e.printStackTrace();
@@ -401,8 +404,8 @@ public class Level3SubtaskAController {
         }
         String[][] data = executeQuery(region, parsedStartingYears, parsedYearPeriod, parsedMinAverageChange,
                 parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, parsedPage, pageSize);
-        double totalPageDouble =  executeCount(region, parsedStartingYears, parsedYearPeriod, parsedMinAverageChange,
-        parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation)/pageSize;
+        double totalPageDouble = executeCount(region, parsedStartingYears, parsedYearPeriod, parsedMinAverageChange,
+                parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation) / pageSize;
 
         int totalPage = (int) Math.ceil(totalPageDouble);
         Table table = new Table(dynamicHeader, data);
@@ -410,7 +413,7 @@ public class Level3SubtaskAController {
         modelView.setRegions(regions);
         modelView.setYearPeriod(parsedYearPeriod);
         modelView.setStartingYears(parsedStartingYears);
-        modelView.setMinAverageChange(1);
+        modelView.setMinAverageChange(parsedMinAverageChange);
         System.err.println(parsedMinAverageChange);
         modelView.setMaxAverageChange(parsedMaxAverageChange);
         modelView.setMinPopulation(parsedMinPopulation);
@@ -425,7 +428,6 @@ public class Level3SubtaskAController {
             selectedRegion = new Region("Country", 1, true);
 
         model.addAttribute("selectedRegion", selectedRegion);
-        System.err.println(selectedRegion.getName());
         model.addAttribute("modelView", modelView);
         return "level3SubtaskA";
     }
