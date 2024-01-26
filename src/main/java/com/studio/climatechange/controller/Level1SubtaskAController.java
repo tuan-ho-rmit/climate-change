@@ -1,6 +1,7 @@
 package com.studio.climatechange.controller;
 
-        import org.springframework.stereotype.Controller;
+        import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
         import org.springframework.web.bind.annotation.GetMapping;
         import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -10,6 +11,14 @@ package com.studio.climatechange.controller;
 
 @Controller
 public class Level1SubtaskAController {
+    @Value("${spring.datasource.url}")
+    private String jdbcUrl;
+
+    @Value("${spring.datasource.username}")
+    private String username;
+
+    @Value("${spring.datasource.password}")
+    private String password;
 
     @GetMapping(value = {"/LandingPage"})
     public String landingPage() {
@@ -19,7 +28,7 @@ public class Level1SubtaskAController {
     @GetMapping("/displayData")
     @ResponseBody
     public Map<String, Object> displayData() {
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
+        try (Connection con = DriverManager.getConnection(jdbcUrl, username, password);
              Statement stmt = con.createStatement()) {
 
             // Retrieve data using Statement (replace with prepared statements for security)
