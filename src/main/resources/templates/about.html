@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/styles/about.css">
+</head>
+<header>
+  <div class="nav-bar">
+    <img
+      loading="lazy"
+      src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5cfa9932a7636bec8bac9448173a3083a2c97404f57a64abc1846b2edaa257b?"
+      class="logo"
+      alt = ""
+    />
+    <span class="nav-buttons">
+
+      <a class="nav-button">Home</a>
+
+      <a class="nav-button">Mission Statement</a>
+
+      <span class="high-level">
+        <a class="nav-button">High-level data</a>
+
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/050b26ab6fbd675b7dba27b49dbb0ae8ba3c528b8fd5a6bf25dbb16674aeffe3?"
+          class="arrow"
+          alt = ""
+        />
+      </span>
+
+      <span class="deep-dive">
+        <a class="nav-button">Deep-dive data</a>
+
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/28f13acdbde9dba3cdf3bec2e9f8084237a54fe02164c471d28a8c76f5f30306?"
+          class="arrow"
+          alt = ""
+        />
+      </span>
+    </span>
+  </div>
+</header>
+
+<body>
+  <div class="missions">
+    <span class="mission-title">OUR MISSIONS</span>
+    <br><br>
+    <div class="mission-holder">
+      <div class="column">
+            <span class="mission-box">
+              <span class="mission-header">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1b1ad5390e9a29f4cea4211be53cd1d0e4cb8571c07d0bef44efdf61786d7509?"
+                        class="leaf-img"
+                        alt = ""
+                />
+                <div class="mission-titles">Public Awareness</div>
+              </span>
+              <div class="mission-content">
+                We hope to raise the public's awareness on current global warming reality. By offering comprehensive data for everyone, we aim to show global warming in the most accurate way and promote clean practices to the environment for a greener future.
+              </div>
+            </span>
+      </div>
+      <div class="column">
+            <span class="mission-box">
+              <span class="mission-header">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8c90be41f7e084048096f7a03aa8fde96009397c38a61d05be1fff135c3f8c59?"
+                        class="leaf-img"
+                        alt = ""
+                />
+                <div class="mission-titles">Promote transparency</div>
+              </span>
+              <div class="mission-content">
+                Our mission is to provide a platform where scientists, policymakers, and the public can access accurate and relevant statistics to better understand the complex relationships between population and temperature, and the reality of today's global warming.
+              </div>
+            </span>
+      </div>
+      <div class="column">
+            <span class="mission-box">
+              <span class="mission-header">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f14abd83b4a8465159b47b9a38de24874b16b5331dbe85a3fa3571e5ed3233b2?"
+                        class="leaf-img"
+                        alt= ""
+                />
+                <div class="mission-titles">Sparking change</div>
+              </span>
+              <div class="mission-content">
+                We aim to create a positive shift in attitude and behavior towards the environment. By delivering insightful data on climate change, we hope to influence everyone to make more conscious decisions about the world, for a better tomorrow.
+              </div>
+            </span>
+      </div>
+    </div>
+  </div>
+
+  <span class="functions">
+      <div class="function-title">
+        <span style="font-weight: 400; color: #3f6735;">Site</span>
+        <br>
+        <span style="font-weight: 400; color: #498839;">Functionalities</span>
+        <br />
+      </div>
+
+      <div class="outer-function-container">
+        <div class="inner-function-container">
+          <div class="func-text-container">
+            <div class="function-text">
+               Explore the dynamic relationship between temperature and population changes on our website.
+              Easily extract precise temperature and population data from our large database, spanning various regions and time periods.
+              Customize your analysis by choosing specific timeframes and regions (global/ country/ city/ state) for a deeper look into the data.
+            </div>
+          </div>
+          <div class="func-img-container">
+              <img
+                      loading="lazy"
+                      src="/images/function1.png"
+                      class="function-img"
+                      alt=""
+              />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="outer-function-container">
+        <div class="inner-function-container">
+          <div class="func-img-container">
+              <img
+                      loading="lazy"
+                      src="/images/function2.png"
+                      class="function-img"
+                      alt=""
+              />
+          </div>
+          <div class="func-text-container">
+            <div class="function-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc semper
+              vel orci in fringilla. Vivamus fringilla, ipsum fringilla iaculis
+              dignissim, ex justo sagittis nibh, eget aliquet arcu ipsum a tortor
+            </div>
+          </div>
+        </div>
+      </div>
+    </span>
+
+  <span class="persona-container">
+      <div class="persona-title">
+        <span style="font-weight: 400">Target</span>
+        <br>
+        <span style="font-weight: 400; color: #498839;">Persona</span>
+        <br/>
+      </div>
+
+      <div th:each="persona, iteration :${personas}">
+        <span class="persona">
+          <div th:if="${iteration.index % 2 == 0}" class="persona-content">
+                  <h1 th:text="${persona.name}" ></h1>
+                  <h5>Background: <span th:text="${persona.background}"></span></h5>
+                  <h6>Goals: <span th:text="${persona.goals}"></span></h6>
+                  <h6>Needs: <span th:text="${persona.needs}"></span></h6>
+                  <h6>Frustration: <span th:text="${persona.frustration}"></span></h6>
+          </div>
+
+          <img
+                  th:if="${iteration.index % 2 == 0}"
+                  loading="lazy"
+                  th:src="@{'/images/' + ${#strings.replace(persona.name, ' ', '') + '.png'}}"
+                  class="persona-img"
+                  alt=""
+          />
+
+          <img
+                  th:unless="${iteration.index % 2 == 0}"
+                  loading="lazy"
+                  th:src="@{'/images/' + ${#strings.replace(persona.name, ' ', '') + '.png'}}"
+                  class="persona-img"
+                  alt=""
+          />
+
+          <div th:unless="${iteration.index % 2 == 0}" class="persona-content">
+                  <h1 th:text="${persona.name}" ></h1>
+                  <h5>Background: <span th:text="${persona.background}"></span></h5>
+                  <h6>Goals: <span th:text="${persona.goals}"></span></h6>
+                  <h6>Needs: <span th:text="${persona.needs}"></span></h6>
+                  <h6>Frustration: <span th:text="${persona.frustration}"></span></h6>
+          </div>
+
+      </span>
+      </div>
+  </span>
+    <span class="member-container">
+      <div class="member-title">
+        <span style="font-weight: 400">Our team members</span>
+        <br />
+      </div>
+
+      <div class="row" >
+        <span class="members-box" th:each="student, iteration : ${students}">
+                <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d5442b5578bfceef4fcdd5461f1e70f710e3b8921a2e9cff2b97476f27873560?"
+                        class="member-icon"
+                        alt=""
+                />
+
+                <div class="member-name" th:text="${student.name}"></div>
+
+                <div class="member-id" th:text="${student.sId}"></div>
+        </span>
+      </div>
+
+    </span>
+</body>
+
+  
