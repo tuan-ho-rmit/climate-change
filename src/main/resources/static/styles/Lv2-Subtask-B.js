@@ -96,7 +96,7 @@ $(function() {
     });
 
 });
-    document.getElementById('dataSection').style.display = 'none';
+document.getElementById('dataSection').style.display = 'none';
     document.getElementById('filterSection').style.display = 'block';
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -110,18 +110,30 @@ $(function() {
         });
     });
 
+        var paginationItems = document.querySelectorAll('.paginationItem');
+        paginationItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                onPageChange(parseInt(item.textContent));
+            });
+        });
+
     function applyQuery() {
         var country = document.getElementById('tagsCountry').value;
         var startYear = document.getElementById('tagsYearStart').value;
         var endYear = document.getElementById('tagsYearEnd').value;
         var colorRadio = document.querySelector('input[name="colorRadio"]:checked').value;
 
+        var page = 1;
+        var pageSize = 10;
+
         var url = '/applyQuery?Country=' + encodeURIComponent(country) +
                   '&StartYear=' + encodeURIComponent(startYear) +
                   '&EndYear=' + encodeURIComponent(endYear) +
-                  '&colorRadio=' + encodeURIComponent(colorRadio);
+                  '&colorRadio=' + encodeURIComponent(colorRadio)+
+                  '&page=' + encodeURIComponent(page) +
+                  '&pageSize=' + encodeURIComponent(pageSize);
 
-        history.pushState({ page: 1 }, "Filtered Data", url);
+        history.pushState({ page: page, pageSize: pageSize }, "Filtered Data", url); // Store page and pageSize in history state
         loadData(url);
     }
 
@@ -192,7 +204,7 @@ $(function() {
         var endYear = document.getElementById('tagsYearEnd').value;
 
         // Country validation (characters only)
-        var countryPattern = /^[A-Za-z]+$/;
+        var countryPattern = /^[a-zA-Z\s\-]+$/;
         if (!countryPattern.test(country)) {
             alert('Please enter a valid country name (only characters are allowed).');
             return false;
@@ -207,3 +219,35 @@ $(function() {
 
         return true;
     }
+
+
+    function onPageChange(newPage) {
+        console.log('Page changed to: ' + newPage);
+        var state = history.state || {};
+        var page = state.page || 1; // Get current page from history state, default to 1 if not set
+        var pageSize = state.pageSize || 10; // Get current pageSize from history state, default to 10 if not set
+
+        if (newPage === 'prev') {
+            page = Math.max(page - 1, 1); // Decrement page number, ensuring it's at least 1
+        } else if (newPage === 'next') {
+            page++; // Increment page number
+        } else {
+            page = parseInt(newPage); // Set page number to the clicked page
+        }
+
+        var country = document.getElementById('tagsCountry').value;
+        var startYear = document.getElementById('tagsYearStart').value;
+        var endYear = document.getElementById('tagsYearEnd').value;
+        var colorRadio = document.querySelector('input[name="colorRadio"]:checked').value;
+
+        var url = '/applyQuery?Country=' + encodeURIComponent(country) +
+                  '&StartYear=' + encodeURIComponent(startYear) +
+                  '&EndYear=' + encodeURIComponent(endYear) +
+                  '&colorRadio=' + encodeURIComponent(colorRadio) +
+                  '&page=' + encodeURIComponent(page) +
+                  '&pageSize=' + encodeURIComponent(pageSize);
+
+        history.pushState({ page: page, pageSize: pageSize }, "Filtered Data", url); // Update history state with new page and pageSize
+        loadData(url);
+    }
+

@@ -51,13 +51,16 @@ public class Level2SubtaskBController {
     public List<Table1> applyQuery(@RequestParam("Country") String value1,
                                    @RequestParam("StartYear") int value2,
                                    @RequestParam("EndYear") int value3,
-                                   @RequestParam("colorRadio") String colorRadio) {
+                                   @RequestParam("colorRadio") String colorRadio,
+                                   @RequestParam("page") int page,
+                                   @RequestParam("pageSize") int pageSize) {
+
+        int offset = (page - 1) * pageSize;
 
         List<Table1> retrievedData = new ArrayList<>();
 
-
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
-             PreparedStatement pst = con.prepareStatement(buildDynamicQuery(colorRadio, value1, value2, value3))) {
+             PreparedStatement pst = con.prepareStatement(buildDynamicQuery(colorRadio, value1, value2, value3, offset, pageSize))) {
 
             validateInputs(value1, value2, value3);
 
@@ -78,7 +81,7 @@ public class Level2SubtaskBController {
         }
     }
 
-    private String buildDynamicQuery(String colorRadio, String countryName, int startYear, int endYear) {
+    private String buildDynamicQuery(String colorRadio, String countryName, int startYear, int endYear, int offset, int pageSize) {
         String selectField;
         String joinTable;
         if (colorRadio.equals("city")) {
@@ -89,7 +92,7 @@ public class Level2SubtaskBController {
             joinTable = "state";
         }
 
-        return "SELECT " +
+        String baseQuery = "SELECT " +
                 selectField + ", " +
                 "ROUND(AVG(t.average_temperature) - LAG(AVG(t.average_temperature), 1, 0) OVER (PARTITION BY YEAR(t.year) ORDER BY YEAR(t.year)), 2) AS abs_avg_temperature_change, " +
                 "ROUND(MAX(t.maximum_temperature) - LAG(MAX(t.maximum_temperature), 1, 0) OVER (PARTITION BY YEAR(t.year) ORDER BY YEAR(t.year)), 2) AS abs_max_temperature_change, " +
@@ -103,6 +106,8 @@ public class Level2SubtaskBController {
                 selectField + ", YEAR(t.year) " +
                 "ORDER BY " +
                 selectField + ", YEAR(t.year)";
+
+        return baseQuery + " LIMIT " + offset + ", " + pageSize;
     }
 
 
