@@ -3,8 +3,8 @@ $(document).ready(function() {
         $("#globalTemperatureYearRange").text(data.globalTemperatureYearRange);
         $("#earliestGlobalTemperatureYear").text(data.earliestGlobalTemperatureYear);
         $("#latestGlobalTemperatureYear").text(data.latestGlobalTemperatureYear);
-        $("#earliestGlobalTempYear").text(data.earliestGlobalTemperatureYear);
-        $("#latestGlobalTempYear").text(data.latestGlobalTemperatureYear);
+        $("#earliestGlobalTempYear").text(data.earliestGlobalTempYear);
+        $("#latestGlobalTempYear").text(data.latestGlobalTempYear);
         $("#averageTemperatureEarliestYear").text(data.averageTemperatureEarliestYear);
         $("#averageTemperatureLatestYear").text(data.averageTemperatureLatestYear);
         $("#populationYearRange").text(data.populationYearRange);
@@ -14,5 +14,7 @@ $(document).ready(function() {
         $("#latestPopYear").text(data.latestPopYear);
         $("#earliestPopulationNumber").text(data.earliestPopulationNumber);
         $("#latestPopulationNumber").text(data.latestPopulationNumber);
+        $("#totalYearPop").text(data.totalYearPop);
+        $("#totalYearGlobal").text(data.totalYearGlobal);
     });
 });

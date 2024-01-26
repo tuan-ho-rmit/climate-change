@@ -45,14 +45,16 @@ public class Level1SubtaskAController {
             String latestPopYear = executeQueryAndGetFirstResult(stmt, "SELECT MAX(year) FROM population WHERE country_id = 208");
             String earliestPopulationNumber = executeQueryAndGetFirstResult(stmt, "SELECT population_number FROM population WHERE year = (SELECT MIN(year) FROM population) AND country_id = 208");
             String latestPopulationNumber = executeQueryAndGetFirstResult(stmt, "SELECT population_number FROM population WHERE year = (SELECT MAX(year) FROM population) AND country_id = 208");
+            String totalYearPop = executeQueryAndGetFirstResult(stmt, "SELECT COUNT(year) FROM population WHERE country_id = 208");
+            String totalYearGlobal = executeQueryAndGetFirstResult(stmt, "SELECT COUNT(year) FROM temperature WHERE global_id = 1");
 
             Map<String, Object> data = new HashMap<>();
 
             data.put("globalTemperatureYearRange", globalTemperatureYearRange);
             data.put("earliestGlobalTemperatureYear", earliestGlobalTemperatureYear);
             data.put("latestGlobalTemperatureYear", latestGlobalTemperatureYear);
-            data.put("earliestGlobalTempYear", earliestGlobalTemperatureYear);
-            data.put("latestGlobalTempYear", latestGlobalTemperatureYear);
+            data.put("earliestGlobalTempYear", earliestGlobalTempYear);
+            data.put("latestGlobalTempYear", latestGlobalTempYear);
             data.put("averageTemperatureEarliestYear", averageTemperatureEarliestYear);
             data.put("averageTemperatureLatestYear", averageTemperatureLatestYear);
             data.put("populationYearRange", populationYearRange);
@@ -62,7 +64,8 @@ public class Level1SubtaskAController {
             data.put("earliestPopYear", earliestPopYear);
             data.put("earliestPopulationNumber", earliestPopulationNumber);
             data.put("latestPopulationNumber", latestPopulationNumber);
-
+            data.put("totalYearPop", totalYearPop);
+            data.put("totalYearGlobal", totalYearGlobal);
 
             return data;
         } catch (SQLException e) {
