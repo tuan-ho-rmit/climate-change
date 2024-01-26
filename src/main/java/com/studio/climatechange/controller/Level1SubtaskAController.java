@@ -11,7 +11,6 @@ package com.studio.climatechange.controller;
 
 @Controller
 public class Level1SubtaskAController {
-
     @Value("${spring.datasource.url}")
     private String jdbcUrl;
 
