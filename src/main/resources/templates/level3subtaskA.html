@@ -10,6 +10,70 @@
 </head>
 
 <body>
+    <div class="header">
+        <a th:href="@{/LandingPage}" class="logo">
+            <img src="/images/logo.png">
+        </a>
+
+        <nav class="navbar">
+
+            <div><a th:href="@{LandingPage}">Home</a></div>
+            <a href="#">Mission Statement</a>
+            <div class="container">
+                <a href="#">High-level data
+                    <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z"
+                            fill="white" />
+                    </svg>
+                </a>
+                <ul class="drop-down">
+                    <div class="li-container">
+                        <li>
+                            <div class="li-inner-container">
+                                <div class="li-content">Subtask A</div>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{Lv2-Subtask-B}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Subtask B</div>
+                                </div>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <div class="container">
+                <a href="#">Deep-dive data
+                    <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z"
+                            fill="white" />
+                    </svg>
+                </a>
+                <ul class="drop-down">
+                    <div class="li-container">
+                        <li>
+                            <div class="li-inner-container">
+                                <div class="li-content">Subtask A</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="li-inner-container">
+                                <div class="li-content">Subtask B</div>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+
+        </nav>
+
+    </div>
+
     <div class="page-container">
         <form th:action="@{/deep-dive/subtask-a}" method="get">
             <div class="filter">

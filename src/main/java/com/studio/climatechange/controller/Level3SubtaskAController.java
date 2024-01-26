@@ -48,6 +48,7 @@ public class Level3SubtaskAController {
         regions.add(new Region("Country", 1, true));
         regions.add(new Region("State", 2, false));
         regions.add(new Region("City", 3, false));
+        regions.add(new Region("Global", 4, false));
 
         for (Region region : regions) {
             if (region.getName().equals(regionName)) {
@@ -92,6 +93,11 @@ public class Level3SubtaskAController {
         } else {
             selectedRegion = "state";
             selectedId = "state_id";
+        }
+
+        if("Global".equals(region)) {
+            selectedRegion = "global";
+            selectedId = "global_id";
         }
 
         StringBuilder query = new StringBuilder("WITH ");
@@ -183,6 +189,10 @@ public class Level3SubtaskAController {
         } else {
             selectedRegion = "state";
             selectedId = "state_id";
+        }
+        if("Global".equals(region)) {
+            selectedRegion = "global";
+            selectedId = "global_id";
         }
 
         StringBuilder query = new StringBuilder("WITH ");
