@@ -34,4 +34,8 @@ public class Persona {
     public String getNeeds() {
         return needs;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
