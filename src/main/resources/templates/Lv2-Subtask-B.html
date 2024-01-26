@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-level data</title>
+    <link rel = "stylesheet" th:href = "@{styles/Lv2-Subtask-B.css}">
+    <link rel = "stylesheet" th:href= "@{https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css}">
+    <link rel="stylesheet" th:href="@{//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css}">
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+</head>
+<body>
+    <div class = "header">
+        <a th:href = "@{LandingPage}" class = "logo">
+            <img src = "images/logo.png">
+                </a>
+        
+        <nav class = "navbar">
+
+            <div><a th:href = "@{LandingPage}">Home</a></div>
+            <a href = "#">Mission Statement</a>
+            <div class = "container">
+                <a href = "#">High-level data
+                    <svg class = "icon" width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z" fill="white"/>
+                        </svg>        
+                </a>
+                <ul class="drop-down">
+                    <div class = "li-container">
+                    <li>
+                        <div class = "li-inner-container">
+                            <div class = "li-content">Subtask A</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class = "li-inner-container">
+                            <div class = "li-content">Subtask B</div>
+                        </div>
+                    </li>
+                    </div>
+                </ul>
+            </div>
+            <div class = "container">
+                <a href = "#">Deep-dive data
+                    <svg class = "icon" width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z" fill="white"/>
+                        </svg>
+                </a>
+                <ul class="drop-down">
+                    <div class = "li-container">
+                    <li>
+                        <div class = "li-inner-container">
+                                <div class = "li-content">Subtask A</div>
+                        </div>
+                    </li>
+                    <li>
+                        <a class = "link" th:href = "@{Lv2-Subtask-B}">
+                        <div class = "li-inner-container">
+                                <div class = "li-content">Subtask B</div>
+                        </div>
+                        </a>
+                    </li>
+                    </div>
+                </ul>
+            </div>
+
+        </nav>
+
+    </div>
+
+    <div class = "Main-Content">
+            <div class = "big-block-1">
+                <div class = "block-1">High-level data</div>
+                <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 0.833292L5.66667 5.49996L1 10.1666" stroke="#51AB3B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                    
+                <div class = "block-2">Subtask B</div>
+            </div>
+        <!-- <form th:action = "@{Lv2-Subtask-B}" method = "POST"></form>  -->
+        <form th:action = "@{/applyQuery}" id = "applyForm" method = "GET" class = "Section-1">
+            
+            <div class = "big-block-2">
+                <div class = "block-3">
+                    <div class = "icon-container">
+                    <i class="fa-solid fa-bars-filter fa-lg" style="color: #74C0FC;"></i>
+                    </div>
+                    <div class = "block-4">Filter</div>
+                </div>
+                <div class = "big-block-3">
+                    <label class = "block-5" for = "tagsCountry">Country</label>
+                    <div class = "block-6" onclick="document.getElementById('tagsCountry').focus();">
+                        <input id = "tagsCountry" type = "text" placeholder = "Country" name = "Country" required>
+                        <svg class = "dropdown-icon" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
+                            </svg>                       
+                    </div>
+                </div>
+                <div class = "big-block-4">
+                    <label class = "block-8" for = "tagsYearStart">Start Year</label>
+                    <div class = "block-9" onclick="document.getElementById('tagsYearStart').focus();">
+                        <input id = "tagsYearStart" type = "text" placeholder = "Start" name = "StartYear" required>
+                        <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
+                            </svg>                          
+                    </div>
+                </div>
+                <div class = "big-block-5">
+                    <label class = "block-11" for = "tagsYearEnd">End Year</label>
+                    <div class = "block-12" onclick="document.getElementById('tagsYearEnd').focus();">
+                        <input id = "tagsYearEnd" type = "text" placeholder = "End" name = "EndYear" required>
+                        <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
+                            </svg> 
+                        </div>                            
+                    </div>
+            </div>
+
+                <div class = big-block-6>
+                    
+                    <div class = "button-container">
+                            <label class="custom-radio">
+                                <input type="radio" name="colorRadio" value = "city" required>
+                                <div class="radio-button"></div> City
+                            </label>          
+                            
+                            <label class="custom-radio">
+                                <input type="radio" name="colorRadio" value = "state" required>
+                                <div class="radio-button"></div> State
+                            </label>     
+                    </div>
+                    <div class = btn-container>
+
+                        <button class = "button" type = "reset" id = "reset-button">
+                            <div class = "inside-button">Reset</div>
+                        </button>
+
+                        <button class = "button" type = "submit" id = "apply-button" onclick = "applyQuery()">
+                            <div class = "inside-button">Apply</div>
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+
+        <div class="Section-2" id="dataSection">
+                <table id="resultTable">
+                    <thead>
+                    <tr class="header-row">
+                        <th class="header-cell">Name</th>
+                        <th class="header-cell">Average Temperature</th>
+                        <th class="header-cell">Maximum Temperature</th>
+                        <th class="header-cell">Minimum Temperature</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Table rows will be dynamically added here using JavaScript -->
+                    </tbody>
+                </table>
+
+
+            <div class="pagination">
+                <div class="paginationItem" id="selected">1</div>
+                <div class="paginationItem">2</div>
+                <div class="paginationItem">3</div>
+            </div>
+
+        </div>
+
+        <div class="Section-2" id="filterSection">
+            <div class="middle-block">
+                <img src="images/Empty State 1.png" alt="placeholder-image">
+                <div class="small-block-1">Filter To Display Data</div>
+            </div>
+        </div>
+
+    </div>
+    <script src = "styles/Lv2-Subtask-B.js"></script>
+</body>
+</html>
