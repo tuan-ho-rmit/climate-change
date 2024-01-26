@@ -1,8 +1,10 @@
 package com.studio.climatechange.controller;
 
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +12,15 @@ import java.util.List;
 
 @Controller
 public class Level2SubtaskBController {
+
+    @Value("${spring.datasource.url}")
+    private String jdbcUrl;
+
+    @Value("${spring.datasource.username}")
+    private String username;
+
+    @Value("${spring.datasource.password}")
+    private String password;
 
     @GetMapping(value = {"/Lv2-Subtask-B"})
     public String highlevelData() {
@@ -31,7 +42,7 @@ public class Level2SubtaskBController {
     private String autoComplete(String term, String query) {
         List<String> list = new ArrayList<>();
 
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
+        try (Connection con = DriverManager.getConnection(jdbcUrl, username, password);
              PreparedStatement pst = con.prepareStatement(query)) {
             pst.setString(1, "%" + term + "%");
             ResultSet rs = pst.executeQuery();
@@ -55,12 +66,13 @@ public class Level2SubtaskBController {
                                    @RequestParam("page") int page,
                                    @RequestParam("pageSize") int pageSize) {
 
+
         int offset = (page - 1) * pageSize;
 
         List<Table1> retrievedData = new ArrayList<>();
 
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/climatechange", "root", "123456789");
-             PreparedStatement pst = con.prepareStatement(buildDynamicQuery(colorRadio, value1, value2, value3, offset, pageSize))) {
+        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+             PreparedStatement pst = connection.prepareStatement(buildDynamicQuery(colorRadio, value1, value2, value3, offset, pageSize))) {
 
             validateInputs(value1, value2, value3);
 
