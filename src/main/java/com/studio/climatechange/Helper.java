@@ -19,32 +19,15 @@ public class Helper {
     private static final int CHUNK_SIZE = 10000; // Adjust based on your file size and memory availability
 
     public static void main(String[] args) {
-        List<String> csvFiles = List.of("Student.csv", "Persona.csv", "Country.csv", "City.csv", "State.csv", "Population.csv", "Global.csv", "Temp.csv");
-        List<String> tableNames = List.of("Student", "Persona", "Country", "City", "State", "Population", "Global", "Temperature");
+        List<String> csvFiles = List.of("Student.csv", "Persona.csv", "Country.csv", "City.csv", "State.csv", "Population.csv", "Global.csv","Temp.csv");
+        List<String> tableNames = List.of("Student", "Persona", "Country", "City", "State", "Population", "Global","Temperature");
 
         for (int i = 0; i < csvFiles.size() - 1; i++) { // Process all files except Temperature.csv
             insertCsvIntoTable(csvFiles.get(i), tableNames.get(i));
         }
 
         // Process Temperature.csv with chunk processing
-        processTemperatureFile("C:\\Users\\Admin\\Downloads\\climate-change-develop\\climate-change-develop\\data\\Temperature.csv");
-    }
-
-    private static void processTemperatureFile(String filePath) {
-        try {
-            List<String[]> csvChunks = splitCsvFileIntoChunks(filePath, CHUNK_SIZE);
-
-            ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
-            for (String[] chunk : csvChunks) {
-                executor.submit(() -> processAndInsertChunk(chunk, JDBC_URL, USERNAME, PASSWORD));
-            }
-
-            executor.shutdown();
-            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        processTemperatureFile("E:\\Github\\climate-change\\data\\Temperature.csv");
     }
     private static String createInsertStatement(String tableName, String[] columnNames) {
         StringJoiner columns = new StringJoiner(", ");
@@ -64,7 +47,7 @@ public class Helper {
     }
 
     private static void insertCsvIntoTable(String csvFile, String tableName) {
-        String filePath = "C:\\Users\\Admin\\Downloads\\climate-change-develop\\climate-change-develop\\data\\" + csvFile;
+        String filePath = "E:\\Github\\climate-change\\data\\" + csvFile;
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              BufferedReader lineReader = new BufferedReader(new FileReader(filePath))) {
@@ -99,9 +82,27 @@ public class Helper {
             e.printStackTrace();
         }
     }
+    private static void processTemperatureFile(String filePath) {
+        try {
+            List<String[]> csvChunks = splitCsvFileIntoChunks(filePath, CHUNK_SIZE);
+
+            ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+            for (String[] chunk : csvChunks) {
+                executor.submit(() -> processAndInsertChunk(chunk, JDBC_URL, USERNAME, PASSWORD));
+            }
+
+            executor.shutdown();
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private static void processAndInsertChunk(String[] chunk, String jdbcURL, String username, String password) {
         String sql = "INSERT INTO temperature (id, average_temperature, minimum_temperature, maximum_temperature, Year, country_id, city_id, state_id, global_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+        System.out.println("SQL: INSERT INTO temperature (id, average_temperature, minimum_temperature, maximum_temperature, Year, country_id, city_id, state_id, global_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)" );
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password);
              Statement stmt = connection.createStatement();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -126,9 +127,10 @@ public class Helper {
 
             statement.executeBatch();
             connection.commit();
-
             // Re-enable foreign key checks
             stmt.execute("SET FOREIGN_KEY_CHECKS=1");
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
