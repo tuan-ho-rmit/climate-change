@@ -67,33 +67,46 @@ $(function() {
                 }
             });
         },
-        open: function() {
+        open: function(event, ui) {
 
-            var widget = $(this).autocomplete("widget");
-            
-            widget.css ({
-                "max-height": "200px",  // Set your desired max-height
-                "overflow-y": "auto",
-                "overflow-x": "hidden",
-                "background-color": "#fff",
-                "border-radius": "8px"
-            });
+                    var widget = $(this).autocomplete("widget");
 
-            widget.find("li").css({
-                "color": "#000",
-                "font-family": "Inter",
-                "font-size": "14px",
-                "font-style": "normal",
-                "font-weight": "400",
-                "line-height": "normal",
-                "cursor": "pointer",
-                "padding": "5px",
-                "gap": "5px",
-                "background-color": "#fff",
-            });
+                    widget.css({
+                        "max-height": "200px",
+                        "overflow-y": "auto",
+                        "overflow-x": "hidden",
+                        "background-color": "#fff",
+                        "border-radius": "8px"
+                    });
 
-        }
-    });
+                    widget.find("li").css({
+                        "color": "#000",
+                        "font-family": "Inter",
+                        "font-size": "14px",
+                        "font-style": "normal",
+                        "font-weight": "400",
+                        "line-height": "normal",
+                        "cursor": "pointer",
+                        "padding": "5px",
+                        "gap": "5px",
+                        "background-color": "#fff",
+                    });
+
+                widget.on("menucreate", function() {
+                    $(this).find(".ui-menu .ui-menu-item").hover(
+                        function() {
+                            $(this).css("background-color", "#EEEEEE !important"); // Use !important only if necessary
+                        },
+                        function() {
+                            $(this).css("background-color", "#fff");
+                        }
+                    );
+                });
+
+            }
+        });
+
+
 
     $("#tagsYearEnd").autocomplete({
             source: function(request, response) {
@@ -109,41 +122,100 @@ $(function() {
                     }
                 });
             },
-            open: function() {
+            open: function(event, ui) {
 
-                var widget = $(this).autocomplete("widget");
+                        var widget = $(this).autocomplete("widget");
 
-                widget.css ({
-                    "max-height": "200px",  // Set your desired max-height
-                    "overflow-y": "auto",
-                    "overflow-x": "hidden",
-                    "background-color": "#fff",
-                    "border-radius": "8px"
-                });
+                        widget.css({
+                            "max-height": "200px",
+                            "overflow-y": "auto",
+                            "overflow-x": "hidden",
+                            "background-color": "#fff",
+                            "border-radius": "8px"
+                        });
 
-                widget.find("li").css({
-                    "color": "#000",
-                    "font-family": "Inter",
-                    "font-size": "14px",
-                    "font-style": "normal",
-                    "font-weight": "400",
-                    "line-height": "normal",
-                    "cursor": "pointer",
-                    "padding": "5px",
-                    "gap": "5px",
-                    "background-color": "#fff",
-                });
+                        widget.find("li").css({
+                            "color": "#000",
+                            "font-family": "Inter",
+                            "font-size": "14px",
+                            "font-style": "normal",
+                            "font-weight": "400",
+                            "line-height": "normal",
+                            "cursor": "pointer",
+                            "padding": "5px",
+                            "gap": "5px",
+                            "background-color": "#fff",
+                        });
 
-            }
+                    widget.on("menucreate", function() {
+                        $(this).find(".ui-menu .ui-menu-item").hover(
+                            function() {
+                                $(this).css("background-color", "#EEEEEE !important"); // Use !important only if necessary
+                            },
+                            function() {
+                                $(this).css("background-color", "#fff");
+                            }
+                        );
+                    });
+
+                }
+            });
+
+        // Add this JavaScript function to show the dropdown list and fetch data
+        $(document).ready(function() {
+            // Function to show the dropdown list when the countryDropdownIcon is clicked
+            $("#countryDropdownIcon").click(function(event) {
+                event.stopPropagation(); // Prevents the click event from bubbling up
+
+                var dropdown = $("#dropdownCountry");
+                if (dropdown.css("display") === "none") {
+                    // Show the dropdown if it's hidden
+                    dropdown.show();
+
+                    // Fetch data from the server
+                    $.ajax({
+                        url: "/fetch/countries",
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            // Populate the dropdown with options
+                            dropdown.empty();
+                            $.each(data, function(index, value) {
+                                dropdown.append($("<div>").text(value).addClass("dropdown-item"));
+                            });
+
+                            // Handle click event for dropdown items
+                            dropdown.on("click", ".dropdown-item", function() {
+                                var selectedOption = $(this).text();
+                                $("#tagsCountry").val(selectedOption);
+                                dropdown.hide();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            console.error("Error fetching countries:", error);
+                        }
+                    });
+                } else {
+                    // Hide the dropdown if it's already visible
+                    dropdown.hide();
+                }
+            });
+
+            // Function to hide the dropdown list when clicking outside of it
+            $(document).click(function() {
+                $("#dropdownCountry").hide();
+            });
         });
 
-});
+
+    });
 
 document.getElementById('dataSection').style.display = 'none';
 document.getElementById('noDataSection').style.display = 'none';
 document.getElementById('filterSection').style.display = 'block';
 
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('applyForm').addEventListener('submit', function (event) {
         event.preventDefault();
         if (validateForm()) {

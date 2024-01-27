@@ -224,8 +224,39 @@ html {
 }
 
 .big-block-2 svg {
-        height: 16px !important;
-        width: 8px !important;
+    height: 16px !important;
+    width: 8px !important;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14px !important;
+    height: 16px !important;
+}
+
+#dropdownCountry {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #fff;
+    border-radius: 8px;
+    z-index: 100;
+}
+
+.dropdown-item {
+    color: #000;
+    font-family: "Inter";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+    padding: 5px;
+    gap: 5px;
+    background-color: #fff;
+    z-index: 100;
 }
 
 .block-3 {
@@ -299,7 +330,7 @@ input {
     line-height: normal;
     border: none;
     outline: none;
-    width: 100%;
+    width: 90%;
     height: 100%;
 }
 

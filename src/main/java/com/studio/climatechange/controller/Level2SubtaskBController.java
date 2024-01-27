@@ -57,6 +57,28 @@ public class Level2SubtaskBController {
         return new Gson().toJson(list);
     }
 
+    @GetMapping("/fetch/countries")
+    @ResponseBody
+    public String fetchCountries() {
+        List<String> countries = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(jdbcUrl, username, password)) {
+            String sql = "SELECT name FROM country ORDER BY name";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        countries.add(rs.getString("name"));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new Gson().toJson(countries);
+    }
+
+
+
     @GetMapping(value = "/applyQuery")
     @ResponseBody
     public List<Table1> applyQuery(@RequestParam("Country") String value1,
