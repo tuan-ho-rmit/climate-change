@@ -9,7 +9,6 @@ import java.util.Set;
 @Table(name ="country")
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;

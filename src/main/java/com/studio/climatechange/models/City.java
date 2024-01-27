@@ -9,12 +9,11 @@ import java.util.Set;
 @Table(name ="city")
 public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
-    private double latitude;
-    private double longitude;
+    private String latitude;
+    private String longitude;
     @ManyToOne
     @JoinColumn(name ="countryId", nullable = false)
     private Country country;
@@ -30,10 +29,10 @@ public class City {
         return name;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 }

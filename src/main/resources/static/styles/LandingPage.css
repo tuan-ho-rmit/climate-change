@@ -1,0 +1,454 @@
+:root {
+    --primary-color: #4CAF4F;
+    --background-color-1: #51AB3B26;
+    --nav-color: #fff;
+    --background-color-2: #F4F7FA;
+    --text-color: #000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter";
+}
+
+html {
+    font-size: 10px;
+}
+
+.header {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    height: 8rem;
+    width: 100%;
+    padding: 1.6rem 4rem;
+    background: var(--primary-color);
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100; 
+}
+
+.logo, .navbar a {
+    color: var(--nav-color);
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal; 
+}
+
+.logo svg{
+    fill: var(--Primary-80, #486856);
+    flex-shrink: 0; 
+    width: 4rem;
+    height: 4rem;
+}
+
+.navbar {
+    display: flex;
+    width: auto;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    gap: 5.6rem;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.container:hover .drop-down {
+    display: block;
+}
+
+.container a {
+    display: flex;
+    align-items: center;
+}
+
+.container .icon {
+    vertical-align: middle;
+    padding-left: 4px;
+    font-size: 18px;
+    position: relative;
+    right: -5px;
+    transform: rotate(0deg);
+    transition: 0.3s ease-in-out all;
+}
+
+.container:hover .icon {
+    transform: rotate(180deg);
+}
+
+.drop-down li:hover {
+    background: #EEEEEE;
+    color: black;
+    transition: 0.3s ease-in-out all;
+}
+
+.drop-down {
+    position: absolute;
+    display: flex;
+    width: 14.8rem;
+    padding: 0.8rem 0rem;
+    flex-direction: column;
+    align-items: flex-start;
+    background: white;
+    color: black;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 0.8rem;
+    display: none;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+}
+
+.drop-down li {
+    list-style: none;
+    height: 100%;
+    width: auto;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.li-inner-container {
+    display: flex;
+    padding: 0.8rem 1.6rem;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    align-self: stretch;
+}
+
+.li-content {
+    color: #000;
+    font-family: "Inter";
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: auto;
+    height: auto;
+}
+
+.link {
+    display: block;
+    text-decoration: none;
+}
+
+.Section-1 {
+    margin-top: 8rem;
+    display: flex;
+    width: 144rem;
+    height: 60rem;
+    padding: 4rem 8rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color-2);
+}
+
+.Content-1 {
+    display: flex;
+    width: 62.6rem;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.4rem;
+    align-self: stretch;
+    font-family: "Inter";
+}
+
+.block-1 {
+    width: 62.6rem;
+    height: auto;
+    font-family: "Inter";
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 5rem;
+}
+
+.block-2 {
+    width: 62.6rem;
+    height: auto;
+    color: var(--text-color);
+    font-family: "Inter";
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 5rem;
+}
+
+.title-part-one {
+    color: var(--text-color);
+}
+.title-part-two {
+    color: var(--primary-color);
+}
+.title-part-three {
+    display: inline-block;
+    color: var(--text-color);
+}
+.title-part-four {
+    display: inline-block;
+    color:var(--text-color);
+}
+.Content-1 .button {
+    display: flex;
+    padding: 0.8rem 2.4rem; 
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    border-radius: 0.4rem;
+    border-color: #fff;
+    background-color: var(--primary-color); 
+    color: var(--nav-color);
+    cursor: pointer; 
+}
+
+.Content-1 .button:hover {
+    background-color: green; 
+}
+
+.Content-2 {
+    width: 48rem;
+    height: 100%; 
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+.Content-2 img {
+    width: 48rem;
+    flex-shrink: 0;
+    align-self: stretch;
+    background: cover no-repeat;
+}
+.Section-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 144rem;
+    height: 40rem;
+    padding: 4rem;
+    gap: 8rem;
+    background-color: var(--background-color-1);
+}
+
+.Content-3, .Content-4 {
+    display: flex;
+    width: 27.6rem;
+    height: 100%;
+    padding: 2.4rem;
+    gap: 0.8rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    border: 1px solid var(--nav-color);
+    background-color: var(--nav-color);
+    border-radius: 0.8rem;
+    box-shadow: 0px 0.2rem 0.4rem 0px rgba(171, 190, 209, 0.20); 
+}
+
+.Content-3 {
+    margin-left: 325px;
+}
+
+.Content-4 {
+    margin-right: 325px;
+}
+
+.box {
+    display: flex;
+    width: 22.8rem;
+    height: 11.6rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    gap: 1.6rem;
+}
+
+.h1 {
+    width: 22.8rem;
+    height: 6rem;
+    align-self: stretch;
+    color: var(--primary-color);
+    text-align: center;
+    font-family: "Inter";
+    font-size: 2.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 3rem;
+}
+
+.h2 {
+    width: 22.8rem;
+    height: 6rem;
+    color: var(--Neutral-Grey, #717171);
+    text-align: center;
+    font-family: "Inter";
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.8rem;
+    gap: 20px;
+}
+
+.Section-3 {
+    display: flex;
+    width: 144rem;
+    height: 60rem;
+    padding: 4rem 8rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color-2);
+}
+
+.Content-5, .Content-9 {
+    display: flex;
+    width: 40rem;
+    height: 40rem;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.Content-5 img  {
+    width: 40rem;
+    height: 40rem;
+    transform: rotate(24deg);
+    flex-shrink: 0;
+    background: cover no-repeat;
+}
+
+.Content-6 {
+    display: flex;
+    width: 62.6rem;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.4rem;
+    align-self: stretch;
+}
+
+.block-3, .block-5, .block-7 {
+    width: 62.6rem;
+    color: var(--text-color);
+    font-family: "Inter";
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 5rem; 
+}
+
+.block-4, .block-6, .block-8 {
+    width: 62.6rem;
+    color: var(--text-color);
+    font-family: "Inter";
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 5rem;
+}
+
+.Section-4 {
+    display: flex;
+    width: 144rem;
+    height: 60rem;
+    padding: 4rem 8rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color-1);
+}
+
+.Content-7 {
+    display: flex;
+    width: 62.6rem;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.4rem;
+    align-self: stretch;
+    color: var(--text-color);
+}
+
+.Content-8 {
+    display: flex;
+    width: 40rem;
+    height: 40rem;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.Content-8 img {
+    width: 40rem;
+    height: 40rem;
+    flex-shrink: 0;
+    background: cover no-repeat;
+}
+
+.Section-5 {
+    display: flex;
+    width: 144rem;
+    height: 60rem;
+    padding: 4rem 8rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color-2);
+}
+
+.Content-9 img {
+    width: 40rem;
+    height: 40rem;
+    flex-shrink: 0;
+    background: cover no-repeat;
+}
+
+.Content-10 {
+    display: flex;
+    width: 62.6rem;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.4rem;
+    align-self: stretch;
+    color: var(--text-color)
+}
+
+#earliestPopulationYear,
+#latestPopulationYear,
+#earliestPopYear,
+#latestPopYear,
+#earliestPopulationNumber,
+#latestPopulationNumber,
+#earliestGlobalTemperatureYear,
+#latestGlobalTemperatureYear,
+#earliestGlobalTempYear,
+#latestGlobalTempYear,
+#averageTemperatureEarliestYear,
+#averageTemperatureLatestYear {
+        font-family: "Inter";
+        font-size: 1.4rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.8rem;
+}

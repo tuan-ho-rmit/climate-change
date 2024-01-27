@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
+
 import com.studio.climatechange.viewModel.level2SubtaskA.Level2SubtaskAViewModel;
 import com.studio.climatechange.viewModel.level2SubtaskA.Region;
 import com.studio.climatechange.viewModel.level2SubtaskA.Table;
+
 
 @Controller
 public class Level2subtaskAcontroller {
@@ -246,6 +248,7 @@ public class Level2subtaskAcontroller {
 
         if (selectedRegion == null)
             selectedRegion = new Region(1, "Country", true);
+
 
         model.addAttribute("selectedRegion", selectedRegion);
         model.addAttribute("modelView", modelView);

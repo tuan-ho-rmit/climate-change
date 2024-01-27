@@ -1,0 +1,12 @@
+#tempTable-container {
+    display: flex;
+    margin: 20px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+th:nth-child(even) {
+    background-color: #f9f9f9;
+}
