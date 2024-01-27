@@ -300,17 +300,45 @@ html {
     line-height: 3rem;
 }
 
-.h2 {
+.card-1 {
     width: 22.8rem;
-    height: 6rem;
+    height: auto;
     color: var(--Neutral-Grey, #717171);
     text-align: center;
     font-family: "Inter";
-    font-size: 1.4rem;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.8rem;
-    gap: 20px;
+}
+
+.card-2 {
+        width: 22.8rem;
+        height: auto;
+        color: var(--Neutral-Grey, #717171);
+        text-align: center;
+        font-family: "Inter";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.8rem;
+        margin-bottom: 10px;
+}
+
+.card-1 > span {
+      font-family: "Inter";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: bold !important;
+      line-height: 1.8rem;
+}
+
+.card-2 > span {
+      font-family: "Inter";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: bold !important;
+      line-height: 1.8rem;
 }
 
 .Section-3 {
@@ -438,24 +466,3 @@ html {
     color: var(--text-color)
 }
 
-#earliestPopulationYear,
-#latestPopulationYear,
-#earliestPopYear,
-#latestPopYear,
-#earliestPopulationNumber,
-#latestPopulationNumber,
-#earliestGlobalTemperatureYear,
-#latestGlobalTemperatureYear,
-#earliestGlobalTempYear,
-#latestGlobalTempYear,
-#averageTemperatureEarliestYear,
-#averageTemperatureLatestYear
-#totalYearGlobal,
-#totalYearPop{
-        font-family: "Inter";
-        font-size: 1.4rem;
-        font-style: normal;
-        font-weight: bold;
-        color: light-blue;
-        line-height: 1.8rem;
-}

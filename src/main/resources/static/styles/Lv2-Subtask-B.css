@@ -449,7 +449,7 @@ input {
 .middle-block {
     display: flex;
     width: auto;
-    height: auto;
+    height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
