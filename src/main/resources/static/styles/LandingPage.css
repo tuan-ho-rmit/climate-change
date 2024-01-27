@@ -322,23 +322,25 @@ html {
         font-style: normal;
         font-weight: 500;
         line-height: 1.8rem;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
 }
 
 .card-1 > span {
       font-family: "Inter";
-      font-size: 18px;
+      font-size: 17px;
       font-style: normal;
-      font-weight: bold !important;
+      font-weight: 700 !important;
       line-height: 1.8rem;
+      color: #03a56a;
 }
 
 .card-2 > span {
       font-family: "Inter";
-      font-size: 18px;
+      font-size: 17px;
       font-style: normal;
-      font-weight: bold !important;
+      font-weight: 700 !important;
       line-height: 1.8rem;
+      color: #03a56a;
 }
 
 .Section-3 {
