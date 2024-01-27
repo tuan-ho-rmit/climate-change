@@ -323,6 +323,14 @@ public class Level3SubtaskAController {
 
     }
 
+    private Region findSelectedRegion(ArrayList<Region> regions) {
+        for (Region region : regions) {
+            if (region.getSelected()) {
+                return region;
+            }
+        }
+        return null; // Return null if no region is selected
+    }
     
 
     @GetMapping(value = { "/deep-dive/subtask-a" })
@@ -423,6 +431,13 @@ public class Level3SubtaskAController {
         modelView.setPage(parsedPage);
         modelView.setTotalPage(totalPage);
         modelView.setTable(table);
+
+        Region selectedRegion = findSelectedRegion(regions);
+
+        if (selectedRegion == null)
+            selectedRegion = new Region("Country", 1, true);
+
+        model.addAttribute("selectedRegion", selectedRegion);
 
 
         model.addAttribute("modelView", modelView);

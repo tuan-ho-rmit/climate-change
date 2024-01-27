@@ -14,6 +14,7 @@ public class Level3SubtaskBViewModel {
     private boolean viewByPopulation;
     private Table table;
 
+
     // Getter for 'regions'
     public ArrayList<Region> getRegions() {
         return regions;

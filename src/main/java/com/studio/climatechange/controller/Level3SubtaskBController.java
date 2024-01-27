@@ -23,6 +23,7 @@ import com.studio.climatechange.viewModel.level2SubtaskB.Table;
 import com.studio.climatechange.viewModel.level3SubtaskA.Region;
 import com.studio.climatechange.viewModel.level3SubtaskB.FilterValue;
 import com.studio.climatechange.viewModel.level3SubtaskB.Level3SubtaskBViewModel;
+import com.studio.climatechange.viewModel.level3SubtaskB.ViewValue;
 
 @Controller
 public class Level3SubtaskBController {
@@ -69,7 +70,6 @@ public class Level3SubtaskBController {
 
     }
 
-
     private Region findSelectedRegion(ArrayList<Region> regions) {
         for (Region region : regions) {
             if (region.getSelected()) {
@@ -79,9 +79,12 @@ public class Level3SubtaskBController {
         return null; // Return null if no region is selected
     }
 
-    private static String generateQueryTable1(String region, int startingYear, int period, String regionName) {
+    private static String generateQueryTable1(String region, int startingYear, int period, String regionName,
+            String sortType) {
         String selectedRegion;
         String selectedId;
+        boolean includePopulation = "Country".equals(region); // Check if the region is a country
+
         if ("Country".equals(region)) {
             selectedRegion = "country";
             selectedId = "country_id";
@@ -97,13 +100,14 @@ public class Level3SubtaskBController {
         query.append("WITH RegionTemp AS (")
                 .append(" SELECT ")
                 .append("    cn.name,")
-                .append("    AVG(t.Average_temperature)  AS AvgTemp,")
-                .append("    AVG(p.population_number) AS population")
+                .append("    AVG(t.Average_temperature)  AS AvgTemp")
+                .append(includePopulation ? ",AVG(p.population_number) AS population " : "")
                 .append(" FROM ")
                 .append("    temperature t")
                 .append("    JOIN ").append(selectedRegion).append(" cn ON t.").append(selectedId).append(" = cn.id")
-                .append("    JOIN population p ON t.year = p.Year AND p.").append(selectedId).append(" = t.")
-                .append(selectedId)
+                .append(includePopulation
+                        ? " JOIN population p ON t.year = p.Year AND p." + selectedId + " = t." + selectedId
+                        : "")
                 .append(" WHERE ")
                 .append("    cn.name = '").append(regionName).append("' AND ")
                 .append("    t.year BETWEEN ").append(startingYear).append(" AND ").append(startingYear + period)
@@ -113,14 +117,14 @@ public class Level3SubtaskBController {
                 .append("SimilarTemp AS (")
                 .append("    SELECT cn.name,")
                 .append("           t.year AS StartYear,")
-                .append("           AVG(t.Average_temperature) AS AvgTemp,")
-                .append("           AVG(p.population_number) AS population")
+                .append("           AVG(t.Average_temperature) AS AvgTemp")
+                .append(includePopulation ? ",AVG(p.population_number) AS population " : "")
                 .append("      FROM temperature t")
                 .append("           JOIN")
                 .append("           ").append(selectedRegion).append(" cn ON t.").append(selectedId).append(" = cn.id")
-                .append("           JOIN")
-                .append("           population p ON t.year = p.Year AND ")
-                .append("                           p.").append(selectedId).append(" = t.").append(selectedId)
+                .append(includePopulation
+                        ? " JOIN population p ON t.year = p.Year AND p." + selectedId + " = t." + selectedId
+                        : "")
                 .append("     WHERE cn.name = '").append(regionName).append("' ")
                 .append("     GROUP BY cn.name,")
                 .append("              t.year")
@@ -130,26 +134,30 @@ public class Level3SubtaskBController {
                 .append("	   CONCAT( st.StartYear, '-' , st.StartYear + ").append(period).append(" ) AS YearRange,")
                 .append("       st.AvgTemp,")
                 .append("       round(abs( rt.AvgTemp - st.AvgTemp),2) AS TempDifference,")
-                .append("       round( ( round(( rt.AvgTemp - st.AvgTemp),2) / rt.AvgTemp * 100 ), 2 ) AS RelativeChangeTemp,")
-                .append("       round(st.population,0) AS Population ,")
-                .append("       round(abs(rt.population - st.population ),0  )   AS PopuDifference,")
-                .append("       round( (round((rt.population - st.population),0) / rt.population * 100 ),2 )  AS RelativeChangePopu")
+                .append("       round( ( round(( rt.AvgTemp - st.AvgTemp),2) / rt.AvgTemp * 100 ), 2 ) AS RelativeChangeTemp")
+                .append(includePopulation ? ",round(st.population,0) AS Population ," : "")
+                .append(includePopulation ? "round(abs(rt.population - st.population ),0  )   AS PopuDifference," : "")
+                .append(includePopulation
+                        ? "round( (round((rt.population - st.population),0) / rt.population * 100 ),2 )  AS RelativeChangePopu "
+                        : "")
                 .append(" FROM RegionTemp rt")
                 .append("   JOIN")
                 .append("        SimilarTemp st")
-                .append(" ORDER BY TempDifference ASC,")
-                .append("          PopuDifference ASC")
+                .append(" ORDER BY TempDifference ")
+                .append(sortType)
+                .append(includePopulation ? "          ,PopuDifference ASC" : "")
                 .append(" Limit 10 OFFSET 0;");
 
         System.err.println("query: " + query.toString());
         return query.toString();
     }
 
-    private String[][] executeQueryTable1(String region, int startingYear, int period, String regionName) {
+    private String[][] executeQueryTable1(String region, int startingYear, int period, String regionName,
+            String sortType) {
         List<String[]> resultRows = new ArrayList<>();
 
         try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
-            String sqlQuery = generateQueryTable1(region, startingYear, period, regionName);
+            String sqlQuery = generateQueryTable1(region, startingYear, period, regionName, sortType);
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
                     ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -215,9 +223,11 @@ public class Level3SubtaskBController {
             @RequestParam(name = "viewByTemperature", required = false) String viewByTemperature,
             @RequestParam(name = "viewByPopulation", required = false) String viewByPopulation,
             @RequestParam(name = "filterValue", required = false) String filterValue,
+            @RequestParam(name = "viewValue", required = false) String viewValue,
             Model model) {
         int parsedYearPeriod = 0;
         int parsedStartingYear = 0;
+
         if (yearPeriod != null && !yearPeriod.isEmpty()) {
             try {
                 parsedYearPeriod = Integer.parseInt(yearPeriod);
@@ -232,15 +242,21 @@ public class Level3SubtaskBController {
                 e.printStackTrace();
             }
         }
-        ArrayList<Region> regions = convertStringToRegion(region);
+        ArrayList<Region> regions = convertStringToRegion("Country");
+        
+        if(region !=null) {
+            regions = convertStringToRegion(region);
+        } 
         ArrayList<FilterValue> filterValues = convertStringToFilterValue(filterValue);
         Level3SubtaskBViewModel table1 = new Level3SubtaskBViewModel();
-        boolean parsedViewByTemperature = "on".equals(viewByTemperature);
-        boolean parsedViewByPopulation = "on".equals(viewByPopulation);
+        boolean parsedViewByPopulation = true;
+        boolean parsedViewByTemperature = true;
+        parsedViewByTemperature = "on".equals(viewByTemperature);
+        parsedViewByPopulation = "on".equals(viewByPopulation);
 
         Table table = new Table(new String[] { "Period", "Temperature", "Population" }, new String[][] {});
-        table.setData(executeQueryTable1(region, parsedStartingYear, parsedYearPeriod, regionName));
-        
+        table.setData(executeQueryTable1(region, parsedStartingYear, parsedYearPeriod, regionName, "ASC"));
+
         System.err.println("filterValue: " + filterValue);
         table1.setRegions(regions);
         table1.setYearPeriod(parsedYearPeriod);
