@@ -223,6 +223,11 @@ html {
     align-self: stretch;
 }
 
+.big-block-2 svg {
+        height: 16px !important;
+        width: 8px !important;
+}
+
 .block-3 {
     display: flex;
     justify-content: center;
@@ -283,16 +288,7 @@ html {
 }
 
 .block-6 {
-    height: 4.2rem;
-}
-
-.block-10, .block-13 {
-    color: #B0B0B0;
-    font-family: "Inter";
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    height: 36.5px;
 }
 
 input {
@@ -443,13 +439,17 @@ input {
     height: 68rem;
 }
 
+#noDataSection {
+    height: 68rem;
+}
+
 #dataSection {
     height: auto;
 }
 .middle-block {
     display: flex;
     width: auto;
-    height: 100vh;
+    height: 60vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;

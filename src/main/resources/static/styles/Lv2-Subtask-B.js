@@ -3,7 +3,7 @@ $(function() {
     $("#tagsCountry").autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: "/autocomplete/country", 
+                url: "/autocomplete/country",
                 type: "GET",
                 data: {
                     term: request.term
@@ -53,10 +53,10 @@ $(function() {
     }
 });
     
-    $("#tagsYearStart, #tagsYearEnd").autocomplete({
+    $("#tagsYearStart").autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: "/autocomplete/year", // URL for city autocomplete
+                url: "/autocomplete/year",
                 type: "GET",
                 data: {
                     term: request.term
@@ -95,9 +95,52 @@ $(function() {
         }
     });
 
+    $("#tagsYearEnd").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: "/autocomplete/year",
+                    type: "GET",
+                    data: {
+                        term: request.term
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        response(data);
+                    }
+                });
+            },
+            open: function() {
+
+                var widget = $(this).autocomplete("widget");
+
+                widget.css ({
+                    "max-height": "200px",  // Set your desired max-height
+                    "overflow-y": "auto",
+                    "overflow-x": "hidden",
+                    "background-color": "#fff",
+                    "border-radius": "8px"
+                });
+
+                widget.find("li").css({
+                    "color": "#000",
+                    "font-family": "Inter",
+                    "font-size": "14px",
+                    "font-style": "normal",
+                    "font-weight": "400",
+                    "line-height": "normal",
+                    "cursor": "pointer",
+                    "padding": "5px",
+                    "gap": "5px",
+                    "background-color": "#fff",
+                });
+
+            }
+        });
+
 });
 
 document.getElementById('dataSection').style.display = 'none';
+document.getElementById('noDataSection').style.display = 'none';
 document.getElementById('filterSection').style.display = 'block';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -173,34 +216,12 @@ function updateTable(data) {
 
     if (data.length === 0) {
         document.getElementById('dataSection').style.display = 'none';
-        document.getElementById('filterSection').style.display = 'block';
+        document.getElementById('filterSection').style.display = 'none';
+        document.getElementById('noDataSection').style.display = 'block';
         return;
-    } else {
-        // Destroy the current pagination instance
-        $('#resultTable').pagination('destroy');
+    }
 
-        // Reinitialize pagination with updated data source
-        $('#resultTable').pagination({
-                    dataSource: data,
-                    pageSize: 10,
-                    pageRange: null,
-                    showPageNumbers: true,
-                    callback: function (data, pagination) {
-                        var html = '';
-                        for (var i = 0; i < data.length; i++) {
-                            html += '<tr class="body-row">' +
-                                '<td class="body-cell">' + data[i].name + '</td>' +
-                                '<td class="body-cell">' + formatTemperature(data[i].abs_avg_temperature_change) + '</td>' +
-                                '<td class="body-cell">' + formatTemperature(data[i].abs_max_temperature_change) + '</td>' +
-                                '<td class="body-cell">' + formatTemperature(data[i].abs_min_temperature_change) + '</td>' +
-                                '</tr>';
-                        }
-                        $('#resultTable tbody').html(html);
-                    }
-                });
-            }
-
-    for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < Math.min(data.length, 10); i++) {
         var row = tbody.insertRow();
         row.className = 'body-row';
 
@@ -221,9 +242,33 @@ function updateTable(data) {
         cell4.innerHTML = formatTemperature(data[i].abs_min_temperature_change); // Format and style temperature data
     }
 
+    // Initialize pagination after adding initial 10 rows
+    $('#resultTable').pagination({
+        dataSource: data,
+        pageSize: 10,
+        pageRange: null,
+        showPageNumbers: true,
+        callback: function (data, pagination) {
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+                html += '<tr class="body-row">' +
+                    '<td class="body-cell">' + data[i].name + '</td>' +
+                    '<td class="body-cell">' + formatTemperature(data[i].abs_avg_temperature_change) + '</td>' +
+                    '<td class="body-cell">' + formatTemperature(data[i].abs_max_temperature_change) + '</td>' +
+                    '<td class="body-cell">' + formatTemperature(data[i].abs_min_temperature_change) + '</td>' +
+                    '</tr>';
+            }
+            $('#resultTable tbody').html(html);
+        }
+    });
+
     document.getElementById('dataSection').style.display = 'block';
     document.getElementById('filterSection').style.display = 'none';
+    document.getElementById('noDataSection').style.display = 'none';
 }
+
+
+
 
 function formatTemperature(value) {
     // Convert the value to a number

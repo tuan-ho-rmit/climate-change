@@ -93,27 +93,36 @@
                     <label class = "block-5" for = "tagsCountry">Country</label>
                     <div class = "block-6" onclick="document.getElementById('tagsCountry').focus();">
                         <input id = "tagsCountry" type = "text" placeholder = "Country" name = "Country" required>
-                        <svg class = "dropdown-icon" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="8" height="12" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
-                            </svg>                       
+                        </svg>
+                        <div id="dropdownCountry" class="dropdown-list" style="display: none;">
+                            <!-- Dropdown options will be populated dynamically -->
+                        </div>
                     </div>
                 </div>
                 <div class = "big-block-4">
                     <label class = "block-8" for = "tagsYearStart">Start Year</label>
                     <div class = "block-9" onclick="document.getElementById('tagsYearStart').focus();">
                         <input id = "tagsYearStart" type = "text" placeholder = "Start" name = "StartYear" required>
-                        <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="8" height="12" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
-                            </svg>                          
+                        </svg>
+                        <div id="dropdownStart" class="dropdown-list" style="display: none;">
+                            <!-- Dropdown options will be populated dynamically -->
+                        </div>
                     </div>
                 </div>
                 <div class = "big-block-5">
                     <label class = "block-11" for = "tagsYearEnd">End Year</label>
                     <div class = "block-12" onclick="document.getElementById('tagsYearEnd').focus();">
                         <input id = "tagsYearEnd" type = "text" placeholder = "End" name = "EndYear" required>
-                        <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="8" height="12" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
-                            </svg> 
+                        </svg>
+                        <div id="dropdownEnd" class="dropdown-list" style="display: none;">
+                            <!-- Dropdown options will be populated dynamically -->
+                        </div>
                         </div>                            
                     </div>
             </div>
@@ -167,6 +176,13 @@
             <div class="middle-block">
                 <img src="/images/Empty State 1.png" alt="placeholder-image">
                 <div class="small-block-1">Filter To Display Data</div>
+            </div>
+        </div>
+
+        <div class="Section-2" id="noDataSection">
+            <div class="middle-block">
+                <img src="/images/Empty State 1.png" alt="placeholder-image">
+                <div class="small-block-1">No Data Available</div>
             </div>
         </div>
 
