@@ -28,7 +28,6 @@ import io.micrometer.common.util.StringUtils;
 @Controller
 public class Level3SubtaskAController {
     private Level3SubstaskAService level3SubstaskAService;
-    private Level3SubtaskAViewModel fakeData;
     @Value("${spring.datasource.url}")
     private String jdbcUrl;
 
@@ -324,14 +323,7 @@ public class Level3SubtaskAController {
 
     }
 
-    private Region findSelectedRegion(ArrayList<Region> regions) {
-        for (Region region : regions) {
-            if (region.getSelected()) {
-                return region;
-            }
-        }
-        return null; // Return null if no region is selected
-    }
+    
 
     @GetMapping(value = { "/deep-dive/subtask-a" })
     public String level3SubtaskA(
@@ -432,12 +424,7 @@ public class Level3SubtaskAController {
         modelView.setTotalPage(totalPage);
         modelView.setTable(table);
 
-        Region selectedRegion = findSelectedRegion(regions);
 
-        if (selectedRegion == null)
-            selectedRegion = new Region("Country", 1, true);
-
-        model.addAttribute("selectedRegion", selectedRegion);
         model.addAttribute("modelView", modelView);
         return "level3SubtaskA";
     }
