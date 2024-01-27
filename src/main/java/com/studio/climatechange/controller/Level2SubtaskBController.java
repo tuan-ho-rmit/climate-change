@@ -62,17 +62,12 @@ public class Level2SubtaskBController {
     public List<Table1> applyQuery(@RequestParam("Country") String value1,
                                    @RequestParam("StartYear") int value2,
                                    @RequestParam("EndYear") int value3,
-                                   @RequestParam("colorRadio") String colorRadio,
-                                   @RequestParam("page") int page,
-                                   @RequestParam("pageSize") int pageSize) {
-
-
-        int offset = (page - 1) * pageSize;
+                                   @RequestParam("colorRadio") String colorRadio) {
 
         List<Table1> retrievedData = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
-             PreparedStatement pst = connection.prepareStatement(buildDynamicQuery(colorRadio, value1, value2, value3, offset, pageSize))) {
+             PreparedStatement pst = connection.prepareStatement(buildDynamicQuery(colorRadio, value1, value2, value3))) {
 
             validateInputs(value1, value2, value3);
 
@@ -93,7 +88,7 @@ public class Level2SubtaskBController {
         }
     }
 
-    private String buildDynamicQuery(String colorRadio, String countryName, int startYear, int endYear, int offset, int pageSize) {
+    private String buildDynamicQuery(String colorRadio, String countryName, int startYear, int endYear) {
         String selectField;
         String joinTable;
         if (colorRadio.equals("city")) {
@@ -119,8 +114,9 @@ public class Level2SubtaskBController {
                 "ORDER BY " +
                 selectField + ", YEAR(t.year)";
 
-        return baseQuery + " LIMIT " + offset + ", " + pageSize;
+        return baseQuery;
     }
+
 
 
     private void validateInputs(String value1, int value2, int value3) throws SQLException {
@@ -132,6 +128,9 @@ public class Level2SubtaskBController {
         }
         if (value3 < 1750 || value3 > 2015) {
             throw new SQLException("Invalid year: $year. Year must be 4 digits and within the range 1750 to 2015.");
+        }
+        if (value3 <= value2) {
+            throw new SQLException("Invalid year: $year. End year must be larger than start year.");
         }
     }
 

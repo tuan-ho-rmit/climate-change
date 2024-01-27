@@ -546,4 +546,51 @@ table {
 
 .paginationItem:hover {
     background-color: #ddd;
+}
+/* Styles for pagination */
+.paginationjs {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        width: 100%;
+        justify-content: center;
+}
 
+.pagination-pages {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        width: 100%;
+        justify-content: center;
+}
+
+.paginationjs-pages a {
+        cursor: pointer;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        padding: 10px 14px;
+        border-radius: 8px;
+        background-color: #fff;
+}
+
+
+.paginationjs-prev, .paginationjs-next, .paginationjs-page {
+        display: inline-block;
+        margin: 0 2px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+}
+
+.paginationjs-prev:hover, .paginationjs-next:hover, .paginationjs-page:hover {
+    background-color: #ddd;
+}
+
+.paginationjs-page.active {
+    background-color: #ddd;
+}
+
+.paginationjs-prev.disabled:hover, .paginationjs-next.disabled:hover, .paginationjs-page.disabled:hover {
+    background-color: #ddd;
+}
