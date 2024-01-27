@@ -236,7 +236,7 @@ html {
     height: 16px !important;
 }
 
-#dropdownCountry {
+#dropdownCountry, #dropdownStart, #dropdownEnd {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -309,17 +309,13 @@ html {
 .block-6, .block-9, .block-12{
     display: flex;
     width: 100%;
-    height: auto;
+    height: 36.5px;
     padding: 0.8rem 1.2rem;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
     border-radius: 0.4rem;
     border: 1px solid #000;
-}
-
-.block-6 {
-    height: 36.5px;
 }
 
 input {
@@ -552,33 +548,6 @@ table {
 }
 
 
-.pagination {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    width: 100%;
-    justify-content: center;
-}
-
-.paginationItem {
-    cursor: pointer;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-self: center;
-    padding: 10px 14px;
-    border-radius: 8px;
-    background-color: #fff;
-}
-
-.paginationItem#selected {
-    background-color: #ddd;
-}
-
-.paginationItem:hover {
-    background-color: #ddd;
-}
-/* Styles for pagination */
 .paginationjs {
         display: flex;
         flex-direction: row;
@@ -602,7 +571,7 @@ table {
         align-items: center;
         justify-self: center;
         padding: 10px 14px;
-        border-radius: 8px;
+        border: 1px solid black;
         background-color: #fff;
 }
 
@@ -610,18 +579,18 @@ table {
 .paginationjs-prev, .paginationjs-next, .paginationjs-page {
         display: inline-block;
         margin: 0 2px;
-        background-color: #f0f0f0;
+        background-color: #fff;
         cursor: pointer;
 }
 
-.paginationjs-prev:hover, .paginationjs-next:hover, .paginationjs-page:hover {
-    background-color: #ddd;
-}
-
-.paginationjs-page.active {
+.paginationjs-prev:hover, .paginationjs-next:hover, .paginationjs-page:hover, .paginationjs-pages a:hover, .pagination-pages:hover {
     background-color: #ddd;
 }
 
 .paginationjs-prev.disabled:hover, .paginationjs-next.disabled:hover, .paginationjs-page.disabled:hover {
     background-color: #ddd;
 }
+
+
+
+

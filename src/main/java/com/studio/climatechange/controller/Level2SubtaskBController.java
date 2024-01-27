@@ -77,6 +77,26 @@ public class Level2SubtaskBController {
         return new Gson().toJson(countries);
     }
 
+    @GetMapping("/fetch/years")
+    @ResponseBody
+    public String fetchYears() {
+        List<String> years = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(jdbcUrl, username, password)) {
+            String sql = "SELECT DISTINCT year FROM temperature ORDER BY year";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        years.add(rs.getString("year"));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new Gson().toJson(years);
+    }
+
 
 
     @GetMapping(value = "/applyQuery")
