@@ -16,6 +16,8 @@ public class Level2SubtaskAViewModel {
     private int Page;
     private int totalPage;
     private int pageSize;
+    private String sortColumn;
+    private String sortType;
 
     public ArrayList<Region> getRegions() {
         return regions;
@@ -105,4 +107,19 @@ public class Level2SubtaskAViewModel {
         return totalPage;
     }
 
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+    }
+
+    public String getSortColumn() {
+        return sortColumn;
+    }
+
+    public void setSortType(String sortType) {
+        this.sortType = sortType;
+    }
+
+    public String getSortType() {
+        return sortType;
+    }
 }

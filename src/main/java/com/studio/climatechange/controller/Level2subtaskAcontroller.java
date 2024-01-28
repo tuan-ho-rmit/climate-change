@@ -42,7 +42,7 @@ public class Level2subtaskAcontroller {
         return regions;
     }
 
-    public static String generateQuery(String region, int startYears, int endYears, int page, int pageSize) {
+    public static String generateQuery(String region, int startYears, int endYears, int page, int pageSize, String sortType, String sortColumn) {
         String selectedRegion = null;
         String selectedId = null;
 
@@ -53,41 +53,69 @@ public class Level2subtaskAcontroller {
             selectedRegion = "global";
             selectedId = "global_id";
         }
-        String query ="WITH StarYear AS (" +
-                "    SELECT c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature " +
-                "    FROM temperature t " +
-                "    JOIN  " + selectedRegion +
-                "    c ON c.id = t. " + selectedId +
-                "    JOIN population p ON c.id = p.country_id AND t.year = p.Year " +
-                "    WHERE t.year =  " + startYears +
-                "    GROUP BY c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature" +
-                "), " +
-                "EndYear AS (" +
-                "    SELECT c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature " +
-                "    FROM temperature t " +
-                "    JOIN  " + selectedRegion +
-                "    c ON c.id = t. " + selectedId +
-                "    JOIN population p ON c.id = p.country_id AND t.year = p.Year " +
-                "    WHERE t.year =  " + endYears +
-                "    GROUP BY c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature" +
-                ") " +
-                "SELECT s.name AS Country, " +
-                "       ROUND((e.average_temperature - s.average_temperature), 2) AS AvgDiff, " +
-                "       ROUND((e.maximum_temperature - s.maximum_temperature), 2) AS MaxDiff, " +
-                "       ROUND((e.minimum_temperature - s.minimum_temperature), 2) AS MinDiff, " +
-                "       CAST((e.population_number - s.population_number) AS SIGNED) AS PopuDifference, " +
-                "       CAST(((e.average_temperature - s.average_temperature) / (e.population_number - s.population_number)) * 100 AS SIGNED) AS Correlation " +
-                "FROM StarYear s " +
-                "JOIN EndYear e ON s.name = e.name" +
-                " LIMIT " + pageSize + " " + "OFFSET " + ((page - 1) * pageSize);
-        return query;
+
+        String parseSortColumn = "";
+
+        try {
+
+            if (sortColumn != null) {
+                int intSortColumn = Integer.parseInt(sortColumn);
+                int inputSortColumn = intSortColumn + 1;
+
+                parseSortColumn = "Table" + sortColumn + ".avg" + inputSortColumn;
+                System.err.println("parsedSortColumn: " + parseSortColumn);
+            }
+        } catch (NumberFormatException e) {
+            // Handle the case where the input cannot be parsed to an integer
+            System.err.println("Error parsing sortColumn: " + e.getMessage());
+            // You may want to log the error, throw an exception, or take appropriate action
+        }
+
+
+
+        StringBuilder query = new StringBuilder();
+        
+        query.append("WITH StarYear AS (")
+        .append("    SELECT c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature ")
+        .append("    FROM temperature t ")
+        .append("    JOIN  ").append(selectedRegion)
+        .append("    c ON c.id = t. ").append(selectedId)
+        .append("    JOIN population p ON c.id = p.country_id AND t.year = p.Year ")
+        .append("    WHERE t.year =  ").append(startYears)
+        .append("    GROUP BY c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature")
+        .append("), ")
+        .append("EndYear AS (")
+        .append("    SELECT c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature ")
+        .append("    FROM temperature t ")
+        .append("    JOIN  ").append(selectedRegion)
+        .append("    c ON c.id = t. ").append(selectedId)
+        .append("    JOIN population p ON c.id = p.country_id AND t.year = p.Year ")
+        .append("    WHERE t.year =  ").append(endYears)
+        .append("    GROUP BY c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature")
+        .append(") ")
+        .append("SELECT s.name AS Country, ")
+        .append("       ROUND((e.average_temperature - s.average_temperature), 2) AS AvgDiff, ")
+        .append("       ROUND((e.maximum_temperature - s.maximum_temperature), 2) AS MaxDiff, ")
+        .append("       ROUND((e.minimum_temperature - s.minimum_temperature), 2) AS MinDiff, ")
+        .append("       CAST((e.population_number - s.population_number) AS SIGNED) AS PopuDifference, ")
+        .append("       CAST(((e.average_temperature - s.average_temperature) / (e.population_number - s.population_number)) * 100 AS SIGNED) AS Correlation ")
+        .append("FROM StarYear s ")
+        .append("JOIN EndYear e ON s.name = e.name");
+        if (parseSortColumn != null && !parseSortColumn.isEmpty() && sortType != null && !sortType.isEmpty()) {
+            query.append(" ORDER BY (").append(parseSortColumn).append(" - ").append("AvgDiff").append(")")
+                    .append(" ").append(sortType);
+        }
+        query.append(" LIMIT ").append(pageSize).append(" OFFSET ").append((page - 1) * pageSize);
+
+                System.err.println(query.toString());
+        return query.toString();
     }
 
-    public String[][] executeQuery(String region, int startYears, int endYears, int page, int pageSize) {
+    public String[][] executeQuery(String region, int startYears, int endYears, int page, int pageSize, String sortType, String sortColumn) {
         List<String[]> resultRows = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
-            String sqlQuery = generateQuery(region, startYears, endYears, page, pageSize);
+            String sqlQuery = generateQuery(region, startYears, endYears, page, pageSize, sortType, sortColumn);
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -130,28 +158,32 @@ public class Level2subtaskAcontroller {
             selectedRegion = "global";
             selectedId = "global_id";
         }
-        String query ="WITH StarYear AS (" +
-                "    SELECT c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature " +
-                "    FROM temperature t " +
-                "    JOIN  " + selectedRegion +
-                "    c ON c.id = t. " + selectedId +
-                "    JOIN population p ON c.id = p.country_id AND t.year = p.Year " +
-                "    WHERE t.year =  " + startYears +
-                "    GROUP BY c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature" +
-                "), " +
-                "EndYear AS (" +
-                "    SELECT c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature " +
-                "    FROM temperature t " +
-                "    JOIN  " + selectedRegion +
-                "    c ON c.id = t. " + selectedId +
-                "    JOIN population p ON c.id = p.country_id AND t.year = p.Year " +
-                "    WHERE t.year =  " + endYears +
-                "    GROUP BY c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature" +
-                ") " +
-                "SELECT COUNT(*)" +
-                "FROM StarYear s " +
-                "JOIN EndYear e ON s.name = e.name";
-        return query;
+
+        StringBuilder query = new StringBuilder();
+
+        query.append("WITH StarYear AS (")
+        .append("    SELECT c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature ")
+        .append("    FROM temperature t ")
+        .append("    JOIN  ").append(selectedRegion)
+        .append("    c ON c.id = t. ").append(selectedId)
+        .append("    JOIN population p ON c.id = p.country_id AND t.year = p.Year ")
+        .append("    WHERE t.year =  ").append(startYears)
+        .append("    GROUP BY c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature")
+        .append("), ")
+        .append("EndYear AS (")
+        .append("    SELECT c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature ")
+        .append("    FROM temperature t ")
+        .append("    JOIN  ").append(selectedRegion)
+        .append("    c ON c.id = t. ").append(selectedId)
+        .append("    JOIN population p ON c.id = p.country_id AND t.year = p.Year ")
+        .append("    WHERE t.year =  ").append(endYears)
+        .append("    GROUP BY c.name, t.year, p.population_number, t.maximum_temperature, t.minimum_temperature, t.average_temperature")
+        .append(") ")
+        .append("   SELECT COUNT(*)")
+        .append("FROM StarYear s ")
+        .append("JOIN EndYear e ON s.name = e.name");
+
+        return query.toString();
     }
 
     public int executeCount(String region, int startYears, int endYears) {
@@ -192,6 +224,8 @@ public class Level2subtaskAcontroller {
             @RequestParam(name = "region", required = false) String region,
             @RequestParam(name = "startYears", required = false) String startYears,
             @RequestParam(name = "page", required = false) String page,
+            @RequestParam(name = "sortColumn", required = false) String sortColumn,
+            @RequestParam(name = "sortType", required = false) String sortType,
             Model model){
 
         ArrayList<Region> regions = convertStringToRegion(region);
@@ -229,7 +263,7 @@ public class Level2subtaskAcontroller {
         String[] dynamicHeader = new String[]{"Name", "Average Temperature", "Maximum Temperature", "Minimum Temperature" , "Population", "Correlation"};
 
 
-        String[][] data = executeQuery(region, parsedStartYears, parsedEndYears, parsedPage, pageSize);
+        String[][] data = executeQuery(region, parsedStartYears, parsedEndYears, parsedPage, pageSize, sortType, sortColumn);
         double totalPageDouble = (double) executeCount(region, parsedStartYears, parsedEndYears) / pageSize;
 
         int totalPage = (int) Math.ceil(totalPageDouble);
@@ -244,12 +278,31 @@ public class Level2subtaskAcontroller {
         modelView.setTable(table);
         modelView.setTotalPage(totalPage);
 
+        if ("ASC".equals(sortType)) {
+            System.err.println("ASC");
+            model.addAttribute("nextSortType", "DESC");
+
+        } else if ("DESC".equals(sortType)) {
+            System.err.println("DESC");
+
+            model.addAttribute("nextSortType", "");
+
+        } else {
+            System.err.println("null");
+
+            model.addAttribute("nextSortType", "ASC");
+        }
+        System.err.println("sortType: " + sortType);
+
         Region selectedRegion = findSelectedRegion(regions);
 
         if (selectedRegion == null)
             selectedRegion = new Region(1, "Country", true);
 
-
+        modelView.setSortColumn((sortColumn != null && !sortColumn.isEmpty()) ? sortColumn : "");
+        modelView.setSortType((sortType != null && !sortType.isEmpty()) ? sortType : "");
+        System.err.println("sortColumn: " + modelView.getSortColumn());
+        System.err.println("sortType: " + modelView.getSortType());
         model.addAttribute("selectedRegion", selectedRegion);
         model.addAttribute("modelView", modelView);
 

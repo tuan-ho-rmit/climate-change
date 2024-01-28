@@ -13,39 +13,38 @@
     font-family: "Inter";
 }
 
-html {
-    font-size: 10px;
-}
+
 
 
 .header {
-    position: fixed;
+    /* position: fixed; */
     display: flex;
     top: 0;
     left: 0;
-    height: 8rem;
+    height: 80px;
     width: 100%;
-    padding: 1.6rem 4rem;
+    padding: 16px 40px;
     background: var(--primary-color);
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
+    z-index: 100; 
 }
 
 .logo, .navbar a {
     color: var(--nav-color);
     text-decoration: none;
-    font-size: 1.6rem;
+    font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
+    line-height: normal; 
+
 }
 
 .logo svg{
     fill: var(--Primary-80, #486856);
-    flex-shrink: 0;
-    width: 4rem;
-    height: 4rem;
+    flex-shrink: 0; 
+    width: 40px;
+    height: 40px;
 }
 
 .navbar {
@@ -55,7 +54,7 @@ html {
     justify-content: center;
     align-items: center;
     align-self: stretch;
-    gap: 5.6rem;
+    gap: 56px;
 }
 
 .container {
@@ -63,7 +62,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.8rem;
+    gap: 8px;
 }
 
 .container:hover .drop-down {
@@ -73,6 +72,7 @@ html {
 .container a {
     display: flex;
     align-items: center;
+    font-size: 16px;
 }
 
 .container .icon {
@@ -97,14 +97,14 @@ html {
 .drop-down {
     position: absolute;
     display: flex;
-    width: 14.8rem;
-    padding: 0.8rem 0rem;
+    width: 140px;
+    padding: 8px 0px;
     flex-direction: column;
     align-items: flex-start;
     background: var(--nav-color);
     color: black;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 0.8rem;
+    border-radius: 8px;
     display: none;
     top: 100%;
     left: 0;
@@ -115,27 +115,27 @@ html {
     list-style: none;
     height: 100%;
     width: auto;
-    padding: 0.5rem 1rem;
+    padding: 5px 10px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .li-inner-container {
     display: flex;
-    padding: 0.8rem 1.6rem;
+    padding: 8px 16px;
     width: 100%;
     height: auto;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 10px;
     align-self: stretch;
 }
 
 .li-content {
     color: #000;
     font-family: "Inter";
-    font-size: 1.4rem;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -151,14 +151,9 @@ html {
 
 .page-container {
     display: flex;
-    margin-top: 8rem;
-    width: auto;
-    height: auto;
-    padding: 4rem 8rem;
     flex-direction: column;
-    gap: 4rem;
-    flex-shrink: 0;
-    background-color: #FFF;
+    gap: 40px;
+    padding: 40px 80px;
 }
 
 .big-block-1 {
@@ -171,7 +166,7 @@ html {
     height: auto;
     color: #51AB3B;
     font-family: "Inter";
-    font-size: 1.6rem;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -182,7 +177,7 @@ html {
     height: auto;
     color: #000;
     font-family: "Inter";
-    font-size: 1.6rem;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -252,6 +247,7 @@ option {
     justify-content: flex-end;
     background-color: rgb(250, 250, 250);
     overflow: hidden;
+    gap: 24px;
 }
 
 .apply-section button{
@@ -310,6 +306,7 @@ table {
     width: 100%;
     text-wrap: nowrap;
     border-radius: 8px;
+    cursor: pointer;
 
 }
 
@@ -399,6 +396,22 @@ table {
     text-decoration: none;
     color: #000;
 }
+
+.paginationItem a {
+    text-decoration: none;
+    color: #000;
+}
+
+#hidden {
+    display: none;
+
+}
+
+.more {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
 
 
