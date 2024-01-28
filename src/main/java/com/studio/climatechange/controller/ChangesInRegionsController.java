@@ -211,7 +211,7 @@ public class ChangesInRegionsController {
         }
         for (int i = 1; i < startingYears.length; i++) {
             query.append(" AND ").append("ABS(").append("Table").append(i).append(".avg").append(i + 1)
-                    .append("-").append("( Select Table").append(i).append(".avg").append(i+1).append(" from CountryData ")
+                    .append("-").append("( Select ").append("avg").append(i+1).append(" from CountryData ")
                     .append(")")
                     .append(")").append(" BETWEEN ").append(minAverageChange)
                     .append(" AND ").append(maxAverageChange);
