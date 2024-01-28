@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deep-dive Data</title>
-    <link th:href="@{/styles/changesInPeriods.css}" rel="stylesheet" />
+    <link th:href="@{/styles/changesInRegions.css}" rel="stylesheet" />
     <link rel="icon" href="/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -77,11 +80,11 @@
     <div class="page-container">
         <div class="title">
             <h2>
-                Changes in Periods
+                Changes in Regions
             </h2>
         </div>
 
-        <form th:action="@{/deep-dive/changes-in-periods}" method="get">
+        <form th:action="@{/deep-dive/changes-in-regions}" method="get">
             <div class="filter">
                 <div class="filter-upper">
                     <div class="icon-title">
@@ -95,7 +98,7 @@
 
                     <div class="input">
                         <label for="">Region</label>
-                        <select id="region" name="region">
+                        <select id="region" name="region" onchange="navigateToRegion(this)">
                             <option th:each="region : ${modelView.regions}" th:value="${region.name}"
                                 th:text="${region.name}" th:selected="${region.selected}">
                             </option>
@@ -115,6 +118,12 @@
                 </div>
 
                 <div class="filter-lower">
+                    <div class="input">
+                        <label for="">Region Name</label>
+                        <input id="regionName" placeholder="Search Region Name...." name="regionName"
+                            th:value="${modelView.regionName}">
+                    </div>
+
                     <div class="range">
                         <label for="">Range of Average Change</label>
                         <div class="range-input">
@@ -146,7 +155,7 @@
 
 
         <div class="table-container">
-            <div class="overflowing" th:if="${modelView.table.data.length > 0}">
+            <div class="overflowing" th:if="${modelView.table.data.length > 0 && firstRow.length > 0}">
                 <table>
                     <thead>
                         <tr class="header-row">
@@ -166,6 +175,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="body-row">
+                            <td class="body-cell" th:each="value, valueIdx : ${firstRow}">
+                                <span th:if="${valueIdx.index} == 0" th:text="${value}"></span>
+                                <span th:if="${valueIdx.index} > 0" th:text="${#numbers.formatDecimal(value,0,'COMMA', 2, 'POINT')}"></span>
+                            </td>
+                        </tr>
                         <tr class="body-row" th:each="row, rowIdx : ${modelView.table.data}">
                             <td class="body-cell" th:each="cell, cellIdx : ${row}">
                                 <span th:if="${cellIdx.index == 0}" th:text="${cell}"></span>
@@ -173,29 +188,22 @@
                                     <span th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')}"></span>
                                 </span>
                                 <p> &nbsp;</p>
-                                <span th:if="${cellIdx.index > 1}">
+                                <span th:if="${rowIdx.index >= 0 && cellIdx.index>0}">
                                     <span
-                                        th:class="(${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')} - ${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}) >= 0 ? 'positive' : 'negative'">
-                                        (<span
-                                            th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')} - ${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}"></span>)
-                                    </span>
-                                </span>
-                                <!-- <span th:if="${rowIdx.index > 0 && cellIdx.index>0}">
-                                    <span
-                                        th:class="(${#numbers.formatDecimal(cell,0,'COMMA', 2, 'POINT')} -${#numbers.formatDecimal(modelView.table.data[0][cellIdx.index], 0 , 'COMMA', 2, 'POINT')}) >= 0 ? 'positive' : 'negative'">
+                                        th:class="(${#numbers.formatDecimal(cell,0,'COMMA', 2, 'POINT')} -${#numbers.formatDecimal(firstRow[cellIdx.index], 0 , 'COMMA', 2, 'POINT')}) >= 0 ? 'positive' : 'negative'">
                                         (
                                         <span
-                                            th:text="${#numbers.formatDecimal(cell,0,'COMMA', 2, 'POINT')} -${#numbers.formatDecimal(modelView.table.data[0][cellIdx.index], 0 , 'COMMA', 2, 'POINT')}"></span>
+                                            th:text="${#numbers.formatDecimal(cell,0,'COMMA', 2, 'POINT')} -${#numbers.formatDecimal(firstRow[cellIdx.index], 0 , 'COMMA', 2, 'POINT')}"></span>
                                         )
                                     </span>
-                                </span> -->
+                                </span>
 
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="noData" th:if="${modelView.table.data.length == 0}">
+            <div class="noData" th:if="${modelView.table.data.length == 0 or firstRow.length==0}">
                 <img src="/images/no-data.png" style="height: 120px; width: 120px;">
                 <h2 style="font-size: 18px; font-weight: 700;">Apply Filter To Display Data</h2>
             </div>
@@ -203,7 +211,7 @@
                 <div th:each="pageNumber : ${#numbers.sequence(1, modelView.totalPage)}" class="paginationItem"
                     th:id="${pageNumber == modelView.page ? 'selected' : ''}">
                     <a th:text="${pageNumber}" th:name="pageNumber"
-                        th:href="@{/deep-dive/changes-in-periods(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation} )}"></a>
+                        th:href="@{/deep-dive/changes-in-regions(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation},regionName=${modelView.regionName} )}"></a>
                 </div>
             </div>
 
@@ -211,7 +219,7 @@
         </div>
     </div>
 
-
+    <script src="/functions/changesInRegions.js"></script>
 </body>
 
 </html>

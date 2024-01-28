@@ -6,28 +6,20 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Cache.Connection;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.studio.climatechange.repository.CountryRepository;
-import com.studio.climatechange.services.impl.Level3SubstaskAService;
-import com.studio.climatechange.viewModel.level3SubtaskA.ChangesInPeriodsModelView;
+import com.studio.climatechange.viewModel.level3SubtaskA.ChangesInRegionsModelView;
 import com.studio.climatechange.viewModel.level3SubtaskA.Region;
 import com.studio.climatechange.viewModel.level3SubtaskA.Table;
 
-import io.micrometer.common.util.StringUtils;
-
 @Controller
-public class ChangesInPeriodsController {
-    private Level3SubstaskAService level3SubstaskAService;
+public class ChangesInRegionsController {
     @Value("${spring.datasource.url}")
     private String jdbcUrl;
 
@@ -37,17 +29,11 @@ public class ChangesInPeriodsController {
     @Value("${spring.datasource.password}")
     private String password;
 
-    @Autowired
-    public ChangesInPeriodsController(CountryRepository countryRepository) {
-        this.level3SubstaskAService = level3SubstaskAService;
-    }
-
     private ArrayList<Region> convertStringToRegion(String regionName) {
         ArrayList<Region> regions = new ArrayList<>();
         regions.add(new Region("Country", 1, true));
         regions.add(new Region("State", 2, false));
         regions.add(new Region("City", 3, false));
-        regions.add(new Region("Global", 4, false));
 
         for (Region region : regions) {
             if (region.getName().equals(regionName)) {
@@ -78,8 +64,18 @@ public class ChangesInPeriodsController {
         }
     }
 
-    public static String generateQuery(String region, int[] startingYears, int period, double minAverageChange,
-            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize) {
+    private Region findSelectedRegion(ArrayList<Region> regions) {
+        for (Region region : regions) {
+            if (region.getSelected()) {
+                return region;
+            }
+        }
+        return null; // Return null if no region is selected
+    }
+
+    private static String generateQuery(String region, int[] startingYears, int period, double minAverageChange,
+            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize,
+            String regionName) {
         String selectedRegion;
         String selectedId;
 
@@ -94,7 +90,158 @@ public class ChangesInPeriodsController {
             selectedId = "state_id";
         }
 
-        if("Global".equals(region)) {
+        if ("Global".equals(region)) {
+            selectedRegion = "global";
+            selectedId = "global_id";
+        }
+
+        StringBuilder query = new StringBuilder("WITH ");
+
+        for (int i = 0; i < startingYears.length; i++) {
+            query.append("Table").append(i).append(" AS (")
+                    .append("SELECT ").append(selectedRegion).append(".name, ")
+                    .append("AVG(t.average_temperature) AS avg").append(i + 1).append(" ");
+            if ("Country".equals(region)) {
+                query.append(", AVG(p.population_number) AS population").append(" ");
+            }
+            ;
+
+            query.append("FROM temperature t ")
+                    .append("JOIN ").append(selectedRegion).append(" ON ").append(selectedRegion)
+                    .append(".id = t.").append(selectedId).append(" ");
+            if ("Country".equals(region)) {
+                query.append("LEFT JOIN population p ON t.year = p.year AND t.").append(selectedId)
+                        .append(" = p.").append(selectedId).append(" ");
+            }
+            ;
+            query.append("WHERE t.Year BETWEEN ").append(startingYears[i]).append(" AND ")
+                    .append(startingYears[i] + period).append(" ")
+                    .append("GROUP BY ").append(selectedRegion).append(".name), ");
+        }
+
+        query.delete(query.length() - 2, query.length());
+
+        query.append(", CountryData AS ( ");
+        query.append("SELECT ")
+                .append("Table0.name ");
+
+        for (int i = 0; i < startingYears.length; i++) {
+            query.append(", Table").append(i).append(".avg").append(i + 1).append(" ");
+        }
+
+        query.append("FROM Table0");
+
+        for (int i = 1; i < startingYears.length; i++) {
+            query.append(" JOIN Table").append(i)
+                    .append(" ON Table0.name = Table").append(i).append(".name");
+        }
+
+        query.append(" WHERE ");
+
+        for (int i = 0; i < startingYears.length; i++) {
+            query.append("ABS(").append("Table").append(i).append(".avg").append(i + 1).append(")").append(" >= 1 ")
+                    .append(" And ");
+
+            if ("Country".equals(region)) {
+                if (maxPopulation > 0) {
+                    query.append("(Table").append(i).append(".Population IS NULL OR Table").append(i)
+                            .append(".Population BETWEEN ")
+                            .append(minPopulation).append(" AND ").append(maxPopulation).append(") ");
+                } else {
+                    query.append("COALESCE(Table").append(i).append(".Population, 0) >= 0 ");
+                }
+
+                if (i < startingYears.length - 1) {
+                    query.append("AND ");
+                }
+            }
+        }
+        if ("Country".equals(region)) {
+        } else {
+            query = new StringBuilder(query.substring(0, query.length() - 4));
+        }
+        for (int i = 1; i < startingYears.length; i++) {
+            query.append(" AND ").append("ABS(").append("Table").append(i).append(".avg").append(i + 1)
+                    .append("-").append("Table0.avg1").append(")").append(" BETWEEN ").append(minAverageChange)
+                    .append(" AND ").append(maxAverageChange);
+        }
+
+        query.append(" AND Table0.name = '").append(regionName).append("'");
+
+        query.append(")");
+
+        query.append("SELECT ")
+                .append("Table0.name ");
+
+        for (int i = 0; i < startingYears.length; i++) {
+            query.append(", Table").append(i).append(".avg").append(i + 1).append(" AS \"").append(startingYears[i])
+                    .append("-").append(startingYears[i] + period).append("\" ");
+        }
+
+        query.append("FROM Table0");
+
+        for (int i = 1; i < startingYears.length; i++) {
+            query.append(" JOIN Table").append(i)
+                    .append(" ON Table0.name = Table").append(i).append(".name");
+        }
+
+        query.append(" WHERE ");
+
+        for (int i = 0; i < startingYears.length; i++) {
+            query.append("ABS(").append("Table").append(i).append(".avg").append(i + 1).append(")").append(" >= 1 ")
+                    .append(" And ");
+
+            if ("Country".equals(region)) {
+                if (maxPopulation > 0) {
+                    query.append("(Table").append(i).append(".Population IS NULL OR Table").append(i)
+                            .append(".Population BETWEEN ")
+                            .append(minPopulation).append(" AND ").append(maxPopulation).append(") ");
+                } else {
+                    query.append("COALESCE(Table").append(i).append(".Population, 0) >= 0 ");
+                }
+
+                if (i < startingYears.length - 1) {
+                    query.append("AND ");
+                }
+            }
+        }
+        if ("Country".equals(region)) {
+        } else {
+            query = new StringBuilder(query.substring(0, query.length() - 4));
+        }
+        for (int i = 1; i < startingYears.length; i++) {
+            query.append(" AND ").append("ABS(").append("Table").append(i).append(".avg").append(i + 1)
+                    .append("-").append("( Select Table").append(i).append(".avg").append(i+1).append(" from CountryData ")
+                    .append(")")
+                    .append(")").append(" BETWEEN ").append(minAverageChange)
+                    .append(" AND ").append(maxAverageChange);
+        }
+
+        query.append(" AND Table0.name <> '").append(regionName).append("'");
+
+        query.append(" LIMIT ").append(pageSize).append(" ").append("OFFSET ").append((page - 1) * pageSize);
+        System.err.println(query.toString());
+        return query.toString();
+    }
+
+    private static String generateQueryRegion(String region, int[] startingYears, int period, double minAverageChange,
+            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize,
+            String regionName) {
+        String selectedRegion;
+        String selectedId;
+
+        if ("Country".equals(region)) {
+            selectedRegion = "country";
+            selectedId = "country_id";
+        } else if ("City".equals(region)) {
+            selectedRegion = "city";
+            selectedId = "city_id";
+        } else {
+            selectedRegion = "state";
+            selectedId = "state_id";
+        }
+
+        if ("Global".equals(region)) {
             selectedRegion = "global";
             selectedId = "global_id";
         }
@@ -143,8 +290,8 @@ public class ChangesInPeriodsController {
         query.append(" WHERE ");
 
         for (int i = 0; i < startingYears.length; i++) {
-            query.append("ABS(").append("Table").append(i).append(".avg").append(i + 1).append(")").append(" >= 1 ").append(" And ");
-
+            query.append("ABS(").append("Table").append(i).append(".avg").append(i + 1).append(")").append(" >= 1 ")
+                    .append(" And ");
 
             if ("Country".equals(region)) {
                 if (maxPopulation > 0) {
@@ -169,13 +316,61 @@ public class ChangesInPeriodsController {
                     .append("-").append("Table0.avg1").append(")").append(" BETWEEN ").append(minAverageChange)
                     .append(" AND ").append(maxAverageChange);
         }
-        query.append(" LIMIT ").append(pageSize).append(" ").append("OFFSET ").append((page - 1) * pageSize);
+
+        if (regionName != null) {
+
+            query.append(" AND Table0.name = '").append(regionName).append("'");
+        }
         System.err.println(query.toString());
         return query.toString();
     }
 
-    private static String countTotalPage(String region, int[] startingYears, int period, double minAverageChange,
-            double maxAverageChange, long minPopulation, long maxPopulation) {
+    public String[] executeQueryRegion(String region, int[] startingYears, int period, double minAverageChange,
+            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize,
+            String regionName) {
+        List<String> resultList = new ArrayList<>();
+
+        try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
+            String sqlQuery = generateQueryRegion(region, startingYears, period, minAverageChange, maxAverageChange,
+                    minPopulation, maxPopulation, page, pageSize, regionName);
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+                    ResultSet resultSet = preparedStatement.executeQuery()) {
+                ResultSetMetaData metaData = resultSet.getMetaData();
+                int columnCount = metaData.getColumnCount();
+
+                while (resultSet.next()) {
+                    // Concatenate values of each column into a single string, separated by a
+                    // delimiter
+                    StringBuilder row = new StringBuilder();
+
+                    for (int i = 1; i <= columnCount; i++) {
+                        if (i > 1) {
+                            row.append(", "); // Use a comma and space as a delimiter
+                        }
+                        // Append the value to the row string
+                        row.append(resultSet.getString(i));
+                    }
+
+                    // Add the concatenated row to the resultList
+                    resultList.add(row.toString());
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Convert the List<String> to a String[]
+        String[] resultArray = resultList.toArray(new String[0]);
+        String[] output = resultArray[0].split(",");
+
+        System.err.println("output: " + output[0]);
+        return output;
+    }
+
+    public static String countTotalPage(String region, int[] startingYears, int period, double minAverageChange,
+            double maxAverageChange, long minPopulation, long maxPopulation, String regionName) {
         String selectedRegion;
         String selectedId;
 
@@ -189,7 +384,7 @@ public class ChangesInPeriodsController {
             selectedRegion = "state";
             selectedId = "state_id";
         }
-        if("Global".equals(region)) {
+        if ("Global".equals(region)) {
             selectedRegion = "global";
             selectedId = "global_id";
         }
@@ -261,12 +456,12 @@ public class ChangesInPeriodsController {
         return query.toString();
     }
 
-    private int executeCount(String region, int[] startingYears, int period, double minAverageChange,
-            double maxAverageChange, long minPopulation, long maxPopulation) {
+    public int executeCount(String region, int[] startingYears, int period, double minAverageChange,
+            double maxAverageChange, long minPopulation, long maxPopulation, String regionName) {
         int result = 0;
         try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             String sqlQuery = countTotalPage(region, startingYears, period, minAverageChange, maxAverageChange,
-                    minPopulation, maxPopulation);
+                    minPopulation, maxPopulation, regionName);
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
                     ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -286,12 +481,13 @@ public class ChangesInPeriodsController {
     }
 
     public String[][] executeQuery(String region, int[] startingYears, int period, double minAverageChange,
-            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize) {
+            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize,
+            String regionName) {
         List<String[]> resultRows = new ArrayList<>();
 
         try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             String sqlQuery = generateQuery(region, startingYears, period, minAverageChange, maxAverageChange,
-                    minPopulation, maxPopulation, page, pageSize);
+                    minPopulation, maxPopulation, page, pageSize, regionName);
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
                     ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -323,19 +519,10 @@ public class ChangesInPeriodsController {
 
     }
 
-    private Region findSelectedRegion(ArrayList<Region> regions) {
-        for (Region region : regions) {
-            if (region.getSelected()) {
-                return region;
-            }
-        }
-        return null; // Return null if no region is selected
-    }
-    
-
-    @GetMapping(value = { "/deep-dive/changes-in-periods" })
+    @GetMapping(value = { "/deep-dive/changes-in-regions" })
     public String level3SubtaskA(
             @RequestParam(name = "yearPeriod", required = false) String yearPeriod,
+            @RequestParam(name = "regionName", required = false) String regionName,
             @RequestParam(name = "region", required = false) String region,
             @RequestParam(name = "startingYears", required = false) String startingYears,
             @RequestParam(name = "minAverageChange", required = false) String minAverageChange,
@@ -344,6 +531,7 @@ public class ChangesInPeriodsController {
             @RequestParam(name = "maxPopulation", required = false) String maxPopulation,
             @RequestParam(name = "page", required = false) String page,
             Model model) {
+
         int parsedYearPeriod = 0;
         int pageSize = 20;
         if (yearPeriod != null && !yearPeriod.isEmpty()) {
@@ -354,8 +542,7 @@ public class ChangesInPeriodsController {
             }
         }
         ArrayList<Region> regions = convertStringToRegion(region);
-        ChangesInPeriodsModelView modelView = new ChangesInPeriodsModelView();
-
+        ChangesInRegionsModelView modelView = new ChangesInRegionsModelView();
         double parsedMinAverageChange = 0.0;
         double parsedMaxAverageChange = 0.0;
         long parsedMinPopulation = 0;
@@ -412,12 +599,31 @@ public class ChangesInPeriodsController {
                         + (parsedStartingYears[i - 1] + parsedYearPeriod);
             }
         }
-        String[][] data = executeQuery(region, parsedStartingYears, parsedYearPeriod, parsedMinAverageChange,
-                parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, parsedPage, pageSize);
-        double totalPageDouble = executeCount(region, parsedStartingYears, parsedYearPeriod, parsedMinAverageChange,
-                parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation) / pageSize;
+        String[][] data = { {} };
+        if (regionName != null) {
+            data = executeQuery(region, parsedStartingYears, parsedYearPeriod,
+                    parsedMinAverageChange,
+                    parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, parsedPage,
+                    pageSize, regionName);
+        }
+        double totalPageDouble = 0;
+
+        if(regionName!=null) {
+            totalPageDouble =executeCount(region, parsedStartingYears,
+            parsedYearPeriod, parsedMinAverageChange,
+            parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, regionName) / pageSize;
+        }
+
+        String[] firstRow= new String[]{};
+        if (regionName != null) {
+            firstRow = executeQueryRegion(region, parsedStartingYears, parsedYearPeriod,
+                    parsedMinAverageChange,
+                    parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, parsedPage,
+                    pageSize, regionName);
+        }
 
         int totalPage = (int) Math.ceil(totalPageDouble);
+
         Table table = new Table(dynamicHeader, data);
 
         modelView.setRegions(regions);
@@ -431,6 +637,7 @@ public class ChangesInPeriodsController {
         modelView.setPage(parsedPage);
         modelView.setTotalPage(totalPage);
         modelView.setTable(table);
+        modelView.setRegionName(regionName);
 
         Region selectedRegion = findSelectedRegion(regions);
 
@@ -438,9 +645,8 @@ public class ChangesInPeriodsController {
             selectedRegion = new Region("Country", 1, true);
 
         model.addAttribute("selectedRegion", selectedRegion);
-
-
         model.addAttribute("modelView", modelView);
-        return "changesInPeriods";
+        model.addAttribute("firstRow", firstRow);
+        return "changesInRegions";
     }
 }

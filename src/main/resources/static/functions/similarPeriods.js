@@ -1,7 +1,7 @@
 function navigateToRegion(selectElement) {
     var selectedRegion = selectElement.value;
     // You can construct the URL based on the selected region and navigate to it
-    var url = '/deep-dive/subtask-b?region=' + encodeURIComponent(selectedRegion);
+    var url = '/deep-dive/similar-periods?region=' + encodeURIComponent(selectedRegion);
     window.location.href = url;
 }
 
