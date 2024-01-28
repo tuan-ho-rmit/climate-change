@@ -71,6 +71,7 @@ public class Helper {
                             statement.setString(i + 1, data[i]);
                         }
                     }
+                    System.out.println(statement);
                     statement.addBatch();
                 }
 
@@ -102,7 +103,7 @@ public class Helper {
 
     private static void processAndInsertChunk(String[] chunk, String jdbcURL, String username, String password) {
         String sql = "INSERT INTO temperature (id, average_temperature, minimum_temperature, maximum_temperature, Year, country_id, city_id, state_id, global_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        System.out.println("SQL: INSERT INTO temperature (id, average_temperature, minimum_temperature, maximum_temperature, Year, country_id, city_id, state_id, global_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)" );
+
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password);
              Statement stmt = connection.createStatement();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -159,6 +160,6 @@ public class Helper {
         }
         return chunks;
     }
-    // Rest of the methods (splitCsvFileIntoChunks, processAndInsertChunk, createInsertStatement) remain the same
+
 }
 
