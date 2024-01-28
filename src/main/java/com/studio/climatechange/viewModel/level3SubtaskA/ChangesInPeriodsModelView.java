@@ -3,7 +3,7 @@ package com.studio.climatechange.viewModel.level3SubtaskA;
 import java.util.ArrayList;
 
 
-public class Level3SubtaskAViewModel {
+public class ChangesInPeriodsModelView {
     private ArrayList<Region> regions;
     private int yearPeriod;
     private int[] startingYears;

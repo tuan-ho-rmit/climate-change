@@ -22,11 +22,11 @@ import com.google.gson.JsonPrimitive;
 import com.studio.climatechange.viewModel.level2SubtaskB.Table;
 import com.studio.climatechange.viewModel.level3SubtaskA.Region;
 import com.studio.climatechange.viewModel.level3SubtaskB.FilterValue;
-import com.studio.climatechange.viewModel.level3SubtaskB.Level3SubtaskBViewModel;
+import com.studio.climatechange.viewModel.level3SubtaskB.SimilarPeriodsModelView;
 import com.studio.climatechange.viewModel.level3SubtaskB.ViewValue;
 
 @Controller
-public class Level3SubtaskBController {
+public class SimilarPeriods {
 
     @Value("${spring.datasource.url}")
     private String jdbcUrl;
@@ -57,7 +57,7 @@ public class Level3SubtaskBController {
     private ArrayList<FilterValue> convertStringToFilterValue(String filterId) {
         ArrayList<FilterValue> filterValues = new ArrayList<>();
         filterValues.add(new FilterValue("Absolute Values", 1, true));
-        filterValues.add(new FilterValue("Relative Change in Values", 2, false));
+        filterValues.add(new FilterValue("Relative Values", 2, false));
 
         for (FilterValue value : filterValues) {
             if (value.getName().equals(filterId)) {
@@ -68,15 +68,6 @@ public class Level3SubtaskBController {
         }
         return filterValues;
 
-    }
-
-    private Region findSelectedRegion(ArrayList<Region> regions) {
-        for (Region region : regions) {
-            if (region.getSelected()) {
-                return region;
-            }
-        }
-        return null; // Return null if no region is selected
     }
 
     private static String generateQueryTable1(String region, int startingYear, int period, String regionName,
@@ -214,7 +205,7 @@ public class Level3SubtaskBController {
         return getRegionNamesJson(region);
     }
 
-    @GetMapping(value = { "/deep-dive/subtask-b" })
+    @GetMapping(value = { "/deep-dive/similar-periods" })
     public String level3SubtaskA(
             @RequestParam(name = "region", required = false) String region,
             @RequestParam(name = "yearPeriod", required = false) String yearPeriod,
@@ -243,16 +234,16 @@ public class Level3SubtaskBController {
             }
         }
         ArrayList<Region> regions = convertStringToRegion("Country");
-        
-        if(region !=null) {
+
+        if (region != null) {
             regions = convertStringToRegion(region);
-        } 
+        }
         ArrayList<FilterValue> filterValues = convertStringToFilterValue(filterValue);
-        Level3SubtaskBViewModel table1 = new Level3SubtaskBViewModel();
-        boolean parsedViewByPopulation = true;
-        boolean parsedViewByTemperature = true;
-        parsedViewByTemperature = "on".equals(viewByTemperature);
-        parsedViewByPopulation = "on".equals(viewByPopulation);
+        SimilarPeriodsModelView table1 = new SimilarPeriodsModelView();
+        boolean parsedViewByPopulation= "on".equals(viewByPopulation);;
+        boolean parsedViewByTemperature= "on".equals(viewByTemperature);;
+        
+
 
         Table table = new Table(new String[] { "Period", "Temperature", "Population" }, new String[][] {});
         table.setData(executeQueryTable1(region, parsedStartingYear, parsedYearPeriod, regionName, "ASC"));
@@ -267,14 +258,7 @@ public class Level3SubtaskBController {
         table1.setFilterValues(filterValues);
         table1.setTable(table);
 
-        Region selectedRegion = findSelectedRegion(regions);
-
-        if (selectedRegion == null)
-            selectedRegion = new Region("Country", 1, true);
-
-        model.addAttribute("selectedRegion", selectedRegion);
-
         model.addAttribute("table1", table1);
-        return "level3SubtaskB";
+        return "similarPeriods";
     }
 }

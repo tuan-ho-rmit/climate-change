@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.studio.climatechange.repository.CountryRepository;
 import com.studio.climatechange.services.impl.Level3SubstaskAService;
-import com.studio.climatechange.viewModel.level3SubtaskA.Level3SubtaskAViewModel;
+import com.studio.climatechange.viewModel.level3SubtaskA.ChangesInPeriodsModelView;
 import com.studio.climatechange.viewModel.level3SubtaskA.Region;
 import com.studio.climatechange.viewModel.level3SubtaskA.Table;
 
 import io.micrometer.common.util.StringUtils;
 
 @Controller
-public class Level3SubtaskAController {
+public class ChangesInPeriodsController {
     private Level3SubstaskAService level3SubstaskAService;
     @Value("${spring.datasource.url}")
     private String jdbcUrl;
@@ -38,7 +38,7 @@ public class Level3SubtaskAController {
     private String password;
 
     @Autowired
-    public Level3SubtaskAController(CountryRepository countryRepository) {
+    public ChangesInPeriodsController(CountryRepository countryRepository) {
         this.level3SubstaskAService = level3SubstaskAService;
     }
 
@@ -333,7 +333,7 @@ public class Level3SubtaskAController {
     }
     
 
-    @GetMapping(value = { "/deep-dive/subtask-a" })
+    @GetMapping(value = { "/deep-dive/changes-in-periods" })
     public String level3SubtaskA(
             @RequestParam(name = "yearPeriod", required = false) String yearPeriod,
             @RequestParam(name = "region", required = false) String region,
@@ -354,7 +354,7 @@ public class Level3SubtaskAController {
             }
         }
         ArrayList<Region> regions = convertStringToRegion(region);
-        Level3SubtaskAViewModel modelView = new Level3SubtaskAViewModel();
+        ChangesInPeriodsModelView modelView = new ChangesInPeriodsModelView();
 
         double parsedMinAverageChange = 0.0;
         double parsedMaxAverageChange = 0.0;
@@ -441,6 +441,6 @@ public class Level3SubtaskAController {
 
 
         model.addAttribute("modelView", modelView);
-        return "level3SubtaskA";
+        return "changesInPeriods";
     }
 }

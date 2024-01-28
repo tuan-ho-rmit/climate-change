@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deep-dive Data</title>
-    <link th:href="@{/styles/level3SubtaskA.css}" rel="stylesheet" />
+    <link th:href="@{/styles/changesInPeriods.css}" rel="stylesheet" />
     <link rel="icon" href="/images/logo.png" type="image/x-icon">
 </head>
 
@@ -75,7 +75,13 @@
     </div>
 
     <div class="page-container">
-        <form th:action="@{/deep-dive/subtask-a}" method="get">
+        <div class="title">
+            <h2>
+                Changes in Periods
+            </h2>
+        </div>
+
+        <form th:action="@{/deep-dive/changes-in-periods}" method="get">
             <div class="filter">
                 <div class="filter-upper">
                     <div class="icon-title">
@@ -160,21 +166,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="body-row" th:each="row : ${modelView.table.data}">
+                        <tr class="body-row" th:each="row, rowIdx : ${modelView.table.data}">
                             <td class="body-cell" th:each="cell, cellIdx : ${row}">
                                 <span th:if="${cellIdx.index == 0}" th:text="${cell}"></span>
                                 <span th:if="${cellIdx.index > 0}">
                                     <span th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')}"></span>
                                 </span>
                                 <p> &nbsp;</p>
-                                <span th:if="${cellIdx.index > 1}">
+                                <!-- <span th:if="${cellIdx.index > 1}">
                                     <span
                                         th:class="(${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')} - ${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}) >= 0 ? 'positive' : 'negative'">
                                         (<span
                                             th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')} - ${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}"></span>)
                                     </span>
-
-
+                                </span> -->
+                                <span th:if="${rowIdx.index > 0 && cellIdx.index>0}">
+                                    <span
+                                        th:class="(${#numbers.formatDecimal(cell,0,'COMMA', 2, 'POINT')} -${#numbers.formatDecimal(modelView.table.data[0][cellIdx.index], 0 , 'COMMA', 2, 'POINT')}) >= 0 ? 'positive' : 'negative'">
+                                        (
+                                        <span
+                                            th:text="${#numbers.formatDecimal(cell,0,'COMMA', 2, 'POINT')} -${#numbers.formatDecimal(modelView.table.data[0][cellIdx.index], 0 , 'COMMA', 2, 'POINT')}"></span>
+                                        )
+                                    </span>
                                 </span>
 
                             </td>
@@ -190,7 +203,7 @@
                 <div th:each="pageNumber : ${#numbers.sequence(1, modelView.totalPage)}" class="paginationItem"
                     th:id="${pageNumber == modelView.page ? 'selected' : ''}">
                     <a th:text="${pageNumber}" th:name="pageNumber"
-                        th:href="@{/deep-dive/subtask-a(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation} )}"></a>
+                        th:href="@{/deep-dive/changes-in-periods(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation} )}"></a>
                 </div>
             </div>
 

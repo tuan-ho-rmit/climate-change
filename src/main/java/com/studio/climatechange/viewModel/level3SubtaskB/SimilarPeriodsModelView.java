@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import com.studio.climatechange.viewModel.level2SubtaskB.Table;
 import com.studio.climatechange.viewModel.level3SubtaskA.Region;
 
-public class Level3SubtaskBViewModel {
+public class SimilarPeriodsModelView {
     private ArrayList<Region> regions;
     private int yearPeriod;
     private int startingYear;

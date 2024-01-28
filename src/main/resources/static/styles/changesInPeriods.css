@@ -1,3 +1,6 @@
+* {
+    font-family: "Inter";
+}
 
 p {
     margin: 0;
@@ -29,22 +32,23 @@ p {
     background: var(--primary-color);
     justify-content: space-between;
     align-items: center;
-    z-index: 100; 
+    z-index: 100;
 }
 
-.logo, .navbar a {
+.logo,
+.navbar a {
     color: var(--nav-color);
     text-decoration: none;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal; 
+    line-height: normal;
 
 }
 
-.logo svg{
+.logo svg {
     fill: var(--Primary-80, #486856);
-    flex-shrink: 0; 
+    flex-shrink: 0;
     width: 40px;
     height: 40px;
 }
@@ -150,6 +154,14 @@ p {
     text-decoration: none;
 }
 
+.title {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #51AB3B;
+}
+
 .page-container {
     /* margin-top: 80px; */
     display: flex;
@@ -196,12 +208,37 @@ p {
 
 }
 
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    background: transparent url("/images/select-icon.png") no-repeat;
+    background-position: 95% 50%;
+}
+
+
+
 .filter .input select {
     cursor: pointer;
     border: 1px solid #000;
     border-radius: 4px;
     padding: 8px 12px;
+
 }
+
+.input select::after {
+    content: '\25BC';
+    /* Unicode character for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
 
 .filter .filter-lower {
     display: flex;
@@ -211,35 +248,27 @@ p {
     align-items: end;
 }
 
-.filter-lower .input {
+.filter-lower .range {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    max-width: 350px;
+}
+
+.range .range-input {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
     width: 100%;
-    max-width: 250px;
 }
 
-.filter-lower .regionName {
-    background: transparent url("/images/select-icon.png") no-repeat;
-    background-position: 95% 50%;    
-    cursor: pointer;
-    min-height: 34px;
+.range-input input {
     border: 1px solid #000;
-    padding: 8px 12px;
     border-radius: 4px;
+    padding: 8px 12px;
+    width: 100%;
 
-}
-.regionName:hover {
-    background-color: #ddd;
-    transition: 0.3s ease;
-}
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    background: transparent url("/images/select-icon.png") no-repeat;
-    background-position: 95% 50%;
 }
 
 .btn {
@@ -257,45 +286,6 @@ select {
     background-color: #428a30;
 }
 
-
-.checkbox {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    max-width: 120px;
-    font-size: 12px;
-    height: 100%;
-}
-
-.checkbox-custom {
-    cursor: pointer;
-    border: 4px solid #51AB3B;
-
-}
-input[type=checkbox] {
-    width: 24px;
-    height: 24px;
-    color: #fff;
-    accent-color: #51AB3B;
-    
-}
-
-.checkbox-custom::after {
-    content: "";
-    position: absolute;
-    display: none;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 5px;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    border-color: #fff;
-    transform-origin: bottom;
-}
 
 
 .table-container {
@@ -394,11 +384,40 @@ table {
     color: #E01B00;
 }
 
-.body-cell .positive {
-    color: #51AB3B;
+.pagination {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
-.body-cell .negative {
-    color: #E01B00;
+.paginationItem {
+    cursor: pointer;
+    font-size: 12px;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background-color: #fff;
 }
 
+
+.paginationItem#selected {
+    background-color: #ddd;
+}
+
+.paginationItem:hover {
+    background-color: #ddd;
+}
+
+.paginationItem a {
+    text-decoration: none;
+    color: #000;
+}
+
+.hiddenPagination {
+    display: none;
+}
