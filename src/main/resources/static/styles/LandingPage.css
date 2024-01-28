@@ -217,7 +217,7 @@ html {
     align-items: center;
     gap: 0.8rem;
     border-radius: 0.4rem;
-    border-color: #fff;
+    border: none;
     background-color: var(--primary-color); 
     color: var(--nav-color);
     cursor: pointer; 

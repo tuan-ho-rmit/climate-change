@@ -423,7 +423,7 @@ input {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    border-color: #FFF;
+    border: none;
     border-radius: 0.4rem;
     cursor: pointer;
 }

@@ -309,7 +309,6 @@ function applyQuery() {
               '&EndYear=' + encodeURIComponent(endYear) +
               '&colorRadio=' + encodeURIComponent(colorRadio);
 
-    history.pushState({}, "Filtered Data", url);
     loadData(url);
 }
 
@@ -327,6 +326,7 @@ function loadData(url) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var responseData = JSON.parse(xhr.responseText);
             updateTable(responseData);
+            history.pushState({}, "Filtered Data", "/high-level/subtask-b");
         }
     };
 
@@ -458,6 +458,7 @@ function formatTemperature(value) {
         return '<span style="color: green;">+' + value.toFixed(2).padStart(6) + '</span>';
     }
 }
+
 
 
 

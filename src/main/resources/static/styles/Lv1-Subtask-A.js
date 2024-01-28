@@ -15,4 +15,10 @@ $(document).ready(function() {
         $("#totalYearPop").text(data.totalYearPop);
         $("#totalYearGlobal").text(data.totalYearGlobal);
     });
+    $("body").css("display", "none");
+
+        // After 3 seconds, show the body
+        setTimeout(function() {
+            $("body").css("display", "");
+        }, 550); // 3 second delay
 });
