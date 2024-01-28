@@ -152,6 +152,18 @@
                         </div>
                     </div>
                 </div>
+                <div class = "big-block-5">
+                    <label class = "block-11" for = "tagsTempOptions">Ranking options</label>
+                    <div class = "block-12" onclick="document.getElementById('tagsTempOptions').focus();">
+                        <input id = "tagsTempOptions" type = "text" placeholder = "Options" name = "tempOps">
+                        <svg width="8" height="12" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
+                        </svg>
+                        <div id="tempOptions" class="dropdown-list" style="display: none;">
+                            <!-- Dropdown options will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
             </div>
 
                 <div class = big-block-6>
@@ -196,6 +208,41 @@
                     </tbody>
                 </table>
 
+            <table id="average">
+                <thead>
+                <tr class="header-row">
+                    <th class="header-cell">Rank</th>
+                    <th class="header-cell">Name</th>
+                    <th class="header-cell">Average Temperature</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <table id="minimum">
+                <thead>
+                <tr class="header-row">
+                    <th class="header-cell">Rank</th>
+                    <th class="header-cell">Name</th>
+                    <th class="header-cell">Average Temperature</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <table id="maximum">
+                <thead>
+                <tr class="header-row">
+                    <th class="header-cell">Rank</th>
+                    <th class="header-cell">Name</th>
+                    <th class="header-cell">Average Temperature</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
         </div>
 

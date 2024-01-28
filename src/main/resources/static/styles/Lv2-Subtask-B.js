@@ -38,18 +38,7 @@ $(function() {
                 "gap": "5px",
                 "background-color": "#fff",
             });
-            
-        widget.on("menucreate", function() {
-            $(this).find(".ui-menu .ui-menu-item").hover(
-                function() {
-                    $(this).css("background-color", "#EEEEEE !important"); // Use !important only if necessary
-                },
-                function() {
-                    $(this).css("background-color", "#fff");
-                }
-            );
-        });
-        
+
     }
 });
     
@@ -91,17 +80,6 @@ $(function() {
                         "gap": "5px",
                         "background-color": "#fff",
                     });
-
-                widget.on("menucreate", function() {
-                    $(this).find(".ui-menu .ui-menu-item").hover(
-                        function() {
-                            $(this).css("background-color", "#EEEEEE !important"); // Use !important only if necessary
-                        },
-                        function() {
-                            $(this).css("background-color", "#fff");
-                        }
-                    );
-                });
 
             }
         });
@@ -147,44 +125,59 @@ $(function() {
                             "background-color": "#fff",
                         });
 
-                    widget.on("menucreate", function() {
-                        $(this).find(".ui-menu .ui-menu-item").hover(
-                            function() {
-                                $(this).css("background-color", "#EEEEEE !important"); // Use !important only if necessary
-                            },
-                            function() {
-                                $(this).css("background-color", "#fff");
-                            }
-                        );
-                    });
-
                 }
             });
+            $("#tagsTempOptions").autocomplete({
+                minLength: 0,
+                source: ["Average", "Minimum", "Maximum"],
+                open: function() {
+                    var widget = $(this).autocomplete("widget");
 
-        // Add this JavaScript function to show the dropdown list and fetch data
+                    widget.css({
+                        "max-height": "200px",
+                        "overflow-y": "auto",
+                        "overflow-x": "hidden",
+                        "background-color": "#fff",
+                        "border-radius": "8px"
+                    });
+
+                    widget.find("li").css({
+                        "color": "#000",
+                        "font-family": "Inter",
+                        "font-size": "14px",
+                        "font-style": "normal",
+                        "font-weight": "400",
+                        "line-height": "normal",
+                        "cursor": "pointer",
+                        "padding": "5px",
+                        "gap": "5px",
+                        "background-color": "#fff",
+                    });
+                }
+            })
+            .focus(function () {
+                $(this).autocomplete('search', $(this).val())
+            });
+
+
         $(document).ready(function() {
-            // Function to show the dropdown list when the countryDropdownIcon is clicked
             $("#countryDropdownIcon").click(function(event) {
-                event.stopPropagation(); // Prevents the click event from bubbling up
+                event.stopPropagation();
 
                 var dropdown = $("#dropdownCountry");
                 if (dropdown.css("display") === "none") {
-                    // Show the dropdown if it's hidden
                     dropdown.show();
 
-                    // Fetch data from the server
                     $.ajax({
                         url: "/fetch/countries",
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            // Populate the dropdown with options
                             dropdown.empty();
                             $.each(data, function(index, value) {
                                 dropdown.append($("<div>").text(value).addClass("dropdown-item"));
                             });
 
-                            // Handle click event for dropdown items
                             dropdown.on("click", ".dropdown-item", function() {
                                 var selectedOption = $(this).text();
                                 $("#tagsCountry").val(selectedOption);
@@ -192,12 +185,10 @@ $(function() {
                             });
                         },
                         error: function(xhr, status, error) {
-                            // Handle errors
                             console.error("Error fetching countries:", error);
                         }
                     });
                 } else {
-                    // Hide the dropdown if it's already visible
                     dropdown.hide();
                 }
             });
@@ -390,6 +381,30 @@ function updateTable(data) {
     var tbody = table.getElementsByTagName('tbody')[0];
     tbody.innerHTML = '';
 
+        var avgTable = document.getElementById('average');
+        var tbodyAvg = avgTable.getElementsByTagName('tbody')[0];
+        tbodyAvg.innerHTML = '';
+
+        var minTable = document.getElementById('minimum');
+        var tbodyMin = minTable.getElementsByTagName('tbody')[0];
+        tbodyMin.innerHTML = '';
+
+        var maxTable = document.getElementById('maximum');
+        var tbodyMax = maxTable.getElementsByTagName('tbody')[0];
+        tbodyMax.innerHTML = '';
+
+        var option = document.getElementById('tagsTempOptions').value.toLowerCase();
+        if (option == null || (option !== 'average' && option !== 'maximum' && option !== 'minimum')) {
+            option = 'average';
+        }
+
+        var table2 = document.getElementById(option);
+        var tbody2 = table2.getElementsByTagName('tbody')[0];
+
+        document.getElementById('average').style.display = 'none';
+        document.getElementById('minimum').style.display = 'none';
+        document.getElementById('maximum').style.display = 'none';
+
     if (data.length === 0) {
         document.getElementById('dataSection').style.display = 'none';
         document.getElementById('filterSection').style.display = 'none';
@@ -436,6 +451,52 @@ function updateTable(data) {
             $('#resultTable tbody').html(html);
         }
     });
+
+        var dataType = option === "minimum" ? 'abs_min_temperature_change' :
+            (option === "maximum" ? 'abs_max_temperature_change' : 'abs_avg_temperature_change')
+
+        var data2 = data;
+
+        data2.sort((a, b) => {
+            if (b[dataType] < a[dataType]) return -1;
+            if (b[dataType] > a[dataType]) return 1;
+            return 0;
+        });
+
+        for (var i = 0; i < Math.min(data2.length, 10); i++) {
+            var row = tbody2.insertRow();
+            row.className = 'body-row';
+
+            var cell1 = row.insertCell(0);
+            cell1.className = 'body-cell';
+            cell1.innerHTML = data2[i].name;
+
+            var cell2 = row.insertCell(1);
+            cell2.className = 'body-cell';
+            cell2.innerHTML = formatTemperature(data2[i][dataType]);
+        }
+
+        $('#' + option).pagination({
+            dataSource: data2,
+            className: 'paginationjs-theme-green paginationjs-big',
+            pageSize: 10,
+            callback: function (data2, pagination) {
+                var html = '';
+                for (var i = 0; i < data2.length; i++) {
+                    html += '<tr class="body-row">' +
+                        '<td class="body-cell">' + data2[i].name + '</td>' +
+                        '<td class="body-cell">' + formatTemperature(data2[i][dataType]) + '</td>' +
+                        '</tr>';
+                }
+                $('#' + option + ' tbody').html(html);
+            }
+        });
+
+        document.getElementById(option).style.display = 'table';
+
+        document.getElementById('dataSection').style.display = 'block';
+        document.getElementById('filterSection').style.display = 'none';
+        document.getElementById('noDataSection').style.display = 'none';
 
     document.getElementById('dataSection').style.display = 'block';
     document.getElementById('filterSection').style.display = 'none';
