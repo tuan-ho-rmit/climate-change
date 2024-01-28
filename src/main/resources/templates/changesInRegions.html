@@ -161,15 +161,18 @@
                         <tr class="header-row">
                             <th th:each="header, headerIdx : ${modelView.table.header}" class="header-cell">
                                 <p th:text="${header}"></p>
-                                <svg th:if="${headerIdx.index >= 1}" width="16" height="17" viewBox="0 0 16 17"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M8.47157 2.69526C8.34654 2.57024 8.17697 2.5 8.00016 2.5C7.82335 2.5 7.65378 2.57024 7.52876 2.69526L3.52876 6.69526C3.26841 6.95561 3.26841 7.37772 3.52876 7.63807C3.78911 7.89842 4.21122 7.89842 4.47157 7.63807L8.00016 4.10948L11.5288 7.63807C11.7891 7.89842 12.2112 7.89842 12.4716 7.63807C12.7319 7.37772 12.7319 6.95561 12.4716 6.69526L8.47157 2.69526Z"
-                                        fill="#85858A" />
-                                    <path
-                                        d="M8.47157 14.9714C8.34654 15.0964 8.17697 15.1667 8.00016 15.1667C7.82335 15.1667 7.65378 15.0964 7.52876 14.9714L3.52876 10.9714C3.26841 10.7111 3.26841 10.2889 3.52876 10.0286C3.78911 9.76825 4.21122 9.76825 4.47157 10.0286L8.00016 13.5572L11.5288 10.0286C11.7891 9.76825 12.2112 9.76825 12.4716 10.0286C12.7319 10.2889 12.7319 10.7111 12.4716 10.9714L8.47157 14.9714Z"
-                                        fill="#85858A" />
-                                </svg>
+                                <a th:if="${headerIdx.index >= 1}" th:href="@{/deep-dive/changes-in-regions(page=1,region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation},regionName=${modelView.regionName}, sortType=${nextSortType}, sortColumn=${headerIdx.index-1} )}">
+                                    <svg  width="16" height="17" viewBox="0 0 16 17"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8.47157 2.69526C8.34654 2.57024 8.17697 2.5 8.00016 2.5C7.82335 2.5 7.65378 2.57024 7.52876 2.69526L3.52876 6.69526C3.26841 6.95561 3.26841 7.37772 3.52876 7.63807C3.78911 7.89842 4.21122 7.89842 4.47157 7.63807L8.00016 4.10948L11.5288 7.63807C11.7891 7.89842 12.2112 7.89842 12.4716 7.63807C12.7319 7.37772 12.7319 6.95561 12.4716 6.69526L8.47157 2.69526Z"
+                                            fill="#85858A" />
+                                        <path
+                                            d="M8.47157 14.9714C8.34654 15.0964 8.17697 15.1667 8.00016 15.1667C7.82335 15.1667 7.65378 15.0964 7.52876 14.9714L3.52876 10.9714C3.26841 10.7111 3.26841 10.2889 3.52876 10.0286C3.78911 9.76825 4.21122 9.76825 4.47157 10.0286L8.00016 13.5572L11.5288 10.0286C11.7891 9.76825 12.2112 9.76825 12.4716 10.0286C12.7319 10.2889 12.7319 10.7111 12.4716 10.9714L8.47157 14.9714Z"
+                                            fill="#85858A" />
+                                    </svg>
+                                </a>
+
 
                             </th>
                         </tr>
@@ -178,7 +181,8 @@
                         <tr class="body-row">
                             <td class="body-cell" th:each="value, valueIdx : ${firstRow}">
                                 <span th:if="${valueIdx.index} == 0" th:text="${value}"></span>
-                                <span th:if="${valueIdx.index} > 0" th:text="${#numbers.formatDecimal(value,0,'COMMA', 2, 'POINT')}"></span>
+                                <span th:if="${valueIdx.index} > 0"
+                                    th:text="${#numbers.formatDecimal(value,0,'COMMA', 2, 'POINT')}"></span>
                             </td>
                         </tr>
                         <tr class="body-row" th:each="row, rowIdx : ${modelView.table.data}">
@@ -211,7 +215,7 @@
                 <div th:each="pageNumber : ${#numbers.sequence(1, modelView.totalPage)}" class="paginationItem"
                     th:id="${pageNumber == modelView.page ? 'selected' : ''}">
                     <a th:text="${pageNumber}" th:name="pageNumber"
-                        th:href="@{/deep-dive/changes-in-regions(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation},regionName=${modelView.regionName} )}"></a>
+                        th:href="@{/deep-dive/changes-in-regions(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation},regionName=${modelView.regionName},sortType=${modelView.sortType}, sortColumn=${modelView.sortColumn} )}"></a>
                 </div>
             </div>
 

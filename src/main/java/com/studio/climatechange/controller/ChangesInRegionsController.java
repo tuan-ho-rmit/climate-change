@@ -75,7 +75,7 @@ public class ChangesInRegionsController {
 
     private static String generateQuery(String region, int[] startingYears, int period, double minAverageChange,
             double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize,
-            String regionName) {
+            String regionName, String sortType, String sortColumn) {
         String selectedRegion;
         String selectedId;
 
@@ -93,6 +93,23 @@ public class ChangesInRegionsController {
         if ("Global".equals(region)) {
             selectedRegion = "global";
             selectedId = "global_id";
+        }
+
+        String parseSortColumn = "";
+        int intSortColumn= 0;
+        try {
+
+            if (sortColumn != null) {
+                intSortColumn = Integer.parseInt(sortColumn);
+                int inputSortColumn = intSortColumn + 1;
+
+                parseSortColumn = "Table" + sortColumn + ".avg" + inputSortColumn;
+                System.err.println("parsedSortColumn: " + parseSortColumn);
+            }
+        } catch (NumberFormatException e) {
+            // Handle the case where the input cannot be parsed to an integer
+            System.err.println("Error parsing sortColumn: " + e.getMessage());
+            // You may want to log the error, throw an exception, or take appropriate action
         }
 
         StringBuilder query = new StringBuilder("WITH ");
@@ -211,7 +228,7 @@ public class ChangesInRegionsController {
         }
         for (int i = 1; i < startingYears.length; i++) {
             query.append(" AND ").append("ABS(").append("Table").append(i).append(".avg").append(i + 1)
-                    .append("-").append("( Select ").append("avg").append(i+1).append(" from CountryData ")
+                    .append("-").append("( Select ").append("avg").append(i + 1).append(" from CountryData ")
                     .append(")")
                     .append(")").append(" BETWEEN ").append(minAverageChange)
                     .append(" AND ").append(maxAverageChange);
@@ -219,6 +236,10 @@ public class ChangesInRegionsController {
 
         query.append(" AND Table0.name <> '").append(regionName).append("'");
 
+        if (parseSortColumn != null && !parseSortColumn.isEmpty() && sortType != null && !sortType.isEmpty()) {
+            query.append(" ORDER BY (").append(parseSortColumn).append(" - ").append(" (SELECT avg").append(intSortColumn+1).append(" FROM CountryData)").append(")")
+                    .append(" ").append(sortType);
+        }
         query.append(" LIMIT ").append(pageSize).append(" ").append("OFFSET ").append((page - 1) * pageSize);
         System.err.println(query.toString());
         return query.toString();
@@ -321,7 +342,6 @@ public class ChangesInRegionsController {
 
             query.append(" AND Table0.name = '").append(regionName).append("'");
         }
-        System.err.println(query.toString());
         return query.toString();
     }
 
@@ -482,12 +502,12 @@ public class ChangesInRegionsController {
 
     public String[][] executeQuery(String region, int[] startingYears, int period, double minAverageChange,
             double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize,
-            String regionName) {
+            String regionName, String sortType, String sortColumn) {
         List<String[]> resultRows = new ArrayList<>();
 
         try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             String sqlQuery = generateQuery(region, startingYears, period, minAverageChange, maxAverageChange,
-                    minPopulation, maxPopulation, page, pageSize, regionName);
+                    minPopulation, maxPopulation, page, pageSize, regionName, sortType, sortColumn);
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
                     ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -530,6 +550,8 @@ public class ChangesInRegionsController {
             @RequestParam(name = "minPopulation", required = false) String minPopulation,
             @RequestParam(name = "maxPopulation", required = false) String maxPopulation,
             @RequestParam(name = "page", required = false) String page,
+            @RequestParam(name = "sortColumn", required = false) String sortColumn,
+            @RequestParam(name = "sortType", required = false) String sortType,
             Model model) {
 
         int parsedYearPeriod = 0;
@@ -604,17 +626,17 @@ public class ChangesInRegionsController {
             data = executeQuery(region, parsedStartingYears, parsedYearPeriod,
                     parsedMinAverageChange,
                     parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, parsedPage,
-                    pageSize, regionName);
+                    pageSize, regionName, sortType, sortColumn);
         }
         double totalPageDouble = 0;
 
-        if(regionName!=null) {
-            totalPageDouble =executeCount(region, parsedStartingYears,
-            parsedYearPeriod, parsedMinAverageChange,
-            parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, regionName) / pageSize;
+        if (regionName != null) {
+            totalPageDouble = executeCount(region, parsedStartingYears,
+                    parsedYearPeriod, parsedMinAverageChange,
+                    parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, regionName) / pageSize;
         }
 
-        String[] firstRow= new String[]{};
+        String[] firstRow = new String[] {};
         if (regionName != null) {
             firstRow = executeQueryRegion(region, parsedStartingYears, parsedYearPeriod,
                     parsedMinAverageChange,
@@ -639,11 +661,28 @@ public class ChangesInRegionsController {
         modelView.setTable(table);
         modelView.setRegionName(regionName);
 
+        if ("ASC".equals(sortType)) {
+            System.err.println("ASC");
+            model.addAttribute("nextSortType", "DESC");
+
+        } else if ("DESC".equals(sortType)) {
+            System.err.println("DESC");
+
+            model.addAttribute("nextSortType", "");
+
+        } else {
+            System.err.println("null");
+
+            model.addAttribute("nextSortType", "ASC");
+        }
+
         Region selectedRegion = findSelectedRegion(regions);
 
         if (selectedRegion == null)
             selectedRegion = new Region("Country", 1, true);
 
+        modelView.setSortColumn((sortColumn != null && !sortColumn.isEmpty()) ? sortColumn : "");
+        modelView.setSortType((sortType != null && !sortType.isEmpty()) ? sortType : "");
         model.addAttribute("selectedRegion", selectedRegion);
         model.addAttribute("modelView", modelView);
         model.addAttribute("firstRow", firstRow);

@@ -15,6 +15,22 @@ public class ChangesInRegionsModelView {
     private int page;
     private int pageSize;
     private int totalPage;
+    private String sortType;
+    private String sortColumn;
+
+    public String getSortColumn() {
+        return sortColumn;
+    }
+
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+    }
+    public String getSortType() {
+        return sortType;
+    }
+    public void setSortType(String sortType) {
+        this.sortType = sortType;
+    }
  
 
     public String getRegionName() {
