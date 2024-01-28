@@ -22,7 +22,7 @@ public class Level2SubtaskBController {
     @Value("${spring.datasource.password}")
     private String password;
 
-    @GetMapping(value = {"/high-level-data/subtask-b"})
+    @GetMapping(value = {"/high-level/subtask-b"})
     public String highlevelData() {
         return "Lv2-Subtask-B";
     }

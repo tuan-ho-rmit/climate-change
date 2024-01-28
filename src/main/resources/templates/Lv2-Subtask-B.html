@@ -8,6 +8,7 @@
     <link rel = "stylesheet" th:href= "@{https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css}">
     <link rel="stylesheet" th:href="@{//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css}">
     <link rel="icon" href="/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" th:href = "@{/styles/pagination.css}" />
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.6.0/pagination.min.js"></script>
@@ -21,7 +22,7 @@
         <nav class = "navbar">
 
             <div><a th:href = "@{/LandingPage}">Home</a></div>
-            <a href = "#">Mission Statement</a>
+            <a th:href = "@{/about-us}">Mission Statement</a>
             <div class = "container">
                 <a href = "#">High-level data
                     <svg class = "icon" width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,14 +32,18 @@
                 <ul class="drop-down">
                     <div class = "li-container">
                     <li>
+                        <a class = "link" th:href = "@{/high-level/subtask-a}">
                         <div class = "li-inner-container">
                             <div class = "li-content">Subtask A</div>
                         </div>
+                        </a>
                     </li>
                     <li>
+                        <a class = "link" th:href = "@{/high-level/subtask-b}">
                         <div class = "li-inner-container">
                             <div class = "li-content">Subtask B</div>
                         </div>
+                        </a>
                     </li>
                     </div>
                 </ul>
@@ -52,12 +57,14 @@
                 <ul class="drop-down">
                     <div class = "li-container">
                     <li>
+                        <a class = "link" th:href = "@{/deep-dive/subtask-a}">
                         <div class = "li-inner-container">
                                 <div class = "li-content">Subtask A</div>
                         </div>
+                        </a>
                     </li>
                     <li>
-                        <a class = "link" th:href = "@{/high-level-data/subtask-b}">
+                        <a class = "link" th:href = "@{/deep-dive/subtask-b}">
                         <div class = "li-inner-container">
                                 <div class = "li-content">Subtask B</div>
                         </div>

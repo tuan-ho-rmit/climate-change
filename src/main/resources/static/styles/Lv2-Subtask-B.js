@@ -368,9 +368,8 @@ function validateForm() {
 
 $('#resultTable').pagination({
     dataSource: [],
+    className: 'paginationjs-theme-green paginationjs-big',
     pageSize: 10,
-    pageRange: null,
-    showPageNumbers: true,
     callback: function (data, pagination) {
         var html = '';
         for (var i = 0; i < data.length; i++) {
@@ -422,9 +421,8 @@ function updateTable(data) {
     // Initialize pagination after adding initial 10 rows
     $('#resultTable').pagination({
         dataSource: data,
+        className: 'paginationjs-theme-green paginationjs-big',
         pageSize: 10,
-        pageRange: null,
-        showPageNumbers: true,
         callback: function (data, pagination) {
             var html = '';
             for (var i = 0; i < data.length; i++) {
