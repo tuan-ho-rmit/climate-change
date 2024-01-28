@@ -2,14 +2,24 @@ package com.studio.climatechange.viewModel.level3SubtaskBPart2;
 
 import java.util.ArrayList;
 
+import com.studio.climatechange.viewModel.level2SubtaskB.Table;
 import com.studio.climatechange.viewModel.level3SubtaskA.Region;
 
-public class Level3SubtaskBPart2ViewModel {
+public class SimilarRegionsModelView {
     private ArrayList<Region> regions;
     private int yearPeriod;
     private int startingYear;
     private int resultNumber;
     private ArrayList<SortView> sortViews;
+    private Table table;
+
+    public void setTable(Table table) {
+        this.table = table;
+    }
+
+    public Table getTable() {
+        return table;
+    }
 
     public ArrayList<Region> getRegions() {
         return regions;

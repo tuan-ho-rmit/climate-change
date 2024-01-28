@@ -26,7 +26,7 @@ import com.studio.climatechange.viewModel.level3SubtaskB.SimilarPeriodsModelView
 import com.studio.climatechange.viewModel.level3SubtaskB.ViewValue;
 
 @Controller
-public class SimilarPeriods {
+public class SimilarPeriodsController {
 
     @Value("${spring.datasource.url}")
     private String jdbcUrl;

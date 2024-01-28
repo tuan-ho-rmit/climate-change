@@ -17,6 +17,7 @@ $(function () {
             $.ajax({
                 url: "/getListRegions",
                 dataType: "json",
+                type: "GET",
                 data: {
                     region: regionParam
                 },
