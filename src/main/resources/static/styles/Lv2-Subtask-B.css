@@ -13,12 +13,17 @@
     font-family: "Inter";
 }
 
+body {
+    overflow-x: hidden;
+}
+
+
 html {
     font-size: 10px;
 }
 
 .header {
-    position: fixed;
+    position: absolute;
     display: flex;
     top: 0;
     left: 0;
