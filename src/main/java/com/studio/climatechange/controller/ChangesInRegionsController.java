@@ -96,7 +96,7 @@ public class ChangesInRegionsController {
         }
 
         String parseSortColumn = "";
-        int intSortColumn= 0;
+        int intSortColumn = 0;
         try {
 
             if (sortColumn != null) {
@@ -237,7 +237,8 @@ public class ChangesInRegionsController {
         query.append(" AND Table0.name <> '").append(regionName).append("'");
 
         if (parseSortColumn != null && !parseSortColumn.isEmpty() && sortType != null && !sortType.isEmpty()) {
-            query.append(" ORDER BY (").append(parseSortColumn).append(" - ").append(" (SELECT avg").append(intSortColumn+1).append(" FROM CountryData)").append(")")
+            query.append(" ORDER BY (").append(parseSortColumn).append(" - ").append(" (SELECT avg")
+                    .append(intSortColumn + 1).append(" FROM CountryData)").append(")")
                     .append(" ").append(sortType);
         }
         query.append(" LIMIT ").append(pageSize).append(" ").append("OFFSET ").append((page - 1) * pageSize);
@@ -383,10 +384,14 @@ public class ChangesInRegionsController {
 
         // Convert the List<String> to a String[]
         String[] resultArray = resultList.toArray(new String[0]);
-        String[] output = resultArray[0].split(",");
 
-        System.err.println("output: " + output[0]);
-        return output;
+        if (resultArray.length > 0) {
+            String[] output = resultArray[0].split(",");
+            return output;
+        } else {
+            // Handle the case where the resultArray is empty (no results from the query)
+            return new String[0]; // Or return an error message or handle it according to your needs
+        }
     }
 
     public static String countTotalPage(String region, int[] startingYears, int period, double minAverageChange,
@@ -570,7 +575,15 @@ public class ChangesInRegionsController {
         long parsedMinPopulation = 0;
         long parsedMaxPopulation = 0;
         int parsedPage = 1;
+
         int[] parsedStartingYears = parseStartingYears(startingYears);
+        // if (startingYears != null && !startingYears.isEmpty()) {
+        // try {
+        // parsedStartingYears = parseStartingYears(startingYears);
+        // } catch (NumberFormatException e) {
+        // e.printStackTrace();
+        // }
+        // }
 
         if (minAverageChange != null && !minAverageChange.isEmpty()) {
             try {
