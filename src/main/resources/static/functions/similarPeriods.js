@@ -19,7 +19,8 @@ $(function () {
                 dataType: "json",
                 type: "GET",
                 data: {
-                    region: regionParam
+                    region: regionParam,
+                    search: request.term
                 },
                 success: function (data) {
                     response(data);

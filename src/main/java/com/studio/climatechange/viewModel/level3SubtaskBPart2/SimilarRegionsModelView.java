@@ -12,6 +12,15 @@ public class SimilarRegionsModelView {
     private int resultNumber;
     private ArrayList<SortView> sortViews;
     private Table table;
+    private String regionName;
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
 
     public void setTable(Table table) {
         this.table = table;

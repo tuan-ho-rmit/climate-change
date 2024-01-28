@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonPrimitive;
@@ -176,33 +178,40 @@ public class SimilarPeriodsController {
         return resultArray;
     }
 
-    public String getRegionNamesJson(String region) {
+    public String getRegionNamesJson(String region, String search) {
         try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
-            String sqlQuery = "SELECT name FROM " + region;
-
+            String sqlQuery = "SELECT name FROM " + region +" WHERE name LIKE " +"'%" +search +"%'";
+            System.err.println("sqlQuery: " + sqlQuery);
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery);
                     ResultSet resultSet = statement.executeQuery()) {
 
-                JsonArray regionNamesArray = new JsonArray();
+                // Create an ObjectMapper to convert ResultSet to JSON
+                ObjectMapper objectMapper = new ObjectMapper();
+                ArrayNode jsonArray = objectMapper.createArrayNode();
 
+                // Iterate through the ResultSet and add each name to the JSON array
                 while (resultSet.next()) {
-                    String regionName = resultSet.getString("name");
-                    regionNamesArray.add(new JsonPrimitive(regionName));
+                    String name = resultSet.getString("name");
+                    jsonArray.add(name);
                 }
 
-                return regionNamesArray.toString();
+                // Convert the JSON array to a string
+                return jsonArray.toString();
             }
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle the exception according to your requirements
         }
-        return "[]";
+        return "[]"; // Return an empty JSON array in case of an error
     }
 
     @GetMapping(value = { "/getListRegions" })
     @ResponseBody
-    public String getListRegions(@RequestParam(name = "region", required = false) String region) {
-        return getRegionNamesJson(region);
+    public String getListRegions(
+        @RequestParam(name = "region", required = false) String region,
+        @RequestParam(name = "search", required = false) String search
+    ) {
+        return getRegionNamesJson(region, search);
     }
 
     @GetMapping(value = { "/deep-dive/similar-periods" })
@@ -240,10 +249,10 @@ public class SimilarPeriodsController {
         }
         ArrayList<FilterValue> filterValues = convertStringToFilterValue(filterValue);
         SimilarPeriodsModelView table1 = new SimilarPeriodsModelView();
-        boolean parsedViewByPopulation= "on".equals(viewByPopulation);;
-        boolean parsedViewByTemperature= "on".equals(viewByTemperature);;
-        
-
+        boolean parsedViewByPopulation = "on".equals(viewByPopulation);
+        ;
+        boolean parsedViewByTemperature = "on".equals(viewByTemperature);
+        ;
 
         Table table = new Table(new String[] { "Period", "Temperature", "Population" }, new String[][] {});
         table.setData(executeQueryTable1(region, parsedStartingYear, parsedYearPeriod, regionName, "ASC"));

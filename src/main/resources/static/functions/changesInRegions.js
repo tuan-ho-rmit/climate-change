@@ -18,7 +18,9 @@ $(function () {
                 url: "/getListRegions",
                 dataType: "json",
                 data: {
-                    region: regionParam
+                    region: regionParam,
+                    search: request.term
+
                 },
                 success: function (data) {
                     response(data);
@@ -67,4 +69,4 @@ $(function () {
 
 
 
-
+document.querySelector('.more').innerHTML += '...';

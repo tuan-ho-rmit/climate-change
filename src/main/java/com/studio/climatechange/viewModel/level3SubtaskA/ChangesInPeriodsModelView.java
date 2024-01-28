@@ -15,6 +15,22 @@ public class ChangesInPeriodsModelView {
     private int page;
     private int pageSize;
     private int totalPage;
+    private String sortColumn;
+    private String sortType;
+
+    public String getSortColumn() {
+        return sortColumn;
+    }
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+    }
+
+    public void setSortType(String sortType) {
+        this.sortType = sortType;
+    }
+    public String getSortType() {
+        return sortType;
+    }
  
     // Getter and setter for 'regions'
     public ArrayList<Region> getRegions() {

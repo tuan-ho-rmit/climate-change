@@ -418,6 +418,13 @@ table {
     color: #000;
 }
 
-.hiddenPagination {
+#hidden {
     display: none;
+
 }
+
+.more {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
