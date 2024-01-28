@@ -554,3 +554,6 @@ table {
         justify-content: center;
 }
 
+#average, #minimum, #maximum {
+    margin-top: 50px;
+}
