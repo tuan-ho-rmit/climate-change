@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LandingPage</title>
+    <title>Home</title>
     <link rel = "stylesheet" th:href = "@{/styles/LandingPage.css}">
-    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 <div class = "header">
 
-    <a th:href = "@{LandingPage}" class = "logo">
-        <img src = "images/logo.png">
+    <a th:href = "@{/home}" class = "logo">
+        <img src = "/images/logo.png">
     </a>
 
     <nav class = "navbar">
 
-        <div><a th:href = "@{LandingPage}">Home</a></div>
-        <a href = "#">Mission Statement</a>
+        <div><a th:href = "@{/home}">Home</a></div>
+        <a th:href = "@{/about-us}">Mission Statement</a>
         <div class = "container">
             <a href = "#">High-level data
                 <svg class = "icon" width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,14 +28,16 @@
             <ul class="drop-down">
                 <div class = "li-container">
                     <li>
+                        <a class = "link" th:href = "@{/high-level/subtask-a}">
                         <div class = "li-inner-container">
-                            <div class = "li-content">Subtask A</div>
+                            <div class = "li-content">Change by Global/Country</div>
                         </div>
+                        </a>
                     </li>
                     <li>
-                        <a class = "link" th:href = "@{Lv2-Subtask-B}">
+                        <a class = "link" th:href = "@{/high-level/subtask-b}">
                             <div class = "li-inner-container">
-                                <div class = "li-content">Subtask B</div>
+                                <div class = "li-content">Change by City/State</div>
                             </div>
                         </a>
                     </li>
@@ -51,14 +53,32 @@
             <ul class="drop-down">
                 <div class = "li-container">
                     <li>
-                        <div class = "li-inner-container">
-                            <div class = "li-content">Subtask A</div>
-                        </div>
+                        <a class = "link" th:href = "@{/deep-dive/changes-in-periods}">
+                            <div class = "li-inner-container">
+                                <div class = "li-content">Changes in Periods</div>
+                            </div>
+                        </a>
                     </li>
                     <li>
-                        <div class = "li-inner-container">
-                            <div class = "li-content">Subtask B</div>
-                        </div>
+                        <a class = "link" th:href = "@{/deep-dive/changes-in-regions}">
+                            <div class = "li-inner-container">
+                                <div class = "li-content">Changes in regions</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class = "link" th:href = "@{/deep-dive/similar-periods}">
+                            <div class = "li-inner-container">
+                                <div class = "li-content">Similar periods</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class = "link" th:href = "@{/deep-dive/similar-regions}">
+                            <div class = "li-inner-container">
+                                <div class = "li-content">Similar regions</div>
+                            </div>
+                        </a>
                     </li>
                 </div>
             </ul>
@@ -100,7 +120,7 @@
             <div class = "h1">Population Data</div>
         </div>
 
-        <div class = "h2">Year range of data: From <span id="earliestPopulationYear"></span> To <span id = "latestPopulationYear"></span><br></br>In <span id="earliestPopYear"></span>, the world population was <span id = "earliestPopulationNumber"></span> and In <span id = "latestPopYear"></span>, the world population was <span id = "latestPopulationNumber"></span>.</div>
+        <div class = "card-1">From <span id="earliestPopulationYear"></span> To <span id = "latestPopulationYear"></span><br></br>World population In <span id="earliestPopYear"></span> <span id = "earliestPopulationNumber"></span><br>World population In <span id = "latestPopYear"></span> <span id = "latestPopulationNumber"></span><br>Total years of available data: <span id = "totalYearPop"></span></div>
     </div>
     <div class = "Content-4">
         <div class = "box"><svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +129,7 @@
             <path d="M49.1192 44.7016C48.1755 46.2755 46.6234 47.3527 44.7485 47.7357C42.8903 48.1145 40.936 47.7652 39.2446 46.751L30.1829 41.315C29.742 41.0505 29.4301 40.6304 29.3052 40.1314C29.1813 39.6335 29.2587 39.1163 29.5229 38.6757C29.6878 38.4003 29.919 38.1832 30.1871 38.0228L30.1845 38.0212C29.7436 37.7566 29.4317 37.3365 29.3074 36.8382C29.1826 36.34 29.26 35.8225 29.5245 35.3813C29.6949 35.0979 29.9283 34.8763 30.1948 34.7191C29.8079 34.453 29.5293 34.0664 29.4147 33.6079C29.2898 33.1093 29.3673 32.5921 29.6318 32.1515C29.896 31.7105 30.3165 31.399 30.8147 31.2744C30.9704 31.2353 31.1282 31.2161 31.2845 31.2161C31.5913 31.2164 31.8923 31.2943 32.1689 31.439C32.1859 31.0807 32.2925 30.7288 32.502 30.4268C33.0761 29.5984 34.2263 29.3691 35.1223 29.9067L42.5428 34.3578L41.5863 32.635C41.2194 31.9772 41.2328 31.1658 41.6219 30.517C41.8115 30.2013 42.0824 29.939 42.4061 29.7575C42.6722 29.6102 42.9604 29.5404 43.2447 29.5404C43.8554 29.5407 44.4485 29.8628 44.7642 30.4332C45.8644 32.4157 47.9407 36.1545 48.0867 36.4156C48.1178 36.4607 48.2116 36.5952 48.292 36.7095C48.3685 36.8181 48.4511 36.9218 48.5367 37.0249C50.3895 39.2709 50.6129 42.2122 49.1191 44.7016L49.1192 44.7016ZM47.7477 37.6766C47.6459 37.5533 47.546 37.4275 47.455 37.2978C47.1784 36.9052 47.1713 36.895 47.1505 36.7922C46.8271 36.2571 46.0381 34.8366 43.8693 30.9292C43.679 30.5863 43.2467 30.4611 42.9025 30.6513C42.7331 30.7461 42.597 30.8783 42.4977 31.0439C42.2966 31.3791 42.289 31.798 42.4789 32.1381L44.3611 35.5295C44.4735 35.7319 44.436 35.9843 44.2698 36.145C44.104 36.3061 43.8504 36.3343 43.6512 36.2158L34.5961 30.7835C34.1692 30.5277 33.6066 30.6279 33.3427 31.009C33.1909 31.228 33.1426 31.4893 33.206 31.7445C33.2643 31.9776 33.4106 32.1742 33.6178 32.2985C33.6184 32.2988 33.6188 32.2995 33.6194 32.2998L39.54 35.8516C39.7821 35.997 39.8605 36.3108 39.7151 36.5532C39.5698 36.795 39.2563 36.8741 39.0135 36.7284L31.7449 32.368C31.5386 32.2444 31.2959 32.2079 31.0628 32.2665C30.829 32.3248 30.6324 32.4708 30.5085 32.678C30.3842 32.8845 30.3484 33.1269 30.406 33.36C30.4643 33.5932 30.6106 33.7901 30.8175 33.9143L32.2319 34.7626L38.0858 38.2748C38.3279 38.4202 38.4064 38.734 38.261 38.9764C38.1156 39.2182 37.8021 39.297 37.5594 39.1516L31.6376 35.5987C31.2117 35.3426 30.6571 35.4815 30.4009 35.9081C30.2767 36.1149 30.2408 36.3573 30.2984 36.5904C30.3567 36.8236 30.5031 37.0202 30.7102 37.1447L32.1621 38.0157L36.632 40.6976C36.8741 40.843 36.9526 41.1568 36.8072 41.3992C36.6618 41.641 36.3483 41.7204 36.1056 41.5744L31.6357 38.8925C31.4295 38.7689 31.1877 38.7324 30.9533 38.791C30.7202 38.8493 30.5229 38.9953 30.399 39.2018C30.2751 39.4087 30.2389 39.6514 30.2965 39.8842C30.3548 40.1173 30.5011 40.314 30.7083 40.4385L39.77 45.8745C41.2405 46.7568 42.9363 47.0622 44.5432 46.7343C46.1334 46.4096 47.447 45.5011 48.2417 44.1761C49.5261 42.0363 49.3414 39.6065 47.7483 37.6766L47.7477 37.6766Z" fill="#4CAF4F"/></svg>
             <div class = "h1">Global Data</div>
         </div>
-        <div class = "h2">Year range of data: From <span id="earliestGlobalTemperatureYear"></span> To <span id = "latestGlobalTemperatureYear"></span><br></br>In <span id="earliestGlobalTempYear"></span>, the average temperature was <span id = "averageTemperatureEarliestYear"></span> and In <span id = "latestGlobalTempYear"></span>, the average temperature was <span id = "averageTemperatureLatestYear"></span>.</div>
+        <div class = "card-2">From <span id="earliestGlobalTemperatureYear"></span> To <span id = "latestGlobalTemperatureYear"></span><br></br>Average temperature In <span id="earliestGlobalTempYear"></span><br><span id = "averageTemperatureEarliestYear"></span><br>Average temperature In <span id = "latestGlobalTempYear"></span><br><span id = "averageTemperatureLatestYear"></span><br>Total years of available data: <span id = "totalYearGlobal"></span></div>
     </div>
 </div>
 <div class = "Section-3">
@@ -147,9 +167,9 @@
 </div>
 <script>
     function explore() {
-    window.location.href = /*[[ @{/Lv2-Subtask-B} ]]*/ '/Lv2-Subtask-B';
+    window.location.href = /*[[ @{/high-level/subtask-a} ]]*/ '/high-level/subtask-a';
 }
 </script>
-<script src = "styles/Lv1-Subtask-A.js"></script>
+<script src = "/styles/Lv1-Subtask-A.js"></script>
 </body>
 </html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep-dive Data</title>
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+    <link th:href="@{/styles/similarPeriods.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+</head>
+
+<body>
+    <div class="header">
+        <a th:href="@{/home}" class="logo">
+            <img src="/images/logo.png">
+        </a>
+
+        <nav class="navbar">
+
+            <div><a th:href="@{/home}">Home</a></div>
+            <a th:href="@{/about-us}">Mission Statement</a>
+            <div class="container">
+                <a href="#">High-level data
+                    <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z"
+                            fill="white" />
+                    </svg>
+                </a>
+                <ul class="drop-down">
+                    <div class="li-container">
+                        <li>
+                            <a class="link" th:href="@{/high-level/subtask-a}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Change by Global/Country</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/high-level/subtask-b}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Change by City/State</div>
+                                </div>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <div class="container">
+                <a href="#">Deep-dive data
+                    <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z"
+                            fill="white" />
+                    </svg>
+                </a>
+                <ul class="drop-down">
+                    <div class="li-container">
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/changes-in-periods}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Changes in Periods</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/changes-in-regions}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Changes in Regions</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/similar-periods}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Similar Periods</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/similar-regions}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Similar Regions</div>
+                                </div>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+
+        </nav>
+
+    </div>
+
+    <div class="page-container">
+        <div class="title">
+            <h2>
+                Similar Periods
+            </h2>
+        </div>
+        <form th:action="@{/deep-dive/similar-periods}" method="get">
+            <div class="filter">
+                <div class="filter-upper">
+                    <div class="icon-title">
+                        <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M0.75 0.75C0.335786 0.75 0 1.08579 0 1.5C0 1.91421 0.335786 2.25 0.75 2.25H15.25C15.6642 2.25 16 1.91421 16 1.5C16 1.08579 15.6642 0.75 15.25 0.75H0.75ZM3 5.5C3 5.08579 3.33579 4.75 3.75 4.75H12.25C12.6642 4.75 13 5.08579 13 5.5C13 5.91421 12.6642 6.25 12.25 6.25H3.75C3.33579 6.25 3 5.91421 3 5.5ZM6 9.5C6 9.0858 6.33579 8.75 6.75 8.75H9.25C9.66421 8.75 10 9.0858 10 9.5C10 9.9142 9.66421 10.25 9.25 10.25H6.75C6.33579 10.25 6 9.9142 6 9.5Z"
+                                fill="#85858A" />
+                        </svg>
+                        <p style="font-size: 16px;">Filter</p>
+                    </div>
+
+                    <div class="input">
+                        <label for="">Region</label>
+                        <select id="region" name="region" onchange="navigateToRegion(this)">
+                            <option th:each="region : ${table1.regions}" th:value="${region.name}"
+                                th:text="${region.name}" th:selected="${region.selected}">>
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="input">
+                        <label for="">Time Period</label>
+                        <input type="number" name="yearPeriod" th:value="${table1.yearPeriod}">
+                    </div>
+
+                    <div class="input">
+                        <label for="">Starting Year</label>
+                        <input placeholder="Year" name="startingYear" th:value="${table1.startingYear}">
+                    </div>
+                </div>
+
+                <div class="filter-lower">
+                    <div class="input">
+                        <label for="">Region Name</label>
+                        <input id="regionName" placeholder="Search Region Name...." name="regionName"
+                            th:value="${table1.regionName}">
+
+                    </div>
+
+                    <div class="checkbox">
+                        <input type="checkbox" class="checkbox-custom" name="viewByTemperature"
+                            th:checked=${table1.viewByTemperature}>
+                        <p>View by temperature</p>
+                    </div>
+
+                    <div class="checkbox" th:if="${table1.regions[0].selected == true}">
+                        <input type="checkbox" class="checkbox-custom" name="viewByPopulation"
+                            th:checked=${table1.viewByPopulation}>
+                        <p>View by population</p>
+                    </div>
+                    <div class="input">
+                        <label for="">Filter By Value</label>
+                        <select id="filterValue" name="filterValue">
+                            <option th:each="value : ${table1.filterValues}" th:value="${value.name}"
+                                th:text="${value.name}" th:selected="${value.selected}">>
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="reset" class="btn-secondary" onclick="resetFilter('similar-periods')"> Reset</button>
+                    <button type="submit" class="btn">Apply</button>
+
+                </div>
+            </div>
+        </form>
+
+        <div class="table-container">
+            <div class="overflowing" th:if="${table1.table.data.length > 0 && (table1.viewByTemperature==true or table1.viewByPopulation==true)}">
+                <table>
+                    <thead>
+                        <tr class="header-row">
+                            <th class="header-cell">
+                                <p th:text="${table1.table.header[0]}"></p>
+                            </th>
+                            <th class="header-cell" th:if="${table1.viewByTemperature == true}">
+                                <p th:text="${table1.table.header[1]}"></p>
+                            </th>
+                            <th class="header-cell" th:if="${table1.viewByPopulation == true}">
+                                <p th:text="${table1.table.header[2]}"></p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="body-row" th:each="row : ${table1.table.data}">
+                            <td class="body-cell">
+                                <span th:text="${row[0]}"></span>
+                            </td>
+
+                            <td class="body-cell"
+                                th:if="${table1.viewByTemperature == true && table1.filterValues[0].selected == true}">
+                                <span th:text="${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}"> </span>
+                                <p> &nbsp;</p>
+                                <span class="positive">
+                                    (<span th:text="${row[2]}"></span>)
+                                </span>
+                            </td>
+
+                            <td class="body-cell"
+                                th:if="${table1.viewByPopulation == true && table1.filterValues[0].selected == true}">
+                                <span th:text="${#numbers.formatInteger(row[4],3,'COMMA')}"></span>
+                                <p> &nbsp;</p>
+                                <span class="positive">
+                                    (<span th:text="${#numbers.formatInteger(row[5],3,'COMMA')}"></span>)
+                                </span>
+                            </td>
+
+                            <td class="body-cell"
+                                th:if="${table1.viewByTemperature == true && table1.filterValues[1].selected == true}">
+                                <span th:text="${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}"> </span>
+                                <p> &nbsp;</p>
+                                <span th:class="${#numbers.formatDecimal(row[3],2,'COMMA',2,'POINT')} >= 0 ? 'positive' : 'negative'">
+                                    (<span th:text="${row[3]}"></span>%)
+                                </span>
+                            </td>
+
+                            <td class="body-cell"
+                                th:if="${table1.viewByPopulation == true && table1.filterValues[1].selected == true}">
+                                <span th:text="${#numbers.formatInteger(row[4],3,'COMMA')}"></span>
+                                <p> &nbsp;</p>
+                                <span
+                                    th:class="${#numbers.formatDecimal(row[6],2,'COMMA',2,'POINT')} >= 0 ? 'positive' : 'negative'">
+                                    (<span th:text="${row[6]}"></span>%)
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="noData" th:if="${table1.table.data.length == 0 or (table1.viewByTemperature==false && table1.viewByPopulation==false)}">
+                <img src="/images/no-data.png" style="height: 120px; width: 120px;">
+                <h2 style="font-size: 18px; font-weight: 700;">Apply Filter To Display Data</h2>
+            </div>
+        </div>
+    </div>
+    <script src="/functions/similarPeriods.js"></script>
+
+</body>
+
+</html>
