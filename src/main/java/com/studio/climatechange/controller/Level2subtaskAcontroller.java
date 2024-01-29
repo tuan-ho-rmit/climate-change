@@ -55,21 +55,21 @@ public class Level2subtaskAcontroller {
         }
 
         String parseSortColumn = "";
-
-        try {
-
-            if (sortColumn != null) {
-                int intSortColumn = Integer.parseInt(sortColumn);
-                int inputSortColumn = intSortColumn + 1;
-
-                parseSortColumn = "Table" + sortColumn + ".avg" + inputSortColumn;
-                System.err.println("parsedSortColumn: " + parseSortColumn);
-            }
-        } catch (NumberFormatException e) {
-            // Handle the case where the input cannot be parsed to an integer
-            System.err.println("Error parsing sortColumn: " + e.getMessage());
-            // You may want to log the error, throw an exception, or take appropriate action
+        if("0".equals(sortColumn)) {
+            parseSortColumn = "AvgDiff";
         }
+        else if("1".equals(sortColumn)){
+            parseSortColumn = "MaxDiff";
+        }
+        else if("2".equals(sortColumn)){
+            parseSortColumn= "MinDiff";
+        }
+        else if ("3".equals(sortColumn)) {
+            parseSortColumn="PopuDifference";
+        } else {
+            parseSortColumn= "Correlation";
+        }
+ 
 
 
 
@@ -98,11 +98,11 @@ public class Level2subtaskAcontroller {
         .append("       ROUND((e.maximum_temperature - s.maximum_temperature), 2) AS MaxDiff, ")
         .append("       ROUND((e.minimum_temperature - s.minimum_temperature), 2) AS MinDiff, ")
         .append("       CAST((e.population_number - s.population_number) AS SIGNED) AS PopuDifference, ")
-        .append("       CAST(((e.average_temperature - s.average_temperature) / (e.population_number - s.population_number)) * 100 AS SIGNED) AS Correlation ")
+        .append("       ABS(CAST(((e.average_temperature - s.average_temperature) / (e.population_number - s.population_number) * 10000000) AS DECIMAL(16,2))) AS Correlation ")
         .append("FROM StarYear s ")
         .append("JOIN EndYear e ON s.name = e.name");
         if (parseSortColumn != null && !parseSortColumn.isEmpty() && sortType != null && !sortType.isEmpty()) {
-            query.append(" ORDER BY (").append(parseSortColumn).append(" - ").append("AvgDiff").append(")")
+            query.append(" ORDER BY ").append(parseSortColumn)
                     .append(" ").append(sortType);
         }
         query.append(" LIMIT ").append(pageSize).append(" OFFSET ").append((page - 1) * pageSize);
