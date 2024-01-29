@@ -115,7 +115,7 @@ public class Helper implements CommandLineRunner {
     }
 
     private void processAndInsertChunk(String[] chunk) {
-        String sql = "INSERT INTO temperature (id, average_temperature, minimum_temperature, maximum_temperature, Year, country_id, city_id, state_id, global_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO temperature (id, average_temperature, minimum_temperature, maximum_temperature, Year, city_id, country_id,  state_id, global_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
              Statement stmt = connection.createStatement();
