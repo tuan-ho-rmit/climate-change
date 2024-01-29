@@ -560,7 +560,7 @@ public class ChangesInRegionsController {
             Model model) {
 
         int parsedYearPeriod = 0;
-        int pageSize = 20;
+        int pageSize = 10;
         if (yearPeriod != null && !yearPeriod.isEmpty()) {
             try {
                 parsedYearPeriod = Integer.parseInt(yearPeriod);

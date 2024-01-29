@@ -5,6 +5,12 @@ function navigateToRegion(selectElement) {
     window.location.href = url;
 }
 
+function navigateToRegion2(selectElement) {
+    var selectedRegion = selectElement.value;
+    // You can construct the URL based on the selected region and navigate to it
+    var url = '/deep-dive/similar-regions?region=' + encodeURIComponent(selectedRegion);
+    window.location.href = url;
+}
 
 function resetFilter (path) {
     var url = '/deep-dive/' +path;

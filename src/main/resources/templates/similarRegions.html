@@ -117,7 +117,7 @@
 
                     <div class="input">
                         <label for="">Region</label>
-                        <select id="region" name="region">
+                        <select id="region" name="region" onchange="navigateToRegion2(this)">
                             <option th:each="region : ${modelView.regions}" th:value="${region.name}"
                                 th:text="${region.name}" th:selected="${region.selected}">>
                             </option>
@@ -187,10 +187,10 @@
                             <td class="body-cell" th:if="${rowIdx.index > 0}">
                                 <span th:text="${row[2]}"></span>
 
+                                <p> &nbsp;</p>
+
                                 <span th:class="positive">
-                                    (
-                                        <span th:text="${row[3]}"></span>
-                                    )
+                                    (<span th:text="${row[3]}"></span>)
                                 </span>
                             </td>
                         </tr>
