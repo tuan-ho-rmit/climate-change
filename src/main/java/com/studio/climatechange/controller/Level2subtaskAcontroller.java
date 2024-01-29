@@ -107,7 +107,6 @@ public class Level2subtaskAcontroller {
         }
         query.append(" LIMIT ").append(pageSize).append(" OFFSET ").append((page - 1) * pageSize);
 
-                System.err.println(query.toString());
         return query.toString();
     }
 
@@ -301,8 +300,6 @@ public class Level2subtaskAcontroller {
 
         modelView.setSortColumn((sortColumn != null && !sortColumn.isEmpty()) ? sortColumn : "");
         modelView.setSortType((sortType != null && !sortType.isEmpty()) ? sortType : "");
-        System.err.println("sortColumn: " + modelView.getSortColumn());
-        System.err.println("sortType: " + modelView.getSortType());
         model.addAttribute("selectedRegion", selectedRegion);
         model.addAttribute("modelView", modelView);
 

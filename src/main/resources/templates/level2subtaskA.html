@@ -12,14 +12,14 @@
 
 <body>
     <div class="header">
-        <a th:href="@{/LandingPage}" class="logo">
+        <a th:href="@{/home}" class="logo">
             <img src="/images/logo.png">
         </a>
 
         <nav class="navbar">
 
-            <div><a th:href="@{LandingPage}">Home</a></div>
-            <a href="#">Mission Statement</a>
+            <div><a th:href="@{/home}">Home</a></div>
+            <a th:href="@{/about-us}">Mission Statement</a>
             <div class="container">
                 <a href="#">High-level data
                     <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
@@ -34,14 +34,14 @@
                         <li>
                             <a class="link" th:href="@{/high-level/subtask-a}">
                                 <div class="li-inner-container">
-                                    <div class="li-content">Subtask A</div>
+                                    <div class="li-content">Change by Global/Country</div>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <a class="link" th:href="@{/high-level/subtask-b}">
                                 <div class="li-inner-container">
-                                    <div class="li-content">Subtask B</div>
+                                    <div class="li-content">Change by City/State</div>
                                 </div>
                             </a>
                         </li>
@@ -62,7 +62,7 @@
                         <li>
                             <a class="link" th:href="@{/deep-dive/changes-in-periods}">
                                 <div class="li-inner-container">
-                                    <div class="li-content">Subtask A</div>
+                                    <div class="li-content">Changes in Periods</div>
                                 </div>
                             </a>
                         </li>
@@ -96,13 +96,10 @@
     </div>
 
     <div class="page-container">
-        <div class="big-block-1">
-            <div class="block-1">High-level data</div>
-            <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 0.833292L5.66667 5.49996L1 10.1666" stroke="#51AB3B" stroke-width="1.5"
-                    stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <div class="block-2">Subtask A</div>
+        <div class="title">
+            <h2>
+                Change by Country/ Global
+            </h2>
         </div>
 
 
@@ -141,7 +138,8 @@
 
                     </div>
                     <div class="apply-section">
-                        <button type="submit" onclick="applyQuery()">Apply</button>
+                        <button type="reset" class="btn2" onclick="resetFilter('subtask-a')">Reset</button>
+                        <button type="submit" class="btn1" onclick="applyQuery()">Apply</button>
                     </div>
                 </div>
             </section>

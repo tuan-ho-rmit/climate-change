@@ -1,3 +1,7 @@
+p {
+    margin: 0;
+}
+
 :root {
     --primary-color: #4CAF4F;
     --background-color-1: #51AB3B26;
@@ -14,10 +18,7 @@
 }
 
 
-
-
 .header {
-    /* position: fixed; */
     display: flex;
     top: 0;
     left: 0;
@@ -97,7 +98,7 @@
 .drop-down {
     position: absolute;
     display: flex;
-    width: 140px;
+    width: 200px;
     padding: 8px 0px;
     flex-direction: column;
     align-items: flex-start;
@@ -141,6 +142,7 @@
     line-height: normal;
     width: auto;
     height: auto;
+    line-height: 24px;
 }
 
 .link {
@@ -156,36 +158,12 @@
     padding: 40px 80px;
 }
 
-.big-block-1 {
-    display: flex;
-    gap: 23px;
-}
-
-.block-1 {
-    width: auto;
-    height: auto;
+.title{
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
     color: #51AB3B;
-    font-family: "Inter";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.block-2 {
-    width: auto;
-    height: auto;
-    color: #000;
-    font-family: "Inter";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.big-block-1 svg {
-    width: auto;
-    height: auto;
 }
 
 .filter-layout{
@@ -234,7 +212,7 @@
 option {
     font-weight: normal;
     display: block;
-    min-height: 1.2em;
+    min-height: 12px;
     padding: 0px 2px 1px;
     white-space: nowrap;
 }
@@ -250,7 +228,23 @@ option {
     gap: 24px;
 }
 
-.apply-section button{
+.btn2 {
+    cursor: pointer;
+    color: #FFF;
+    font-size: 12px;
+    background-color: #E01B00;
+    padding: 8px 24px;
+    border-radius: 4px;
+    border: 0px;
+    transition: background-color 0.3s ease;
+}
+
+.btn2:hover {
+    background-color: #ba1600;
+
+}
+
+.btn1{
     cursor: pointer;
     color: #FFF;
     font-size: 12px;
@@ -261,7 +255,7 @@ option {
     transition: background-color 0.3s ease;
 }
 
-button:hover{
+.btn1:hover{
     background-color: #428a30;
 }
 
