@@ -142,7 +142,7 @@ html {
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: 24px;
     width: auto;
     height: auto;
 }
@@ -174,33 +174,6 @@ html {
     gap: 1.6rem;
 }
 
-.block-1 {
-    width: auto;
-    height: auto;
-    color: #51AB3B;
-    font-family: "Inter";
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.block-2 {
-    width: 9rem;
-    height: auto;
-    color: #000;
-    font-family: "Inter";
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.big-block-1 svg {
-    width: 2rem;
-    height: 1rem;
-}
-
 .Section-1 {
     display: flex;
     width: 100%;
@@ -221,6 +194,19 @@ html {
     align-items: flex-start;
     gap: 4rem;
     align-self: stretch;
+}
+
+.big-block-2 svg {
+    height: 16px !important;
+    width: 8px !important;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14px !important;
+    height: 16px !important;
 }
 
 .block-3 {
@@ -273,26 +259,13 @@ html {
 .block-6, .block-9, .block-12{
     display: flex;
     width: 100%;
-    height: auto;
+    height: 36.5px;
     padding: 0.8rem 1.2rem;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
     border-radius: 0.4rem;
     border: 1px solid #000;
-}
-
-.block-6 {
-    height: 4.2rem;
-}
-
-.block-10, .block-13 {
-    color: #B0B0B0;
-    font-family: "Inter";
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 input {
@@ -303,7 +276,7 @@ input {
     line-height: normal;
     border: none;
     outline: none;
-    width: 100%;
+    width: 90%;
     height: 100%;
 }
 
@@ -400,7 +373,7 @@ input {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    border-color: #FFF;
+    border: none;
     border-radius: 0.4rem;
     cursor: pointer;
 }
@@ -443,13 +416,17 @@ input {
     height: 68rem;
 }
 
+#noDataSection {
+    height: 68rem;
+}
+
 #dataSection {
     height: auto;
 }
 .middle-block {
     display: flex;
     width: auto;
-    height: auto;
+    height: 60vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -520,30 +497,44 @@ table {
     font-size: 14px;
 }
 
-
-.pagination {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    width: 100%;
-    justify-content: center;
+.paginationjs {
+        margin-top: 50px;
+        flex-direction: row;
+        gap: 8px;
+        justify-content: center;
 }
 
-.paginationItem {
-    cursor: pointer;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-self: center;
-    padding: 10px 14px;
-    border-radius: 8px;
-    background-color: #fff;
+#average, #minimum, #maximum {
+    margin-top: 50px;
 }
 
-.paginationItem#selected {
-    background-color: #ddd;
+.header-rank {
+           width: 20%;
+           padding: 16px;
+           display: flex;
+           flex-direction: row;
+           justify-content: space-between;
+           align-items: center;
+           background-color: #E9E9E9;
+           border-bottom: 1px solid #EEE;
+           font-weight: 400;
+           font-size: 14px;
 }
 
-.paginationItem:hover {
-    background-color: #ddd;
+.rank {
+        width: 20%;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #EEE;
+        font-weight: 400;
+        font-size: 14px;
+}
 
+.title {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #51AB3B;
+}
