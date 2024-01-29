@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change by Country/ Global</title>
+    <link th:href="@{/styles/level2SubtaskA.css}" rel="stylesheet" />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+
+</head>
+
+<body>
+    <div class="header">
+        <a th:href="@{/home}" class="logo">
+            <img src="/images/logo.png">
+        </a>
+
+        <nav class="navbar">
+
+            <div><a th:href="@{/home}">Home</a></div>
+            <a th:href="@{/about-us}">Mission Statement</a>
+            <div class="container">
+                <a href="#">High-level data
+                    <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z"
+                            fill="white" />
+                    </svg>
+                </a>
+                <ul class="drop-down">
+                    <div class="li-container">
+                        <li>
+                            <a class="link" th:href="@{/high-level/subtask-a}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Change by Global/Country</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/high-level/subtask-b}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Change by City/State</div>
+                                </div>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <div class="container">
+                <a href="#">Deep-dive data
+                    <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.64013 11.1402L11.7348 16.2348C11.8813 16.3813 12.1187 16.3813 12.2652 16.2348L17.3598 11.1402C17.596 10.9039 17.4288 10.5 17.0946 10.5H6.9053C6.5712 10.5 6.40389 10.9039 6.64013 11.1402Z"
+                            fill="white" />
+                    </svg>
+                </a>
+                <ul class="drop-down">
+                    <div class="li-container">
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/changes-in-periods}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Changes in Periods</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/changes-in-regions}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Changes in regions</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/similar-periods}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Similar periods</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/similar-regions}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Similar regions</div>
+                                </div>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+
+        </nav>
+
+    </div>
+
+    <div class="page-container">
+        <div class="title">
+            <h2>
+                Change by Country/ Global
+            </h2>
+        </div>
+
+
+        <form th:action="@{/high-level/subtask-a}" method="get">
+            <section class="filter-section">
+                <div class="filter-layout">
+                    <div class="filter-upper">
+                        <div class="icon-title">
+                            <svg width="16" height="11" viewBox="0 0 16 11" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M0.75 0.75C0.335786 0.75 0 1.08579 0 1.5C0 1.91421 0.335786 2.25 0.75 2.25H15.25C15.6642 2.25 16 1.91421 16 1.5C16 1.08579 15.6642 0.75 15.25 0.75H0.75ZM3 5.5C3 5.08579 3.33579 4.75 3.75 4.75H12.25C12.6642 4.75 13 5.08579 13 5.5C13 5.91421 12.6642 6.25 12.25 6.25H3.75C3.33579 6.25 3 5.91421 3 5.5ZM6 9.5C6 9.0858 6.33579 8.75 6.75 8.75H9.25C9.66421 8.75 10 9.0858 10 9.5C10 9.9142 9.66421 10.25 9.25 10.25H6.75C6.33579 10.25 6 9.9142 6 9.5Z"
+                                    fill="#85858A" />
+                            </svg>
+                            <p style="font-size: 16px;">Filter</p>
+                        </div>
+
+                        <div class="input">
+                            <label for="">Region</label>
+                            <select id="region" name="region">
+                                <option th:each="region : ${modelView.regions}" th:value="${region.name}"
+                                    th:text="${region.name}" th:selected="${region.selected}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="input">
+                            <label for="">Start Year</label>
+                            <input type="number" name="startYears" id="startYears" th:value="${modelView.startYears}">
+                        </div>
+
+                        <div class="input">
+                            <label for="">End Year</label>
+                            <input type="number" name="endYears" id="endYears" th:value="${modelView.endYears}">
+                        </div>
+
+                    </div>
+                    <div class="apply-section">
+                        <button type="reset" class="btn2" onclick="resetFilter('subtask-a')">Reset</button>
+                        <button type="submit" class="btn1" onclick="applyQuery()">Apply</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+
+        <div class="table-container">
+            <div class="overflowing" th:if="${modelView.table.data.length > 0}">
+                <table class="table table-sortable">
+                    <thead>
+                        <tr class="header-row">
+                            <th th:each="header, headerIdx : ${modelView.table.header}" class="header-cell">
+                                <p th:text="${header}"></p>
+                                <a
+                                    th:href="@{/high-level/subtask-a(page=${pageNumber},region=${selectedRegion.name},startYears=${modelView.startYears}, endYears=${modelView.endYears}, sortType=${nextSortType}, sortColumn=${headerIdx.index-1})}">
+                                    <svg th:if="${headerIdx.index >= 1}" width="16" height="17" viewBox="0 0 16 17"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8.47157 2.69526C8.34654 2.57024 8.17697 2.5 8.00016 2.5C7.82335 2.5 7.65378 2.57024 7.52876 2.69526L3.52876 6.69526C3.26841 6.95561 3.26841 7.37772 3.52876 7.63807C3.78911 7.89842 4.21122 7.89842 4.47157 7.63807L8.00016 4.10948L11.5288 7.63807C11.7891 7.89842 12.2112 7.89842 12.4716 7.63807C12.7319 7.37772 12.7319 6.95561 12.4716 6.69526L8.47157 2.69526Z"
+                                            fill="#85858A" />
+                                        <path
+                                            d="M8.47157 14.9714C8.34654 15.0964 8.17697 15.1667 8.00016 15.1667C7.82335 15.1667 7.65378 15.0964 7.52876 14.9714L3.52876 10.9714C3.26841 10.7111 3.26841 10.2889 3.52876 10.0286C3.78911 9.76825 4.21122 9.76825 4.47157 10.0286L8.00016 13.5572L11.5288 10.0286C11.7891 9.76825 12.2112 9.76825 12.4716 10.0286C12.7319 10.2889 12.7319 10.7111 12.4716 10.9714L8.47157 14.9714Z"
+                                            fill="#85858A" />
+                                    </svg>
+                                </a>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="body-row" th:each="row : ${modelView.table.data}">
+                            <td class="body-cell" th:each="cell, cellIdx : ${row}">
+                                <span th:if="${cellIdx.index == 0}" th:text="${cell}"></span>
+                                <span th:if="${cellIdx.index > 0 &&cellIdx.index <= 3}">
+                                    <span th:class="(${cell}) >= 0 ? 'positive' : 'negative'">
+                                        <span th:text="${cell}"></span>
+                                    </span>
+                                </span>
+                                <span th:if="${cellIdx.index == 4}">
+                                    <span th:class="(${cell}) >= 0 ? 'positive' : 'negative'">
+                                        <span th:text="${#numbers.formatInteger(cell, 3, 'COMMA')}"></span>
+                                    </span>
+                                </span>
+                                <span th:if="${cellIdx.index == 5}">
+                                    <span th:class="(${cell}) >= 0 ? 'positive' : 'negative'">
+                                        <span th:text="${cell}"></span>
+                                    </span>
+                                </span>
+                                <p> &nbsp;</p>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="noData" th:if="${modelView.table.data.length == 0}">
+                <img src="/images/no-data.png" style="height: 120px; width: 120px;">
+                <h2 style="font-size: 18px; font-weight: 700;">Apply Filter To Display Data</h2>
+            </div>
+            <div class="pagination" th:if="${modelView.totalPage >0}">
+                <div></div>
+                <div th:each="pageNumber : ${#numbers.sequence(1, modelView.totalPage)}" class="paginationItem"
+                    th:id="${pageNumber == modelView.page ? 'selected' : pageNumber > (modelView.page + 4) && pageNumber < (modelView.totalPage -4) or pageNumber < (modelView.page - 3) ? 'hidden'  : ''}">
+                    <a th:if="${pageNumber != modelView.page+4}" th:text="${pageNumber}" th:name="pageNumber"
+                        th:href="@{/high-level/subtask-a(page=${pageNumber},region=${selectedRegion.name},startYears=${modelView.startYears}, endYears=${modelView.endYears}, sortType=${modelView.sortType}, sortColumn=${modelView.sortColumn} )}"></a>
+                    <p th:if="${pageNumber == modelView.page+4}">...</p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script>
+        function resetFilter (path) {
+            var url = '/high-level/' + path
+            window.location.href = url;
+        }
+    </script>
+</body>
+
+</html>
