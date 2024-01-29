@@ -6,6 +6,10 @@ function navigateToRegion(selectElement) {
 }
 
 
+function resetFilter (path) {
+    var url = '/deep-dive/' +path;
+    window.location.href = url;
+}
 
 
 

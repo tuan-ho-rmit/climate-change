@@ -14,14 +14,14 @@
 
 <body>
     <div class="header">
-        <a th:href="@{/LandingPage}" class="logo">
+        <a th:href="@{/home}" class="logo">
             <img src="/images/logo.png">
         </a>
 
         <nav class="navbar">
 
-            <div><a th:href="@{LandingPage}">Home</a></div>
-            <a href="#">Mission Statement</a>
+            <div><a th:href="@{/home}">Home</a></div>
+            <a th:href="@{/about-us}">Mission Statement</a>
             <div class="container">
                 <a href="#">High-level data
                     <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
@@ -34,14 +34,16 @@
                 <ul class="drop-down">
                     <div class="li-container">
                         <li>
-                            <div class="li-inner-container">
-                                <div class="li-content">Subtask A</div>
-                            </div>
+                            <a class="link" th:href="@{/high-level/subtask-a}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Change by Global/Country</div>
+                                </div>
+                            </a>
                         </li>
                         <li>
-                            <a class="link" th:href="@{Lv2-Subtask-B}">
+                            <a class="link" th:href="@{/high-level/subtask-a}">
                                 <div class="li-inner-container">
-                                    <div class="li-content">Subtask B</div>
+                                    <div class="li-content">Change by City/State</div>
                                 </div>
                             </a>
                         </li>
@@ -60,20 +62,39 @@
                 <ul class="drop-down">
                     <div class="li-container">
                         <li>
-                            <div class="li-inner-container">
-                                <div class="li-content">Subtask A</div>
-                            </div>
+                            <a class="link" th:href="@{/deep-dive/changes-in-periods}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Changes in Periods</div>
+                                </div>
+                            </a>
                         </li>
                         <li>
-                            <div class="li-inner-container">
-                                <div class="li-content">Subtask B</div>
-                            </div>
+                            <a class="link" th:href="@{/deep-dive/changes-in-regions}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Changes in Regions</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/similar-periods}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Similar Periods</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/similar-regions}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Similar Regions</div>
+                                </div>
+                            </a>
                         </li>
                     </div>
                 </ul>
             </div>
 
         </nav>
+
     </div>
 
     <div class="page-container">
@@ -136,6 +157,7 @@
                         <input id="resultNumber" name="resultNumber" th:value="${modelView.resultNumber}">
                     </div>
 
+                    <button type="reset" class="btn-secondary" onclick="resetFilter('similar-regions')"> Reset</button>
                     <button type="submit" class="btn">Apply</button>
                 </div>
             </div>
