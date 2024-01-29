@@ -13,6 +13,10 @@
     font-family: "Inter";
 }
 
+body {
+    overflow-x: hidden;
+}
+
 html {
     font-size: 10px;
 }
@@ -97,7 +101,7 @@ html {
 .drop-down {
     position: absolute;
     display: flex;
-    width: 14.8rem;
+    width: 200px;
     padding: 0.8rem 0rem;
     flex-direction: column;
     align-items: flex-start;
@@ -107,7 +111,7 @@ html {
     border-radius: 0.8rem;
     display: none;
     top: 100%;
-    left: 0;
+    right: 0;
     z-index: 10;
 }
 
@@ -138,7 +142,7 @@ html {
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: 24px;
     width: auto;
     height: auto;
 }
@@ -213,7 +217,7 @@ html {
     align-items: center;
     gap: 0.8rem;
     border-radius: 0.4rem;
-    border-color: #fff;
+    border: none;
     background-color: var(--primary-color); 
     color: var(--nav-color);
     cursor: pointer; 
@@ -296,17 +300,47 @@ html {
     line-height: 3rem;
 }
 
-.h2 {
+.card-1 {
     width: 22.8rem;
-    height: 6rem;
+    height: auto;
     color: var(--Neutral-Grey, #717171);
     text-align: center;
     font-family: "Inter";
-    font-size: 1.4rem;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.8rem;
-    gap: 20px;
+}
+
+.card-2 {
+        width: 22.8rem;
+        height: auto;
+        color: var(--Neutral-Grey, #717171);
+        text-align: center;
+        font-family: "Inter";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.8rem;
+        margin-bottom: 15px;
+}
+
+.card-1 > span {
+      font-family: "Inter";
+      font-size: 17px;
+      font-style: normal;
+      font-weight: 700 !important;
+      line-height: 1.8rem;
+      color: #03a56a;
+}
+
+.card-2 > span {
+      font-family: "Inter";
+      font-size: 17px;
+      font-style: normal;
+      font-weight: 700 !important;
+      line-height: 1.8rem;
+      color: #03a56a;
 }
 
 .Section-3 {
