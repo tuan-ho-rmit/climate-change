@@ -108,7 +108,7 @@ p {
     border-radius: 8px;
     display: none;
     top: 100%;
-    left: 0;
+    right: 0;
     z-index: 10;
 }
 
