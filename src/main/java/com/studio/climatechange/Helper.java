@@ -26,12 +26,12 @@ public class Helper implements CommandLineRunner {
     // Method to be executed after the Spring context is initialized
     @Override
     public void run(String... args) throws Exception {
-        List<String> csvFiles = List.of("Student.csv", "Persona.csv", "Country.csv", "City.csv", "State.csv", "Population.csv", "Global.csv", "Temp.csv");
+        List<String> csvFiles = List.of("Student.csv", "Persona.csv", "Country.csv", "City.csv", "State.csv", "Population.csv", "Global.csv", "Temperature.csv");
        List<String> tableNames = List.of("Student", "Persona", "Country", "City", "State", "Population", "Global", "Temperature");
 
         for (int i = 0; i < csvFiles.size(); i++) {
             if (!isTablePopulated(tableNames.get(i))) {
-                if (!csvFiles.get(i).equals("Temp.csv")) {
+                if (!csvFiles.get(i).equals("Temperature.csv")) {
                     insertCsvIntoTable(csvFiles.get(i), tableNames.get(i));
                 }
             }
