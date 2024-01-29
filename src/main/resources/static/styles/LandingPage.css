@@ -383,7 +383,7 @@ html {
 
 .block-3, .block-5, .block-7 {
     width: 62.6rem;
-    color: var(--text-color);
+    color: var(--primary-color);
     font-family: "Inter";
     font-size: 4rem;
     font-style: normal;
