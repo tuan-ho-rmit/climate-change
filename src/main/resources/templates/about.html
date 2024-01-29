@@ -2,23 +2,38 @@
 <html lang="en">
 <head>
   <link rel="stylesheet" href="/styles/about.css">
+  <title>About</title>
 </head>
 <header>
   <div class="nav-bar">
-    <img
-      loading="lazy"
-      src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5cfa9932a7636bec8bac9448173a3083a2c97404f57a64abc1846b2edaa257b?"
-      class="logo"
-      alt = ""
-    />
+    <a th:href = "@{LandingPage}">
+        <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5cfa9932a7636bec8bac9448173a3083a2c97404f57a64abc1846b2edaa257b?"
+                class="logo"
+                alt = ""
+        />
+    </a>
     <span class="nav-buttons">
 
-      <a class="nav-button">Home</a>
+      <a class="nav-button" th:href = "@{home}">Home</a>
 
-      <a class="nav-button">Mission Statement</a>
+      <a class="nav-button" th:href = "@{about}">About Us</a>
 
-      <span class="high-level">
+      <span class="container">
         <a class="nav-button">High-level data</a>
+        <ul class="drop-down">
+           <li>
+               <a class = "link" th:href = "@{/high-level/subtask-a}">
+                     Change by Country/ Global
+                   </a>
+           </li>
+           <li>
+                <a class = "link" th:href = "@{/high-level/subtask-b}">
+                     Change by City/ State
+                   </a>
+           </li>
+        </ul>
 
         <img
           loading="lazy"
@@ -28,15 +43,39 @@
         />
       </span>
 
-      <span class="deep-dive">
+      <span class="container">
         <a class="nav-button">Deep-dive data</a>
+        <ul class="drop-down">
+           <li>
+               <a class = "link" th:href = "@{/deep-dive/changes-in-periods}">
+                     Changes in periods
+                   </a>
+
+           </li>
+           <li>
+               <a class = "link" th:href = "@{/deep-dive/changes-in-region}">
+                     Changes in region
+                   </a>
+           </li>
+            <li>
+               <a class = "link" th:href = "@{/deep-dive/similar-periods}">
+                     Similar periods
+                   </a>
+           </li>
+            <li>
+               <a class = "link" th:href = "@{/deep-dive/similar-regions}">
+                     Similar regions
+                   </a>
+           </li>
+        </ul>
 
         <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/28f13acdbde9dba3cdf3bec2e9f8084237a54fe02164c471d28a8c76f5f30306?"
-          class="arrow"
-          alt = ""
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/050b26ab6fbd675b7dba27b49dbb0ae8ba3c528b8fd5a6bf25dbb16674aeffe3?"
+                class="arrow"
+                alt = ""
         />
+
       </span>
     </span>
   </div>
@@ -99,6 +138,7 @@
   </div>
 
   <span class="functions">
+      <div class="text-border"> </div>
       <div class="function-title">
         <span style="font-weight: 400; color: #3f6735;">Site</span>
         <br>
@@ -112,7 +152,6 @@
             <div class="function-text">
                Explore the dynamic relationship between temperature and population changes on our website.
               Easily extract precise temperature and population data from our large database, spanning various regions and time periods.
-              Customize your analysis by choosing specific timeframes and regions (global/ country/ city/ state) for a deeper look into the data.
             </div>
           </div>
           <div class="func-img-container">
@@ -139,9 +178,8 @@
           </div>
           <div class="func-text-container">
             <div class="function-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc semper
-              vel orci in fringilla. Vivamus fringilla, ipsum fringilla iaculis
-              dignissim, ex justo sagittis nibh, eget aliquet arcu ipsum a tortor
+                Customize your analysis by choosing specific timeframes and regions for a deeper look into the data.
+                Easily compare changes in temperature or population of various regions across multiple time periods with our deep data analysis filters.
             </div>
           </div>
         </div>
@@ -149,6 +187,7 @@
     </span>
 
   <span class="persona-container">
+      <div class="text-border"> </div>
       <div class="persona-title">
         <span style="font-weight: 400">Target</span>
         <br>
@@ -159,11 +198,11 @@
       <div th:each="persona, iteration :${personas}">
         <span class="persona">
           <div th:if="${iteration.index % 2 == 0}" class="persona-content">
-                  <h1 th:text="${persona.name}" ></h1>
-                  <h5>Background: <span th:text="${persona.background}"></span></h5>
-                  <h6>Goals: <span th:text="${persona.goals}"></span></h6>
-                  <h6>Needs: <span th:text="${persona.needs}"></span></h6>
-                  <h6>Frustration: <span th:text="${persona.frustration}"></span></h6>
+                  <h1 th:text="${persona.name}" style = "color: #498839" ></h1>
+              <h6><span style = "color: #498839">Background:</span> <span th:text="${persona.background}"></span></h6>
+                  <h6><span style = "color: #498839">Goals:</span> <span th:text="${persona.goals}"></span></h6>
+                  <h6><span style = "color: #498839">Needs:</span> <span th:text="${persona.needs}"></span></h6>
+                  <h6><span style = "color: #498839">Frustration:</span> <span th:text="${persona.frustration}"></span></h6>
           </div>
 
           <img
@@ -183,19 +222,23 @@
           />
 
           <div th:unless="${iteration.index % 2 == 0}" class="persona-content">
-                  <h1 th:text="${persona.name}" ></h1>
-                  <h5>Background: <span th:text="${persona.background}"></span></h5>
-                  <h6>Goals: <span th:text="${persona.goals}"></span></h6>
-                  <h6>Needs: <span th:text="${persona.needs}"></span></h6>
-                  <h6>Frustration: <span th:text="${persona.frustration}"></span></h6>
+                  <h1 th:text="${persona.name}" style = "color: #498839"></h1>
+              <h6><span style = "color: #498839">Background: </span><span th:text="${persona.background}"></span></h6>
+              <h6><span style = "color: #498839">Goals: </span> <span th:text="${persona.goals}"></span></h6>
+              <h6><span style = "color: #498839">Needs: </span><span th:text="${persona.needs}"></span></h6>
+              <h6><span style = "color: #498839">Frustration: </span> <span th:text="${persona.frustration}"></span></h6>
           </div>
 
       </span>
       </div>
   </span>
     <span class="member-container">
+        <div class="text-border"> </div>
       <div class="member-title">
-        <span style="font-weight: 400">Our team members</span>
+        <span style="font-weight: 400; color: #3f6735;">Our</span>
+        <br>
+        <span style="font-weight: 400; color: #498839;">Team</span>
+        <br />
         <br />
       </div>
 

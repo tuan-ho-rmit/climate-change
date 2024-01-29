@@ -468,3 +468,21 @@ html {
     color: var(--text-color)
 }
 
+#earliestPopulationYear,
+#latestPopulationYear,
+#earliestPopYear,
+#latestPopYear,
+#earliestPopulationNumber,
+#latestPopulationNumber,
+#earliestGlobalTemperatureYear,
+#latestGlobalTemperatureYear,
+#earliestGlobalTempYear,
+#latestGlobalTempYear,
+#averageTemperatureEarliestYear,
+#averageTemperatureLatestYear {
+        font-family: "Inter";
+        font-size: 1.4rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.8rem;
+}
