@@ -32,22 +32,23 @@ p {
     background: var(--primary-color);
     justify-content: space-between;
     align-items: center;
-    z-index: 100; 
+    z-index: 100;
 }
 
-.logo, .navbar a {
+.logo,
+.navbar a {
     color: var(--nav-color);
     text-decoration: none;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal; 
+    line-height: normal;
 
 }
 
-.logo svg{
+.logo svg {
     fill: var(--Primary-80, #486856);
-    flex-shrink: 0; 
+    flex-shrink: 0;
     width: 40px;
     height: 40px;
 }
@@ -102,7 +103,7 @@ p {
 .drop-down {
     position: absolute;
     display: flex;
-    width: 140px;
+    width: 200px;
     padding: 8px 0px;
     flex-direction: column;
     align-items: flex-start;
@@ -112,7 +113,7 @@ p {
     border-radius: 8px;
     display: none;
     top: 100%;
-    left: 0;
+    right: 0;
     z-index: 10;
 }
 
@@ -146,11 +147,21 @@ p {
     line-height: normal;
     width: auto;
     height: auto;
+    line-height: 24px;
+
 }
 
 .link {
     display: block;
     text-decoration: none;
+}
+
+.title {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #51AB3B;
 }
 
 .page-container {
@@ -200,6 +211,17 @@ p {
 }
 
 
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    background: transparent url("/images/select-icon.png") no-repeat;
+    background-position: 95% 50%;
+}
+
+
+
 .filter .input select {
     cursor: pointer;
     border: 1px solid #000;
@@ -208,12 +230,32 @@ p {
 
 }
 
+.input select::after {
+    content: '\25BC';
+    /* Unicode character for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
+
 .filter .filter-lower {
     display: flex;
     flex-direction: row;
     justify-content: end;
     gap: 32px;
     align-items: end;
+}
+
+.filter-lower .input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 150px;
 }
 
 .filter-lower .range {
@@ -253,6 +295,23 @@ p {
 .btn:hover {
     background-color: #428a30;
 }
+
+.btn-secondary {
+    cursor: pointer;
+    color: #FFF;
+    font-size: 12px;
+    background-color: #E01B00;
+    padding: 8px 24px;
+    border-radius: 4px;
+    border: 0px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #ba1600;
+
+}
+
 
 .table-container {
     background-color: #FAFAFA;
