@@ -20,5 +20,5 @@ $(document).ready(function() {
         // After 3 seconds, show the body
         setTimeout(function() {
             $("body").css("display", "");
-        }, 550); // 3 second delay
+        }, 700); // 3 second delay
 });
