@@ -262,7 +262,7 @@ function validateForm() {
 
 $('#resultTable').pagination({
     dataSource: [],
-    className: 'paginationjs-theme-green paginationjs-big',
+    className: 'paginationjs-theme-grey paginationjs-big',
     pageSize: 10,
     callback: function (data, pagination) {
         var html = '';
@@ -339,7 +339,7 @@ function updateTable(data) {
     // Initialize pagination after adding initial 10 rows
     $('#resultTable').pagination({
         dataSource: data,
-        className: 'paginationjs-theme-green paginationjs-big',
+        className: 'paginationjs-theme-grey paginationjs-big',
         pageSize: 10,
         callback: function (data, pagination) {
             var html = '';
@@ -385,7 +385,7 @@ function updateTable(data) {
 
         $('#' + option).pagination({
             dataSource: data2,
-            className: 'paginationjs-theme-green paginationjs-big',
+            className: 'paginationjs-theme-grey paginationjs-big',
             pageSize: 10,
             callback: function (data2, pagination) {
                 var html = '';
@@ -402,10 +402,6 @@ function updateTable(data) {
         });
 
         document.getElementById(option).style.display = 'table';
-
-        document.getElementById('dataSection').style.display = 'block';
-        document.getElementById('filterSection').style.display = 'none';
-        document.getElementById('noDataSection').style.display = 'none';
 
     document.getElementById('dataSection').style.display = 'block';
     document.getElementById('filterSection').style.display = 'none';
