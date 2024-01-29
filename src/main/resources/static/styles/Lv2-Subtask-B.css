@@ -157,8 +157,8 @@ html {
 .Main-Content {
     display: flex;
     margin-top: 8rem;
-    width: 144rem;
-    height: 99.2rem;
+    width: 100%;
+    height: auto;
     padding: 4rem 8rem;
     flex-direction: column;
     align-items: flex-start;
