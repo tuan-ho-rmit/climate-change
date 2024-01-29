@@ -48,8 +48,6 @@ $(function() {
 
 
 
-
-
     $("#tagsYearStart").autocomplete({
         minLength: 0,
         source: function(request, response) {
