@@ -2,9 +2,9 @@ package com.studio.climatechange.viewModel.level3SubtaskA;
 
 import java.util.ArrayList;
 
-
-public class Level3SubtaskAViewModel {
+public class ChangesInRegionsModelView {
     private ArrayList<Region> regions;
+    private String regionName;
     private int yearPeriod;
     private int[] startingYears;
     private double minAverageChange;
@@ -15,7 +15,30 @@ public class Level3SubtaskAViewModel {
     private int page;
     private int pageSize;
     private int totalPage;
+    private String sortType;
+    private String sortColumn;
+
+    public String getSortColumn() {
+        return sortColumn;
+    }
+
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+    }
+    public String getSortType() {
+        return sortType;
+    }
+    public void setSortType(String sortType) {
+        this.sortType = sortType;
+    }
  
+
+    public String getRegionName() {
+        return regionName;
+    }
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
     // Getter and setter for 'regions'
     public ArrayList<Region> getRegions() {
         return regions;
@@ -114,4 +137,3 @@ public class Level3SubtaskAViewModel {
         return totalPage;
     }
 }
-

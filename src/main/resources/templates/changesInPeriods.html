@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deep-dive Data</title>
-    <link th:href="@{/styles/level3SubtaskA.css}" rel="stylesheet" />
+    <link th:href="@{/styles/changesInPeriods.css}" rel="stylesheet" />
     <link rel="icon" href="/images/logo.png" type="image/x-icon">
 </head>
 
 <body>
     <div class="header">
-        <a th:href="@{/LandingPage}" class="logo">
+        <a th:href="@{/home}" class="logo">
             <img src="/images/logo.png">
         </a>
 
         <nav class="navbar">
 
-            <div><a th:href="@{LandingPage}">Home</a></div>
-            <a href="#">Mission Statement</a>
+            <div><a th:href="@{/home}">Home</a></div>
+            <a th:href="@{/about-us}">Mission Statement</a>
             <div class="container">
                 <a href="#">High-level data
                     <svg class="icon" width="24" height="24" viewBox="0 0 30 30" fill="none"
@@ -31,14 +31,16 @@
                 <ul class="drop-down">
                     <div class="li-container">
                         <li>
-                            <div class="li-inner-container">
-                                <div class="li-content">Subtask A</div>
-                            </div>
+                            <a class="link" th:href="@{/high-level/subtask-a}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Change by Global/Country</div>
+                                </div>
+                            </a>
                         </li>
                         <li>
-                            <a class="link" th:href="@{Lv2-Subtask-B}">
+                            <a class="link" th:href="@{/high-level/subtask-a}">
                                 <div class="li-inner-container">
-                                    <div class="li-content">Subtask B</div>
+                                    <div class="li-content">Change by City/State</div>
                                 </div>
                             </a>
                         </li>
@@ -57,14 +59,32 @@
                 <ul class="drop-down">
                     <div class="li-container">
                         <li>
-                            <div class="li-inner-container">
-                                <div class="li-content">Subtask A</div>
-                            </div>
+                            <a class="link" th:href="@{/deep-dive/changes-in-periods}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Changes in Periods</div>
+                                </div>
+                            </a>
                         </li>
                         <li>
-                            <div class="li-inner-container">
-                                <div class="li-content">Subtask B</div>
-                            </div>
+                            <a class="link" th:href="@{/deep-dive/changes-in-regions}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Changes in Regions</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/similar-periods}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Similar Periods</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link" th:href="@{/deep-dive/similar-regions}">
+                                <div class="li-inner-container">
+                                    <div class="li-content">Similar Regions</div>
+                                </div>
+                            </a>
                         </li>
                     </div>
                 </ul>
@@ -75,7 +95,13 @@
     </div>
 
     <div class="page-container">
-        <form th:action="@{/deep-dive/subtask-a}" method="get">
+        <div class="title">
+            <h2>
+                Changes in Periods
+            </h2>
+        </div>
+
+        <form th:action="@{/deep-dive/changes-in-periods}" method="get">
             <div class="filter">
                 <div class="filter-upper">
                     <div class="icon-title">
@@ -102,7 +128,7 @@
                     </div>
                     <div class="input">
                         <label for="">Starting Years</label>
-                        <input placeholder="1970,1980,1990" name="startingYears"
+                        <input placeholder="1945,1955,1965" name="startingYears"
                             th:value="${#strings.listJoin(modelView.startingYears, ',')}">
                     </div>
 
@@ -133,6 +159,8 @@
                         </div>
                     </div>
 
+                    <button type="reset" class="btn-secondary" onclick="resetFilter('changes-in-periods')">
+                        Reset</button>
                     <button type="submit" class="btn">Apply</button>
                 </div>
             </div>
@@ -146,21 +174,23 @@
                         <tr class="header-row">
                             <th th:each="header, headerIdx : ${modelView.table.header}" class="header-cell">
                                 <p th:text="${header}"></p>
-                                <svg th:if="${headerIdx.index >= 1}" width="16" height="17" viewBox="0 0 16 17"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M8.47157 2.69526C8.34654 2.57024 8.17697 2.5 8.00016 2.5C7.82335 2.5 7.65378 2.57024 7.52876 2.69526L3.52876 6.69526C3.26841 6.95561 3.26841 7.37772 3.52876 7.63807C3.78911 7.89842 4.21122 7.89842 4.47157 7.63807L8.00016 4.10948L11.5288 7.63807C11.7891 7.89842 12.2112 7.89842 12.4716 7.63807C12.7319 7.37772 12.7319 6.95561 12.4716 6.69526L8.47157 2.69526Z"
-                                        fill="#85858A" />
-                                    <path
-                                        d="M8.47157 14.9714C8.34654 15.0964 8.17697 15.1667 8.00016 15.1667C7.82335 15.1667 7.65378 15.0964 7.52876 14.9714L3.52876 10.9714C3.26841 10.7111 3.26841 10.2889 3.52876 10.0286C3.78911 9.76825 4.21122 9.76825 4.47157 10.0286L8.00016 13.5572L11.5288 10.0286C11.7891 9.76825 12.2112 9.76825 12.4716 10.0286C12.7319 10.2889 12.7319 10.7111 12.4716 10.9714L8.47157 14.9714Z"
-                                        fill="#85858A" />
-                                </svg>
-
+                                <a
+                                    th:href="@{/deep-dive/changes-in-periods(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation}, sortType=${nextSortType}, sortColumn=${headerIdx.index-1})}">
+                                    <svg th:if="${headerIdx.index > 1}" width="16" height="17" viewBox="0 0 16 17"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8.47157 2.69526C8.34654 2.57024 8.17697 2.5 8.00016 2.5C7.82335 2.5 7.65378 2.57024 7.52876 2.69526L3.52876 6.69526C3.26841 6.95561 3.26841 7.37772 3.52876 7.63807C3.78911 7.89842 4.21122 7.89842 4.47157 7.63807L8.00016 4.10948L11.5288 7.63807C11.7891 7.89842 12.2112 7.89842 12.4716 7.63807C12.7319 7.37772 12.7319 6.95561 12.4716 6.69526L8.47157 2.69526Z"
+                                            fill="#85858A" />
+                                        <path
+                                            d="M8.47157 14.9714C8.34654 15.0964 8.17697 15.1667 8.00016 15.1667C7.82335 15.1667 7.65378 15.0964 7.52876 14.9714L3.52876 10.9714C3.26841 10.7111 3.26841 10.2889 3.52876 10.0286C3.78911 9.76825 4.21122 9.76825 4.47157 10.0286L8.00016 13.5572L11.5288 10.0286C11.7891 9.76825 12.2112 9.76825 12.4716 10.0286C12.7319 10.2889 12.7319 10.7111 12.4716 10.9714L8.47157 14.9714Z"
+                                            fill="#85858A" />
+                                    </svg>
+                                </a>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="body-row" th:each="row : ${modelView.table.data}">
+                        <tr class="body-row" th:each="row, rowIdx : ${modelView.table.data}">
                             <td class="body-cell" th:each="cell, cellIdx : ${row}">
                                 <span th:if="${cellIdx.index == 0}" th:text="${cell}"></span>
                                 <span th:if="${cellIdx.index > 0}">
@@ -173,9 +203,16 @@
                                         (<span
                                             th:text="${#numbers.formatDecimal(cell, 0, 'COMMA', 2, 'POINT')} - ${#numbers.formatDecimal(row[1], 0, 'COMMA', 2, 'POINT')}"></span>)
                                     </span>
-
-
                                 </span>
+                                <!-- <span th:if="${rowIdx.index > 0 && cellIdx.index>0}">
+                                    <span
+                                        th:class="(${#numbers.formatDecimal(cell,0,'COMMA', 2, 'POINT')} -${#numbers.formatDecimal(modelView.table.data[0][cellIdx.index], 0 , 'COMMA', 2, 'POINT')}) >= 0 ? 'positive' : 'negative'">
+                                        (
+                                        <span
+                                            th:text="${#numbers.formatDecimal(cell,0,'COMMA', 2, 'POINT')} -${#numbers.formatDecimal(modelView.table.data[0][cellIdx.index], 0 , 'COMMA', 2, 'POINT')}"></span>
+                                        )
+                                    </span>
+                                </span> -->
 
                             </td>
                         </tr>
@@ -187,16 +224,20 @@
                 <h2 style="font-size: 18px; font-weight: 700;">Apply Filter To Display Data</h2>
             </div>
             <div class="pagination" th:if="${modelView.totalPage >0}">
+                <div></div>
                 <div th:each="pageNumber : ${#numbers.sequence(1, modelView.totalPage)}" class="paginationItem"
-                    th:id="${pageNumber == modelView.page ? 'selected' : ''}">
-                    <a th:text="${pageNumber}" th:name="pageNumber"
-                        th:href="@{/deep-dive/subtask-a(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation} )}"></a>
+                    th:id="${pageNumber == modelView.page ? 'selected' : pageNumber > (modelView.page + 4) && pageNumber < (modelView.totalPage -4) or pageNumber < (modelView.page - 3) ? 'hidden'  : ''}">
+                    <a th:if="${pageNumber != modelView.page+4}" th:text="${pageNumber}" th:name="pageNumber"
+                        th:href="@{/deep-dive/changes-in-periods(page=${pageNumber},region=${selectedRegion.name},yearPeriod=${modelView.yearPeriod}, startingYears=${#strings.listJoin(modelView.startingYears, ',')},minAverageChange=${modelView.minAverageChange},maxAverageChange=${modelView.maxAverageChange},minPopulation=${modelView.minPopulation},maxPopulation=${modelView.maxPopulation}, sortType=${modelView.sortType}, sortColumn=${modelView.sortColumn} )}"></a>
+
+                    <p th:if="${pageNumber == modelView.page+4}">...</p>
                 </div>
             </div>
 
 
         </div>
     </div>
+    <script src="/functions/changesInRegions.js"></script>
 
 
 </body>

@@ -19,16 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.studio.climatechange.repository.CountryRepository;
 import com.studio.climatechange.services.impl.Level3SubstaskAService;
-import com.studio.climatechange.viewModel.level3SubtaskA.Level3SubtaskAViewModel;
+import com.studio.climatechange.viewModel.level3SubtaskA.ChangesInPeriodsModelView;
 import com.studio.climatechange.viewModel.level3SubtaskA.Region;
 import com.studio.climatechange.viewModel.level3SubtaskA.Table;
 
 import io.micrometer.common.util.StringUtils;
 
 @Controller
-public class Level3SubtaskAController {
+public class ChangesInPeriodsController {
     private Level3SubstaskAService level3SubstaskAService;
-    private Level3SubtaskAViewModel fakeData;
     @Value("${spring.datasource.url}")
     private String jdbcUrl;
 
@@ -39,7 +38,7 @@ public class Level3SubtaskAController {
     private String password;
 
     @Autowired
-    public Level3SubtaskAController(CountryRepository countryRepository) {
+    public ChangesInPeriodsController(CountryRepository countryRepository) {
         this.level3SubstaskAService = level3SubstaskAService;
     }
 
@@ -80,7 +79,8 @@ public class Level3SubtaskAController {
     }
 
     public static String generateQuery(String region, int[] startingYears, int period, double minAverageChange,
-            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize) {
+            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize, String sortType,
+            String sortColumn) {
         String selectedRegion;
         String selectedId;
 
@@ -95,9 +95,25 @@ public class Level3SubtaskAController {
             selectedId = "state_id";
         }
 
-        if("Global".equals(region)) {
+        if ("Global".equals(region)) {
             selectedRegion = "global";
             selectedId = "global_id";
+        }
+
+        String parseSortColumn = "";
+        try {
+
+            if (sortColumn != null) {
+                int intSortColumn = Integer.parseInt(sortColumn);
+                int inputSortColumn = intSortColumn + 1;
+
+                parseSortColumn = "Table" + sortColumn + ".avg" + inputSortColumn;
+                System.err.println("parsedSortColumn: " + parseSortColumn);
+            }
+        } catch (NumberFormatException e) {
+            // Handle the case where the input cannot be parsed to an integer
+            System.err.println("Error parsing sortColumn: " + e.getMessage());
+            // You may want to log the error, throw an exception, or take appropriate action
         }
 
         StringBuilder query = new StringBuilder("WITH ");
@@ -144,8 +160,8 @@ public class Level3SubtaskAController {
         query.append(" WHERE ");
 
         for (int i = 0; i < startingYears.length; i++) {
-            query.append("ABS(").append("Table").append(i).append(".avg").append(i + 1).append(")").append(" >= 1 ").append(" And ");
-
+            query.append("ABS(").append("Table").append(i).append(".avg").append(i + 1).append(")").append(" >= 1 ")
+                    .append(" And ");
 
             if ("Country".equals(region)) {
                 if (maxPopulation > 0) {
@@ -170,12 +186,16 @@ public class Level3SubtaskAController {
                     .append("-").append("Table0.avg1").append(")").append(" BETWEEN ").append(minAverageChange)
                     .append(" AND ").append(maxAverageChange);
         }
+        if (parseSortColumn != null && !parseSortColumn.isEmpty() && sortType != null && !sortType.isEmpty()) {
+            query.append(" ORDER BY (").append(parseSortColumn).append(" - ").append("Table0.avg1").append(")")
+                    .append(" ").append(sortType);
+        }
         query.append(" LIMIT ").append(pageSize).append(" ").append("OFFSET ").append((page - 1) * pageSize);
         System.err.println(query.toString());
         return query.toString();
     }
 
-    public static String countTotalPage(String region, int[] startingYears, int period, double minAverageChange,
+    private static String countTotalPage(String region, int[] startingYears, int period, double minAverageChange,
             double maxAverageChange, long minPopulation, long maxPopulation) {
         String selectedRegion;
         String selectedId;
@@ -190,7 +210,7 @@ public class Level3SubtaskAController {
             selectedRegion = "state";
             selectedId = "state_id";
         }
-        if("Global".equals(region)) {
+        if ("Global".equals(region)) {
             selectedRegion = "global";
             selectedId = "global_id";
         }
@@ -262,7 +282,7 @@ public class Level3SubtaskAController {
         return query.toString();
     }
 
-    public int executeCount(String region, int[] startingYears, int period, double minAverageChange,
+    private int executeCount(String region, int[] startingYears, int period, double minAverageChange,
             double maxAverageChange, long minPopulation, long maxPopulation) {
         int result = 0;
         try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
@@ -287,12 +307,13 @@ public class Level3SubtaskAController {
     }
 
     public String[][] executeQuery(String region, int[] startingYears, int period, double minAverageChange,
-            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize) {
+            double maxAverageChange, long minPopulation, long maxPopulation, int page, int pageSize, String sortType,
+            String sortColumn) {
         List<String[]> resultRows = new ArrayList<>();
 
         try (java.sql.Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             String sqlQuery = generateQuery(region, startingYears, period, minAverageChange, maxAverageChange,
-                    minPopulation, maxPopulation, page, pageSize);
+                    minPopulation, maxPopulation, page, pageSize, sortType, sortColumn);
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
                     ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -333,7 +354,7 @@ public class Level3SubtaskAController {
         return null; // Return null if no region is selected
     }
 
-    @GetMapping(value = { "/deep-dive/subtask-a" })
+    @GetMapping(value = { "/deep-dive/changes-in-periods" })
     public String level3SubtaskA(
             @RequestParam(name = "yearPeriod", required = false) String yearPeriod,
             @RequestParam(name = "region", required = false) String region,
@@ -343,6 +364,8 @@ public class Level3SubtaskAController {
             @RequestParam(name = "minPopulation", required = false) String minPopulation,
             @RequestParam(name = "maxPopulation", required = false) String maxPopulation,
             @RequestParam(name = "page", required = false) String page,
+            @RequestParam(name = "sortColumn", required = false) String sortColumn,
+            @RequestParam(name = "sortType", required = false) String sortType,
             Model model) {
         int parsedYearPeriod = 0;
         int pageSize = 20;
@@ -354,7 +377,7 @@ public class Level3SubtaskAController {
             }
         }
         ArrayList<Region> regions = convertStringToRegion(region);
-        Level3SubtaskAViewModel modelView = new Level3SubtaskAViewModel();
+        ChangesInPeriodsModelView modelView = new ChangesInPeriodsModelView();
 
         double parsedMinAverageChange = 0.0;
         double parsedMaxAverageChange = 0.0;
@@ -362,7 +385,6 @@ public class Level3SubtaskAController {
         long parsedMaxPopulation = 0;
         int parsedPage = 1;
         int[] parsedStartingYears = parseStartingYears(startingYears);
-
         if (minAverageChange != null && !minAverageChange.isEmpty()) {
             try {
                 parsedMinAverageChange = Double.parseDouble(minAverageChange);
@@ -413,7 +435,8 @@ public class Level3SubtaskAController {
             }
         }
         String[][] data = executeQuery(region, parsedStartingYears, parsedYearPeriod, parsedMinAverageChange,
-                parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, parsedPage, pageSize);
+                parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation, parsedPage, pageSize, sortType,
+                sortColumn);
         double totalPageDouble = executeCount(region, parsedStartingYears, parsedYearPeriod, parsedMinAverageChange,
                 parsedMaxAverageChange, parsedMinPopulation, parsedMaxPopulation) / pageSize;
 
@@ -432,13 +455,36 @@ public class Level3SubtaskAController {
         modelView.setTotalPage(totalPage);
         modelView.setTable(table);
 
+
+
+        if ("ASC".equals(sortType)) {
+            System.err.println("ASC");
+            model.addAttribute("nextSortType", "DESC");
+
+        } else if ("DESC".equals(sortType)) {
+            System.err.println("DESC");
+
+            model.addAttribute("nextSortType", "");
+
+        } else {
+            System.err.println("null");
+
+            model.addAttribute("nextSortType", "ASC");
+        }
+        System.err.println("sortType: " + sortType);
+
+        
         Region selectedRegion = findSelectedRegion(regions);
-
+        
         if (selectedRegion == null)
-            selectedRegion = new Region("Country", 1, true);
-
+        selectedRegion = new Region("Country", 1, true);
+        
+        modelView.setSortColumn((sortColumn != null && !sortColumn.isEmpty()) ? sortColumn : "");
+        modelView.setSortType((sortType != null && !sortType.isEmpty()) ? sortType : "");
+        System.err.println("sortColumn: " + modelView.getSortColumn());
+        System.err.println("sortType: " + modelView.getSortType());
         model.addAttribute("selectedRegion", selectedRegion);
         model.addAttribute("modelView", modelView);
-        return "level3SubtaskA";
+        return "changesInPeriods";
     }
 }
