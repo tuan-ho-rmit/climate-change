@@ -155,7 +155,7 @@ html {
 .Section-1 {
     margin-top: 8rem;
     display: flex;
-    width: 144rem;
+    width: 100%;
     height: 60rem;
     padding: 4rem 8rem;
     justify-content: space-between;
@@ -244,7 +244,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 144rem;
+    width: 100%;
     height: 40rem;
     padding: 4rem;
     gap: 8rem;
@@ -345,7 +345,7 @@ html {
 
 .Section-3 {
     display: flex;
-    width: 144rem;
+    width: 100%;
     height: 60rem;
     padding: 4rem 8rem;
     justify-content: space-between;
