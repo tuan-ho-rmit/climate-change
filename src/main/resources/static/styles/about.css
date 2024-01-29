@@ -4,69 +4,155 @@ body {
     margin: 0;
     padding: 0;
 }
+
+:root {
+    --primary-color: #4CAF4F;
+    --background-color-1: #51AB3B26;
+    --nav-color: #fff;
+    --background-color-2: #F4F7FA;
+    --text-color: #000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter";
+}
 head {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
 }
-.nav-bar {
-    box-sizing: border-box;
+
+.header {
+    /* position: fixed; */
+    display: flex;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    padding: 16px 40px;
+    background: var(--primary-color);
     justify-content: space-between;
     align-items: center;
-    background-color: #4caf4f;
-    display: flex;
-    width: 100%;
-    gap: 20px;
-    padding: 16px 40px;
+    z-index: 100;
 }
 
-.logo {
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 40px;
-    fill: #486856;
-    overflow: hidden;
-    max-width: 100%;
-    margin: auto 0;
-}
-.nav-buttons {
-    justify-content: space-between;
-    align-items: center;
-    align-self: stretch;
-    display: flex;
-    gap: 20px;
-    padding: 12px 0;
-}
-.nav-button {
-    box-sizing: border-box;
-    color: #fff;
-    margin: auto 0;
-    font: 700 16px Inter, sans-serif;
+.logo,
+.navbar a {
+    color: var(--nav-color);
     text-decoration: none;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
 }
-.high-level {
-    justify-content: space-between;
+
+.logo svg {
+    fill: var(--Primary-80, #486856);
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+}
+
+.navbar {
+    display: flex;
+    width: auto;
+    height: 100%;
+    justify-content: center;
     align-items: center;
     align-self: stretch;
+    gap: 56px;
+}
+
+.container {
+    position: relative;
     display: flex;
-    gap: 8px;
-}
-.arrow {
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 24px;
-    overflow: hidden;
-    align-self: stretch;
-    max-width: 100%;
-}
-.deep-dive {
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    align-self: stretch;
-    display: flex;
     gap: 8px;
+}
+
+.container:hover .drop-down {
+    display: block;
+}
+
+.container a {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.container .icon {
+    vertical-align: middle;
+    padding-left: 4px;
+    font-size: 18px;
+    position: relative;
+    right: -5px;
+    transform: rotate(0deg);
+    transition: 0.3s ease-in-out all;
+}
+
+.container:hover .icon {
+    transform: rotate(180deg);
+}
+
+.drop-down li:hover {
+    background: #EEEEEE;
+    color: black;
+}
+
+.drop-down {
+    position: absolute;
+    display: flex;
+    width: 200px;
+    padding: 8px 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--nav-color);
+    color: black;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: none;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+}
+
+.drop-down li {
+    list-style: none;
+    height: 100%;
+    width: auto;
+    padding: 5px 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.li-inner-container {
+    display: flex;
+    padding: 8px 16px;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.li-content {
+    color: #000;
+    font-family: "Inter";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: auto;
+    height: auto;
+    line-height: 24px;
+
 }
 .missions {
     box-sizing: border-box;
@@ -384,18 +470,18 @@ head {
 
 .drop-down {
     position: absolute;
-    width: 160px;
-    height: auto;
-    padding: 3px;
+    display: flex;
+    width: 200px;
+    padding: 8px 0px;
     flex-direction: column;
     align-items: flex-start;
-    background: white;
-    color: #343236;
+    background: var(--nav-color);
+    color: black;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: 8px;
     display: none;
-    top: 40%;
-    left: 0;
+    top: 100%;
+    right: 0;
     z-index: 10;
 }
 
