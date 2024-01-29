@@ -24,7 +24,7 @@ public class AboutController {
     }
 
 
-    @GetMapping(value = {"/about"})
+    @GetMapping(value = {"/about-us"})
     public String listPersonas(Model model) {
         List<PersonaDto> personas = personaService.findAllPersonas();
         List<StudentDto> students = studentService.findAllStudents();
