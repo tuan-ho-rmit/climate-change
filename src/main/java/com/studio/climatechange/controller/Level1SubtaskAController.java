@@ -20,7 +20,7 @@ public class Level1SubtaskAController {
     @Value("${spring.datasource.password}")
     private String password;
 
-    @GetMapping(value = {"/LandingPage"})
+    @GetMapping(value = {"/home"})
     public String landingPage() {
         return "LandingPage";  // Assuming this still renders a template
     }

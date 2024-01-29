@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>High-level data</title>
+    <title>Change by City/State</title>
     <link rel = "stylesheet" th:href = "@{/styles/Lv2-Subtask-B.css}">
     <link rel = "stylesheet" th:href= "@{https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css}">
     <link rel="stylesheet" th:href="@{//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css}">
@@ -15,13 +15,13 @@
 </head>
 <body>
     <div class = "header">
-        <a th:href = "@{/LandingPage}" class = "logo">
+        <a th:href = "@{/home}" class = "logo">
             <img src = "/images/logo.png">
                 </a>
         
         <nav class = "navbar">
 
-            <div><a th:href = "@{/LandingPage}">Home</a></div>
+            <div><a th:href = "@{/home}">Home</a></div>
             <a th:href = "@{/about-us}">Mission Statement</a>
             <div class = "container">
                 <a href = "#">High-level data
@@ -34,14 +34,14 @@
                     <li>
                         <a class = "link" th:href = "@{/high-level/subtask-a}">
                         <div class = "li-inner-container">
-                            <div class = "li-content">Subtask A</div>
+                            <div class = "li-content">Change by Global/Country</div>
                         </div>
                         </a>
                     </li>
                     <li>
                         <a class = "link" th:href = "@{/high-level/subtask-b}">
                         <div class = "li-inner-container">
-                            <div class = "li-content">Subtask B</div>
+                            <div class = "li-content">Change by City/State</div>
                         </div>
                         </a>
                     </li>
@@ -93,13 +93,12 @@
     </div>
 
     <div class = "Main-Content">
-            <div class = "big-block-1">
-                <div class = "block-1">High-level data</div>
-                <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 0.833292L5.66667 5.49996L1 10.1666" stroke="#51AB3B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>                    
-                <div class = "block-2">Subtask B</div>
-            </div>
+
+        <div class="title">
+            <h2>
+                Changes by City/State
+            </h2>
+        </div>
 
         <form th:action = "@{/applyQuery}" id = "applyForm" method = "GET" class = "Section-1">
             
@@ -114,9 +113,9 @@
                     <label class = "block-5" for = "tagsCountry">Country</label>
                     <div class = "block-6">
                         <input id = "tagsCountry" type = "text" placeholder = "Country" name = "Country" required>
-                        <div id="dropdownCountry" class="dropdown-list" style="display: none;">
+                        <ul id="dropdownCountry" class="dropdown-list" style="display: none;">
                             <!-- Dropdown options will be populated dynamically -->
-                        </div>
+                        </ul>
                         <div class = "icon-container">
                         <svg id = "countryDropdownIcon" width="8" height="12" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
@@ -128,9 +127,9 @@
                     <label class = "block-8" for = "tagsYearStart">Start Year</label>
                     <div class = "block-9">
                         <input id = "tagsYearStart" type = "text" placeholder = "Start" name = "StartYear" required>
-                        <div id="dropdownStart" class="dropdown-list" style="display: none;">
+                        <ul id="dropdownStart" class="dropdown-list" style="display: none;">
                             <!-- Dropdown options will be populated dynamically -->
-                        </div>
+                        </ul>
                         <div class = "icon-container">
                         <svg id = "startDropdownIcon" width="8" height="12" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
@@ -142,9 +141,9 @@
                     <label class = "block-11" for = "tagsYearEnd">End Year</label>
                     <div class = "block-12">
                         <input id = "tagsYearEnd" type = "text" placeholder = "End" name = "EndYear" required>
-                        <div id="dropdownEnd" class="dropdown-list" style="display: none;">
+                        <ul id="dropdownEnd" class="dropdown-list" style="display: none;">
                             <!-- Dropdown options will be populated dynamically -->
-                        </div>
+                        </ul>
                         <div class = "icon-container">
                         <svg id = "endDropdownIcon" width="8" height="12" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
@@ -155,7 +154,7 @@
                 <div class = "big-block-5">
                     <label class = "block-11" for = "tagsTempOptions">Ranking options</label>
                     <div class = "block-12" onclick="document.getElementById('tagsTempOptions').focus();">
-                        <input id = "tagsTempOptions" type = "text" placeholder = "Options" name = "tempOps">
+                        <input id = "tagsTempOptions" type = "text" placeholder = "Average" name = "tempOps">
                         <svg width="8" height="12" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.779779 0.978538L4.17626 4.37498C4.27389 4.47261 4.43218 4.47261 4.52981 4.37498L7.9262 0.978538C8.0837 0.821038 7.9722 0.551758 7.7494 0.551758H0.956558C0.733828 0.551758 0.622289 0.821048 0.779779 0.978538Z" fill="#85858A"/>
                         </svg>
@@ -211,7 +210,7 @@
             <table id="average">
                 <thead>
                 <tr class="header-row">
-                    <th class="header-cell">Rank</th>
+                    <th class="header-rank">Rank</th>
                     <th class="header-cell">Name</th>
                     <th class="header-cell">Average Temperature</th>
                 </tr>
@@ -223,7 +222,7 @@
             <table id="minimum">
                 <thead>
                 <tr class="header-row">
-                    <th class="header-cell">Rank</th>
+                    <th class="header-rank">Rank</th>
                     <th class="header-cell">Name</th>
                     <th class="header-cell">Average Temperature</th>
                 </tr>
@@ -235,7 +234,7 @@
             <table id="maximum">
                 <thead>
                 <tr class="header-row">
-                    <th class="header-cell">Rank</th>
+                    <th class="header-rank">Rank</th>
                     <th class="header-cell">Name</th>
                     <th class="header-cell">Average Temperature</th>
                 </tr>

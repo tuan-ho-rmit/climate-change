@@ -1,6 +1,6 @@
 $(function() {
-
     $("#tagsCountry").autocomplete({
+        minLength: 0,
         source: function(request, response) {
             $.ajax({
                 url: "/autocomplete/country",
@@ -10,16 +10,17 @@ $(function() {
                 },
                 dataType: "json",
                 success: function(data) {
+                    data.sort();
                     response(data);
                 }
             });
         },
         open: function(event, ui) {
-            
+
             var widget = $(this).autocomplete("widget");
 
             widget.css({
-                "max-height": "200px",  
+                "max-height": "200px",
                 "overflow-y": "auto",
                 "overflow-x": "hidden",
                 "background-color": "#fff",
@@ -40,9 +41,17 @@ $(function() {
             });
 
     }
-});
-    
+    })
+    .focus(function() {
+        $(this).autocomplete('search', $(this).val())
+    });
+
+
+
+
+
     $("#tagsYearStart").autocomplete({
+        minLength: 0,
         source: function(request, response) {
             $.ajax({
                 url: "/autocomplete/year",
@@ -82,11 +91,16 @@ $(function() {
                     });
 
             }
-        });
+        })
+            .focus(function () {
+                $(this).autocomplete('search', $(this).val())
+            });
+
 
 
 
     $("#tagsYearEnd").autocomplete({
+            minLength: 0,
             source: function(request, response) {
                 $.ajax({
                     url: "/autocomplete/year",
@@ -126,6 +140,9 @@ $(function() {
                         });
 
                 }
+            })
+            .focus(function () {
+                $(this).autocomplete('search', $(this).val())
             });
             $("#tagsTempOptions").autocomplete({
                 minLength: 0,
@@ -158,118 +175,6 @@ $(function() {
             .focus(function () {
                 $(this).autocomplete('search', $(this).val())
             });
-
-
-        $(document).ready(function() {
-            $("#countryDropdownIcon").click(function(event) {
-                event.stopPropagation();
-
-                var dropdown = $("#dropdownCountry");
-                if (dropdown.css("display") === "none") {
-                    dropdown.show();
-
-                    $.ajax({
-                        url: "/fetch/countries",
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            dropdown.empty();
-                            $.each(data, function(index, value) {
-                                dropdown.append($("<div>").text(value).addClass("dropdown-item"));
-                            });
-
-                            dropdown.on("click", ".dropdown-item", function() {
-                                var selectedOption = $(this).text();
-                                $("#tagsCountry").val(selectedOption);
-                                dropdown.hide();
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error fetching countries:", error);
-                        }
-                    });
-                } else {
-                    dropdown.hide();
-                }
-            });
-
-
-            $(document).click(function() {
-                $("#dropdownCountry").hide();
-            });
-
-
-            $("#startDropdownIcon").click(function(event) {
-                event.stopPropagation();
-
-                var dropdown = $("#dropdownStart");
-                if (dropdown.css("display") === "none") {
-
-                    dropdown.show();
-
-                    $.ajax({
-                        url: "/fetch/years",
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            dropdown.empty();
-                            $.each(data, function(index, value) {
-                                dropdown.append($("<div>").text(value).addClass("dropdown-item"));
-                            });
-                            dropdown.on("click", ".dropdown-item", function() {
-                                var selectedOption = $(this).text();
-                                $("#tagsYearStart").val(selectedOption);
-                                dropdown.hide();
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error fetching years:", error);
-                        }
-                    });
-                } else {
-                    dropdown.hide();
-                }
-            });
-            $(document).click(function() {
-                $("#dropdownStart").hide();
-            });
-
-            $("#endDropdownIcon").click(function(event) {
-                event.stopPropagation();
-
-                var dropdown = $("#dropdownEnd");
-                if (dropdown.css("display") === "none") {
-
-                    dropdown.show();
-
-                    $.ajax({
-                        url: "/fetch/years",
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            dropdown.empty();
-                            $.each(data, function(index, value) {
-                                dropdown.append($("<div>").text(value).addClass("dropdown-item"));
-                            });
-                            dropdown.on("click", ".dropdown-item", function() {
-                                var selectedOption = $(this).text();
-                                $("#tagsYearEnd").val(selectedOption);
-                                dropdown.hide();
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error fetching years:", error);
-                        }
-                    });
-                } else {
-                    dropdown.hide();
-                }
-            });
-            $(document).click(function() {
-                $("#dropdownEnd").hide();
-            });
-
-        });
 
     });
 
@@ -468,12 +373,16 @@ function updateTable(data) {
             row.className = 'body-row';
 
             var cell1 = row.insertCell(0);
-            cell1.className = 'body-cell';
-            cell1.innerHTML = data2[i].name;
+            cell1.className = 'rank';
+            cell1.innerHTML = i + 1;
 
-            var cell2 = row.insertCell(1);
+            var cell2 = row.insertCell(0);
             cell2.className = 'body-cell';
-            cell2.innerHTML = formatTemperature(data2[i][dataType]);
+            cell2.innerHTML = data2[i].name;
+
+            var cell3 = row.insertCell(1);
+            cell3.className = 'body-cell';
+            cell3.innerHTML = formatTemperature(data2[i][dataType]);
         }
 
         $('#' + option).pagination({
@@ -482,8 +391,10 @@ function updateTable(data) {
             pageSize: 10,
             callback: function (data2, pagination) {
                 var html = '';
+                var pageNumber = pagination.pageNumber;
                 for (var i = 0; i < data2.length; i++) {
                     html += '<tr class="body-row">' +
+                        '<td class="rank">' + (i+1+(pageNumber - 1) * 10) + '</td>' +
                         '<td class="body-cell">' + data2[i].name + '</td>' +
                         '<td class="body-cell">' + formatTemperature(data2[i][dataType]) + '</td>' +
                         '</tr>';
@@ -510,7 +421,6 @@ function formatTemperature(value) {
     // Convert the value to a number
     value = parseFloat(value);
 
-    // Check if the value is negative
     if (value < 0) {
         // If negative, add a "-" symbol and apply red color
         return '<span style="color: red;">-' + Math.abs(value).toFixed(2).padStart(5) + '</span>';

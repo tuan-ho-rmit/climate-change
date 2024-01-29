@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LandingPage</title>
+    <title>Home</title>
     <link rel = "stylesheet" th:href = "@{/styles/LandingPage.css}">
     <link rel="icon" href="/images/logo.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -11,13 +11,13 @@
 <body>
 <div class = "header">
 
-    <a th:href = "@{/LandingPage}" class = "logo">
+    <a th:href = "@{/home}" class = "logo">
         <img src = "/images/logo.png">
     </a>
 
     <nav class = "navbar">
 
-        <div><a th:href = "@{/LandingPage}">Home</a></div>
+        <div><a th:href = "@{/home}">Home</a></div>
         <a th:href = "@{/about-us}">Mission Statement</a>
         <div class = "container">
             <a href = "#">High-level data
@@ -30,14 +30,14 @@
                     <li>
                         <a class = "link" th:href = "@{/high-level/subtask-a}">
                         <div class = "li-inner-container">
-                            <div class = "li-content">Subtask A</div>
+                            <div class = "li-content">Change by Global/Country</div>
                         </div>
                         </a>
                     </li>
                     <li>
                         <a class = "link" th:href = "@{/high-level/subtask-b}">
                             <div class = "li-inner-container">
-                                <div class = "li-content">Subtask B</div>
+                                <div class = "li-content">Change by City/State</div>
                             </div>
                         </a>
                     </li>

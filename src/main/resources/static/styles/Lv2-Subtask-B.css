@@ -142,7 +142,7 @@ html {
     font-size: 1.4rem;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: 24px;
     width: auto;
     height: auto;
 }
@@ -172,33 +172,6 @@ html {
     justify-content: center;
     align-items: center;
     gap: 1.6rem;
-}
-
-.block-1 {
-    width: auto;
-    height: auto;
-    color: #51AB3B;
-    font-family: "Inter";
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.block-2 {
-    width: 9rem;
-    height: auto;
-    color: #000;
-    font-family: "Inter";
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.big-block-1 svg {
-    width: 2rem;
-    height: 1rem;
 }
 
 .Section-1 {
@@ -234,29 +207,6 @@ html {
     align-items: center;
     width: 14px !important;
     height: 16px !important;
-}
-
-#dropdownCountry, #dropdownStart, #dropdownEnd {
-    max-height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background-color: #fff;
-    border-radius: 8px;
-    z-index: 100;
-}
-
-.dropdown-item {
-    color: #000;
-    font-family: "Inter";
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    cursor: pointer;
-    padding: 5px;
-    gap: 5px;
-    background-color: #fff;
-    z-index: 100;
 }
 
 .block-3 {
@@ -556,4 +506,35 @@ table {
 
 #average, #minimum, #maximum {
     margin-top: 50px;
+}
+
+.header-rank {
+           width: 20%;
+           padding: 16px;
+           display: flex;
+           flex-direction: row;
+           justify-content: space-between;
+           align-items: center;
+           background-color: #E9E9E9;
+           border-bottom: 1px solid #EEE;
+           font-weight: 400;
+           font-size: 14px;
+}
+
+.rank {
+        width: 20%;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #EEE;
+        font-weight: 400;
+        font-size: 14px;
+}
+
+.title {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #51AB3B;
 }
