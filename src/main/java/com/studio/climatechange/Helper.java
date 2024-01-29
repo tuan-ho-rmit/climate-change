@@ -27,16 +27,18 @@ public class Helper implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<String> csvFiles = List.of("Student.csv", "Persona.csv", "Country.csv", "City.csv", "State.csv", "Population.csv", "Global.csv", "Temp.csv");
-        List<String> tableNames = List.of("Student", "Persona", "Country", "City", "State", "Population", "Global", "Temperature");
+       List<String> tableNames = List.of("Student", "Persona", "Country", "City", "State", "Population", "Global", "Temperature");
 
         for (int i = 0; i < csvFiles.size(); i++) {
-            if (!csvFiles.get(i).equals("Temp.csv")) { // Process all files except Temp.csv
-                insertCsvIntoTable(csvFiles.get(i), tableNames.get(i));
+            if (!isTablePopulated(tableNames.get(i))) {
+                if (!csvFiles.get(i).equals("Temp.csv")) {
+                    insertCsvIntoTable(csvFiles.get(i), tableNames.get(i));
+                }
             }
         }
-
-        // Process Temp.csv with chunk processing
-        processTemperatureFile("src/main/resources/data/Temperature.csv");
+        if (!isTablePopulated("Temperature")) {
+            processTemperatureFile("src/main/resources/data/Temperature.csv");
+        }
     }
 
     private void insertCsvIntoTable(String csvFile, String tableName) {
@@ -166,6 +168,19 @@ public class Helper implements CommandLineRunner {
             }
         }
         return chunks;
+    }
+    private boolean isTablePopulated(String tableName) {
+        String query = "SELECT COUNT(*) FROM " + tableName;
+        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
 
